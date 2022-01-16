@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>Majestic Admin</title>
+    <title>Login</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css" />
@@ -51,8 +51,8 @@
                       <input
                         type="text"
                         class="form-control"
-                        id="exampleInputName1"
-                        placeholder="Name"
+                        id="username"
+                        placeholder="Username"
                       />
                     </div>
                     <div class="form-group">
@@ -60,13 +60,19 @@
                       <input
                         type="password"
                         class="form-control"
-                        id="exampleInputPassword4"
+                        id="password"
                         placeholder="Password"
                       />
                     </div>
                   </form>
+                  <p
+                    class="text-danger text-decoration-none float-start"
+                    hidden
+                  >
+                    Password salah!
+                  </p>
                   <a
-                    href="#"
+                    href="./pages/lupa-password/lupa-password.html"
                     class="auth-link text-black text-decoration-none float-end"
                     >Lupa Password?</a
                   >
