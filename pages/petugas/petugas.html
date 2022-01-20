@@ -130,8 +130,61 @@
 											<h2>Data Petugas</h2>
 										</div>
                                         <div class="d-flex justify-content-end ml-auto">
-											<button type="button" class="btn btn-success btn-sm">Tambah</button>
+											<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah</button>
 										</div>
+
+                                        <!-- Modal -->
+										<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="form-tambah">Form Tambah Data Petugas</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body mt-2">
+														<div class="form-group mt-2">
+															<label for="nip-anggota" style="font-size: 12pt">Nama</label>
+															<input type="text" class="form-control" id="nama"/>
+														</div>
+														<p>Jenis Kelamin</p>
+														<div class="container-fluid ms-4">
+															<div class="form-check">
+																<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+																<label class="form-check-label" for="flexRadioDefault1"> Laki-Laki </label>
+															</div>
+
+															<div class="form-check">
+																<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+																<label class="form-check-label" for="flexRadioDefault1"> Perempuan </label>
+															</div>
+														</div>
+													</div>
+                                                    <div class="modal-body mt-2">
+                                                        <div class="form-group mt-2">
+                                                            <label for="nip-anggota" style="font-size: 12pt">Hak Akses</label>
+															<input type="text" class="form-control" id="hak-akses"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body mt-2">
+                                                        <div class="form-group mt-2">
+                                                            <label for="nip-anggota" style="font-size: 12pt">Username</label>
+															<input type="text" class="form-control" id="username"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body mt-2">
+                                                        <div class="form-group mt-2">
+                                                            <label for="nip-anggota" style="font-size: 12pt">Password</label>
+															<input type="text" class="form-control" id="password"/>
+                                                        </div>
+                                                    </div>
+													<div class="modal-footer justify-content-start">
+														<button type="button" class="btn btn-primary">Simpan</button>
+														<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Reset</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
 										<div class="table-responsive">
 											<table id="data-petugas" class="table table-hover" style="text-align: center">
 												<thead>
