@@ -11,17 +11,12 @@ if($db->connect_errno==0){
         $res = $db->query($sql);
         if($res){
             if($db->affected_rows>0){
-                echo "
-                    <script>
-                    alert('Password berhasil diubah Silakan login kembali!');
-                    document.location.href = '../../index.html';
-                    </script>
-                    ";
+               header("Location: success-reset-password.html");
             }else{
                 echo "
                     <script>
                     alert('Password gagal diubah!');
-                    document.location.href = '../../index.html';
+                    document.location.href = history.back();
                     </script>
                     ";
             }
