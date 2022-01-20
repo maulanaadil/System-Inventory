@@ -53,6 +53,10 @@ if($db->connect_errno==0){
     <link rel="stylesheet" href="../../css/style.css" />
     <!-- endinject -->
     <link rel="shortcut icon" href="../../images/favicon.ico" />
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 </head>
 
 <body>
@@ -62,12 +66,16 @@ if($db->connect_errno==0){
                 <form action="konfirmReset.php" method="post">
                     <h3 class="h2 mt-3">Reset Password</h3>
                     <p class="text-start text-gray">Masukan password baru anda</p>
-                    <input type="text" class="form-control my-4" id="exampleInputName1" name="passwordBaru"
-                        placeholder="Masukan password baru" />
+                    <input type="text" class="form-control my-4" id="passwordBaru" name="passwordBaru"
+                        placeholder="Masukan password baru" required />
+                    <p class="text-start text-gray">Ulangi Password</p>
+                    <input type="text" class="form-control my-4" id="repeatPasswordBaru" name="repeatPasswordBaru"
+                        placeholder="Ulangi Password" required />
+                    <p class="isi text-start text-gray"></p>
                     <input type="hidden" name="username" value=<?=$username?>>
                     <input type="hidden" name="id_petugas" value=<?=$id_petugas?>>
                     <div class="d-inline">
-                        <button class="btn btn-primary" type="submit" name="simpanPassword">Simpan</button>
+                        <button class="btn btn-primary" type="submit" id="simpan" name="simpanPassword">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -76,3 +84,24 @@ if($db->connect_errno==0){
 </body>
 
 </html>
+<script>
+$(document).ready(function() {
+    $("#repeatPasswordBaru").on('keyup', function() {
+        var inp = $("#passwordBaru").val().trim();
+        var rep = $("#repeatPasswordBaru").val().trim();
+        if (inp.length > 0) {
+            if (inp != rep) {
+                $(".isi").html("Password tidak sama!");
+                $(".isi").css("color", "red");
+                $("#simpan").attr("disabled", "disabled");
+
+            } else if (inp === rep) {
+                $(".isi").html("Password sama!");
+                $(".isi").css("color", "green");
+                $("#simpan").removeAttr("disabled");
+            }
+        }
+
+    })
+})
+</script>
