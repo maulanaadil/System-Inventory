@@ -8,7 +8,7 @@ if($db->connect_errno==0){
     }
     else if(isset($_POST['id_petugas'])){
         $id_petugas=$db->escape_string($_POST['id_petugas']);
-        $sql="SELECT nm_petugas,hak_akses,username,id_petugas from petugas where id_petugas='$id_petugas'";
+        $sql="SELECT * from petugas where id_petugas='$id_petugas'";
         $res=$db->query($sql);
         if($res){
             if($db->affected_rows>0){

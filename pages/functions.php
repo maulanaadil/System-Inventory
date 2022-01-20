@@ -21,10 +21,10 @@ function getKepala(){
 	else
 		return FALSE;
 }
-function getPetugas(){
+function getDataPetugas(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		$sql= "SELECT nm_petugas,hak_akses,username,id_petugas from petugas where hak_akses='petugas'";
+		$sql= "SELECT * from petugas";
 		$res=$db->query($sql);
 		if($res){
 			$data=$res->fetch_all(MYSQLI_ASSOC);
