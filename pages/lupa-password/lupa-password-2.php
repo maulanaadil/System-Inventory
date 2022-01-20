@@ -11,10 +11,17 @@ if($db->connect_errno==0){
         $data=$res->fetch_all(MYSQLI_ASSOC);
 			  $res->free();
       }
-    }
+    } echo "Gagal Eksekusi SQL" . (DEVELOPMENT ? " : " . $db->error : "") . "<br>";
+  } else {
+    echo "
+    <script>
+    alert('Anda tidak bisa mengakses halaman ini!');
+    document.location.href = '../../index.html';
+    </script>
+    ";
   }
 }else{
-  echo "Koneksi ERROR, ".$db->connect_error;
+  echo "Gagal koneksi" . (DEVELOPMENT ? " : " . $db->connect_error : "") . "<br>";
 }
 ?>
 

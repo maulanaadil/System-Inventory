@@ -1,5 +1,8 @@
 <?php
 include("sidebar.php");
+include("../functions.php");
+$db=dbConnect();
+if($db->connect_errno==0){
 ?>
 <div class="content-wrapper">
     <div class="row">
@@ -32,33 +35,20 @@ include("sidebar.php");
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php 
+                                $k = getAnggota();
+                                foreach($k as $data):
+                                ?>
                                 <tr>
-                                    <td>001</td>
-                                    <td>Saepul</td>
-                                    <td>Laki-Laki</td>
+                                    <td><?=$data["id_anggota"]?></td>
+                                    <td><?=$data["nm_anggota"]?></td>
+                                    <td><?=$data["jk"]="L" ? 'Laki-Laki':'Perempuan';?></td>
                                     <td>
                                         <button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
                                         <button type="button" class="btn btn-danger btn-sm">Hapus</button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>001</td>
-                                    <td>Saepul</td>
-                                    <td>Laki-Laki</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
-                                        <button type="button" class="btn btn-danger btn-sm">Hapus</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>001</td>
-                                    <td>Saepul</td>
-                                    <td>Laki-Laki</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
-                                        <button type="button" class="btn btn-danger btn-sm">Hapus</button>
-                                    </td>
-                                </tr>
+                                <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>
@@ -67,4 +57,9 @@ include("sidebar.php");
         </div>
     </div>
 </div>
-<?php include("../footer.php");
+<?php 
+include("../footer.php");
+}else{
+    echo "Gagal koneksi" . (DEVELOPMENT ? " : " . $db->connect_error : "") . "<br>";
+}
+?>;
