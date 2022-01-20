@@ -200,4 +200,4 @@ include("sidebar.php");
     </div>
 </div>
 <!-- content-wrapper ends -->
-<?php include("footer.php"); ?>
+<?php include("../footer.php"); ?>
