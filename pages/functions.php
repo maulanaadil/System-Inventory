@@ -2,7 +2,7 @@
 define("DEVELOPMENT",TRUE);
 function dbConnect(){
     global $db;
-	$db=new mysqli("localhost","root","","sistem-inventoryy");
+	$db=new mysqli("localhost","root","","sistem-inventory");
 	return $db;
 }
 function getKepala(){
