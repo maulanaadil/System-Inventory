@@ -1,5 +1,24 @@
 <?php
-include("sidebar.php");
+include("sidebar.admin.php");
+include("functions.index.php");
+
+// VARIABEL SUM ANGGOTA
+$jumlahAnggota = getSumAnggota()->fetch_array();
+$jumlahAnggotaLaki = getSumAnggotaLaki()->fetch_array();
+$jumlahAnggotaPerempuan = getSumAnggotaPerempuan()->fetch_array();
+
+// VARIABEL SUM BARANG
+$jumlahBarang = getSumBarang()->fetch_array();
+$jumlahBarangBaik = getSumBarangBaik()->fetch_array();
+$jumlahBarangRusak = getSumBarangRusak()->fetch_array();
+$jumlahBarangRusakBerat = getSumBarangRusakBerat()->fetch_array();
+
+// VARIABEL SUM SUPPLIER
+$jumlahSupplier = getSumSupplier()->fetch_array();
+
+// VARIABEL TABLE RIWAYAT PEMINJAMAN BARANG
+$getRiwayatPeminjamanBarang = getRiwayatPeminjamanBarang();
+
 ?>
 <div class="content-wrapper">
     <div class="row">
@@ -41,7 +60,7 @@ include("sidebar.php");
                                     <i class="mdi mdi-account-multiple-outline icon-lg me-3 text-primary"></i>
                                     <div class="d-flex flex-column justify-content-around">
                                         <small class="mb-1 text-muted">Total Anggota</small>
-                                        <h5 class="mb-0 d-inline-block">1500</h5>
+                                        <h5 class="mb-0 d-inline-block"><?= $jumlahAnggota[0]  ?></h5>
                                     </div>
                                 </div>
                                 <div
@@ -49,7 +68,7 @@ include("sidebar.php");
                                     <i class="mdi mdi-gender-male me-3 icon-lg text-warning"></i>
                                     <div class="d-flex flex-column justify-content-around">
                                         <small class="mb-1 text-muted">Laki Laki</small>
-                                        <h5 class="me-2 mb-0">800</h5>
+                                        <h5 class="me-2 mb-0"><?= $jumlahAnggotaLaki[0]  ?></h5>
                                     </div>
                                 </div>
                                 <div
@@ -57,7 +76,7 @@ include("sidebar.php");
                                     <i class="mdi mdi-gender-female icon-lg text-danger"></i>
                                     <div class="d-flex flex-column justify-content-around">
                                         <small class="mb-1 text-muted">Perempuan</small>
-                                        <h5 class="me-2 mb-0">400</h5>
+                                        <h5 class="me-2 mb-0"><?= $jumlahAnggotaPerempuan[0]  ?></h5>
                                     </div>
                                 </div>
                             </div>
@@ -69,51 +88,31 @@ include("sidebar.php");
                                     <i class="mdi mdi-archive icon-lg me-3 text-primary"></i>
                                     <div class="d-flex flex-column justify-content-around">
                                         <small class="mb-1 text-muted">Total Barang</small>
-                                        <h5 class="mb-0 d-inline-block">200</h5>
+                                        <h5 class="mb-0 d-inline-block"><?= $jumlahBarang[0] ?></h5>
                                     </div>
                                 </div>
                                 <div
                                     class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                                     <i class="mdi mdi-gender-male me-3 icon-lg text-warning"></i>
                                     <div class="d-flex flex-column justify-content-around">
-                                        <small class="mb-1 text-muted">Laki Laki</small>
-                                        <h5 class="me-2 mb-0">800</h5>
+                                        <small class="mb-1 text-muted">Kondisi Baik</small>
+                                        <h5 class="me-2 mb-0"><?= $jumlahBarangBaik[0] ?></h5>
                                     </div>
                                 </div>
                                 <div
                                     class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                                     <i class="mdi mdi-gender-female icon-lg text-danger"></i>
                                     <div class="d-flex flex-column justify-content-around">
-                                        <small class="mb-1 text-muted">Perempuan</small>
-                                        <h5 class="me-2 mb-0">400</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="barang" role="tabpanel" aria-labelledby="barang-tab">
-                            <div class="d-flex flex-wrap justify-content-xl-between">
-                                <div
-                                    class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                    <i class="mdi mdi-archive icon-lg me-3 text-primary"></i>
-                                    <div class="d-flex flex-column justify-content-around">
-                                        <small class="mb-1 text-muted">Total Barang</small>
-                                        <h5 class="mb-0 d-inline-block">200</h5>
-                                    </div>
-                                </div>
-                                <div
-                                    class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                    <i class="mdi mdi-gender-male me-3 icon-lg text-warning"></i>
-                                    <div class="d-flex flex-column justify-content-around">
-                                        <small class="mb-1 text-muted">Laki Laki</small>
-                                        <h5 class="me-2 mb-0">800</h5>
+                                        <small class="mb-1 text-muted">Kondisi Rusak</small>
+                                        <h5 class="me-2 mb-0"><?= $jumlahBarangRusak[0] ?></h5>
                                     </div>
                                 </div>
                                 <div
                                     class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                                     <i class="mdi mdi-gender-female icon-lg text-danger"></i>
                                     <div class="d-flex flex-column justify-content-around">
-                                        <small class="mb-1 text-muted">Perempuan</small>
-                                        <h5 class="me-2 mb-0">400</h5>
+                                        <small class="mb-1 text-muted">Kondisi Rusak Berat</small>
+                                        <h5 class="me-2 mb-0"><?= $jumlahBarangRusakBerat[0] ?></h5>
                                     </div>
                                 </div>
                             </div>
@@ -121,27 +120,11 @@ include("sidebar.php");
                         <div class="tab-pane fade" id="supplier" role="tabpanel" aria-labelledby="supplier-tab">
                             <div class="d-flex flex-wrap justify-content-xl-between">
                                 <div
-                                    class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                    <i class="mdi mdi-account-network me-3 text-primary"></i>
+                                    class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-start p-3 item">
+                                    <i class="mdi mdi-account-network icon-lg me-3 text-primary px-5"></i>
                                     <div class="d-flex flex-column justify-content-around">
                                         <small class="mb-1 text-muted">Total Supplier</small>
-                                        <h5 class="mb-0 d-inline-block">10</h5>
-                                    </div>
-                                </div>
-                                <div
-                                    class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                    <i class="mdi mdi-gender-male me-3 icon-lg text-warning"></i>
-                                    <div class="d-flex flex-column justify-content-around">
-                                        <small class="mb-1 text-muted">Laki Laki</small>
-                                        <h5 class="me-2 mb-0">800</h5>
-                                    </div>
-                                </div>
-                                <div
-                                    class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                                    <i class="mdi mdi-gender-female icon-lg text-danger"></i>
-                                    <div class="d-flex flex-column justify-content-around">
-                                        <small class="mb-1 text-muted">Perempuan</small>
-                                        <h5 class="me-2 mb-0">400</h5>
+                                        <h5 class="mb-0 d-inline-block"><?= $jumlahSupplier[0] ?></h5>
                                     </div>
                                 </div>
                             </div>
@@ -167,30 +150,16 @@ include("sidebar.php");
                                 </tr>
                             </thead>
                             <tbody>
+                                
+
+                            <?php foreach ($getRiwayatPeminjamanBarang as $data) : ?>
                                 <tr>
-                                    <td>Jeremy Ortega</td>
-                                    <td>Levelled up</td>
-                                    <td>Catalinaborough</td>
-                                    <td>$790</td>
+                                    <td><?= $data['id']; ?></td>
+                                    <td><?= $data['nama']; ?></td>
+                                    <td><?= $data['pinjam']; ?></td>
+                                    <td><?= $data['kembali']; ?></td>
                                 </tr>
-                                <tr>
-                                    <td>Alvin Fisher</td>
-                                    <td>Ui design completed</td>
-                                    <td>East Mayra</td>
-                                    <td>$23230</td>
-                                </tr>
-                                <tr>
-                                    <td>Emily Cunningham</td>
-                                    <td>support</td>
-                                    <td>Makennaton</td>
-                                    <td>$939</td>
-                                </tr>
-                                <tr>
-                                    <td>Minnie Farmer</td>
-                                    <td>support</td>
-                                    <td>Agustinaborough</td>
-                                    <td>$30</td>
-                                </tr>
+                            <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -200,4 +169,4 @@ include("sidebar.php");
     </div>
 </div>
 <!-- content-wrapper ends -->
-<?php include("../footer.php"); ?>
+<?php include("footer.admin.php"); ?>
