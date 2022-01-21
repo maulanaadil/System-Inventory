@@ -129,11 +129,11 @@
 										<div class="me-md-3 me-xl-5 py-2">
 											<h2>Data Petugas</h2>
 										</div>
+										<!--Button Tambah-->
                                         <div class="d-flex justify-content-end ml-auto">
 											<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah</button>
 										</div>
-
-                                        <!-- Modal -->
+                                        <!-- Modal Tambah Data Petugas -->
 										<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog">
 												<div class="modal-content">
@@ -184,7 +184,7 @@
 												</div>
 											</div>
 										</div>
-
+										<!--Table-->
 										<div class="table-responsive">
 											<table id="data-petugas" class="table table-hover" style="text-align: center">
 												<thead>
@@ -203,28 +203,81 @@
 														<td>Laboran</td>
                                                         <td>AkmalGans</td>
 														<td>
-															<button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
-															<button type="button" class="btn btn-danger btn-sm">Hapus</button>
-														</td>
-													</tr>
-													<tr>
-														<td>002</td>
-														<td>Zahra</td>
-														<td>Admin</td>
-                                                        <td>ZahraCantiek</td>
-														<td>
-															<button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
-															<button type="button" class="btn btn-danger btn-sm">Hapus</button>
-														</td>
-													</tr>
-													<tr>
-														<td>003</td>
-														<td>Iyus</td>
-                                                        <td>Kepala Lab</td>
-														<td>IyusGans</td>
-														<td>
-															<button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
-															<button type="button" class="btn btn-danger btn-sm">Hapus</button>
+															<!--Button Edit-->
+															<button type="button" class="btn btn-warning btn-sm me-3" data-bs-toggle="modal" data-bs-target="#modals-edit">Edit</button>
+															<!-- Modal Edit Data Petugas -->
+															<div class="modal fade" id="modals-edit" tabindex="-1" aria-labelledby="modals-edit" aria-hidden="true" style="text-align: left">
+																<div class="modal-dialog">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title" id="form-tambah">Form Edit Data Petugas</h5>
+																			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																		</div>
+																		<div class="modal-body mt-2">
+																			<div class="form-group">
+																				<label for="nama-anggota" style="font-size: 12pt">Nama</label>
+																				<input type="text" class="form-control" id="nama" />
+																			</div>
+																			<p>Jenis Kelamin</p>
+
+																			<div class="container-fluid ms-4">
+																				<div class="form-check">
+																					<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+																					<label class="form-check-label" for="flexRadioDefault1"> Laki-Laki </label>
+																				</div>
+
+																				<div class="form-check">
+																					<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+																					<label class="form-check-label" for="flexRadioDefault1"> Perempuan </label>
+																				</div>
+																			</div>
+																			<div class="modal-body mt-2">
+																				<div class="form-group mt-2">
+																					<label for="nip-anggota" style="font-size: 12pt">Hak Akses</label>
+																					<input type="text" class="form-control" id="hak-akses"/>
+																				</div>
+																			</div>
+																			<div class="modal-body mt-2">
+																				<div class="form-group mt-2">
+																					<label for="nip-anggota" style="font-size: 12pt">Username</label>
+																					<input type="text" class="form-control" id="username"/>
+																				</div>
+																			</div>
+																			<div class="modal-body mt-2">
+																				<div class="form-group mt-2">
+																					<label for="nip-anggota" style="font-size: 12pt">Password</label>
+																					<input type="text" class="form-control" id="password"/>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="modal-footer justify-content-start">
+																			<button type="button" class="btn btn-primary">Simpan</button>
+																			<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Reset</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<!--Button Hapus-->
+															<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modals-hapus">Hapus</button>
+															<!--Modals Hapus Data Anggota-->
+															<div class="modal fade" id="modals-hapus" tabindex="-1" aria-labelledby="modals-hapus" aria-hidden="true" style="text-align: left">
+																<div class="modal-dialog" style="text-align: center;">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title" id="form-tambah"></h5>
+																			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																		</div>
+																		<div class="modal-body mt-2" style="font-size: 20pt;">
+																			<p1>Hapus Data Petugas</p>
+																				<p2>Akmal</p2>
+																		</div>
+																		<div class="modal-footer justify-content-center">
+																			<button type="button" class="btn btn-danger">Hapus</button>
+																			<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Kembali</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
 														</td>
 													</tr>
 												</tbody>
