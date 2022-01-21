@@ -1,5 +1,5 @@
 <?php
-include("sidebar.php");
+include("sidebar.admin.php");
 include("../functions.php");
 $db=dbConnect();
 if($db->connect_errno==0){
@@ -12,9 +12,9 @@ if($db->connect_errno==0){
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="../dashboard.html"><i class="mdi mdi-home menu-icon"></i></a>
+                                <a href="index.php"><i class="mdi mdi-home menu-icon"></i></a>
                             </li>
-                            <li class="breadcrumb-item"><a href="../dashboard.html">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Data Anggota</li>
                         </ol>
                     </nav>
@@ -58,7 +58,7 @@ if($db->connect_errno==0){
     </div>
 </div>
 <?php 
-include("../footer.php");
+include("footer.admin.php");
 }else{
     echo "Gagal koneksi" . (DEVELOPMENT ? " : " . $db->connect_error : "") . "<br>";
 }

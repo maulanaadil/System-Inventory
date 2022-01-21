@@ -30,13 +30,9 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="navbar-brand-wrapper d-flex justify-content-center">
-                <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
+                <div class="navbar-brand-inner-wrapper d-flex justify-content-center align-items-center w-100">
                     <a class="navbar-brand brand-logo" href="#"><img src="../../images/logo.png" class="img-fluid w-100"
                             alt="logo" /></a>
-                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
-                        data-toggle="minimize">
-                        <span class="mdi mdi-sort-variant"></span>
-                    </button>
                 </div>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -78,13 +74,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anggota.php">
+                        <a class="nav-link" href="anggota.admin.php">
                             <i class="mdi mdi-account-multiple menu-icon"></i>
                             <span class="menu-title">Anggota</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="petugas.php">
+                        <a class="nav-link" href="petugas.admin.php">
                             <i class="mdi mdi-account menu-icon"></i>
                             <span class="menu-title">Petugas</span>
                         </a>
@@ -99,26 +95,26 @@
                         <div class="collapse" id="auth">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="barang.php"> Data Barang </a>
+                                    <a class="nav-link" href="barang.admin.php"> Data Barang </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="kategori-barang.php"> Kategori Barang
+                                    <a class="nav-link" href="kategori-barang.admin.php"> Kategori Barang
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="supplier.php"> Supplier </a>
+                                    <a class="nav-link" href="supplier.admin.php"> Supplier </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="peminjaman.php">
+                        <a class="nav-link" href="peminjaman.admin.php">
                             <i class="mdi mdi-weight menu-icon"></i>
                             <span class="menu-title">Peminjaman</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pengembalian.php">
+                        <a class="nav-link" href="pengembalian.admin.php">
                             <i class="mdi mdi-dialpad menu-icon"></i>
                             <span class="menu-title">Pengembalian</span>
                         </a>
