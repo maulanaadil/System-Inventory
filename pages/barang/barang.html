@@ -183,42 +183,136 @@
 										</div>
 
 										<div class="table-responsive">
-											<table id="data-anggota" class="table table-hover" style="text-align: center">
+											<table id="data-anggota" class="table table-hover" style="text-align: center;">
 												<thead>
 													<tr>
-														<th>ID Barang</th>
-														<th>Nama Barang</th>
-														<th colspan="2">Kondisi</th>
-														<th>Aksi</th>
+														<th rowspan="2">ID Barang</th>
+														<th rowspan="2">Nama Barang</th>
+														<th colspan="3">Kondisi</th>
+														<th rowspan="2">Jumlah</th>
+														<th rowspan="2">Sumber</th>
+														<th rowspan="2">Tanggal</th>
+														<th rowspan="2">Aksi</th>
+														<tr><td>Baik</td>
+														<td>Rusak</td>
+														<td>Rusak Berat</td></tr>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
 														<td>001</td>
-														<td>Saepul</td>
-														<td>Laki-Laki</td>
+														<td>Sapu</td>
+														<td>2</td>
+														<td>0</td>
+														<td>0</td>
+														<td>2</td>
+														<td>APBD</td>
+														<td>21-01-2022</td>
+														<!--button edit-->
 														<td>
-															<button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
-															<button type="button" class="btn btn-danger btn-sm">Hapus</button>
+															<button type="button" class="btn btn-warning btn-sm me-3" data-bs-toggle="modal" data-bs-target="#modals-edit">Edit</button>
 														</td>
-													</tr>
-													<tr>
-														<td>001</td>
-														<td>Saepul</td>
-														<td>Laki-Laki</td>
-														<td>
-															<button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
-															<button type="button" class="btn btn-danger btn-sm">Hapus</button>
-														</td>
-													</tr>
-													<tr>
-														<td>001</td>
-														<td>Saepul</td>
-														<td>Laki-Laki</td>
-														<td>
-															<button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
-															<button type="button" class="btn btn-danger btn-sm">Hapus</button>
-														</td>
+														<!--modals edit data barang-->
+														<div class="modal fade" id="modals-edit" tabindex="-1" aria-labelledby="modals-edit" aria-hidden="true" style="text-align: left">
+																<div class="modal-dialog">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title" id="form-tambah">Form Edit Data Barang</h5>
+																			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																		</div>
+																		<div class="modal-body mt-2">
+																			<div class="form-group mt-2">
+																				<label for="nip-anggota" style="font-size: 12pt">Nama Barang</label>
+																				<input type="text" class="form-control" id="nip"/>
+																			</div>
+																			<p style="font-size: 12pt;">Jumlah Barang</p>
+																			<div class="container">
+																				<div class="row">
+																					<div class="col">
+																						<!-- ANU IEU DARREL -->
+																						<div class="dropdown">
+																							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+																								Dropdown button
+																							</button>
+																							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+																								<li><a class="dropdown-item" href="#">Action</a></li>
+																								<li><a class="dropdown-item" href="#">Another action</a></li>
+																								<li><a class="dropdown-item" href="#">Something else here</a></li>
+																							</ul>
+																							</div>
+																					</div>
+																					<div class="col">
+																						<div class="form-group dropdown-menu">
+																							<label for="barang-rusak">Rusak</label>
+																							<input type="text" class="form-control" id="rusak" />
+																						</div>
+																					</div>
+																					<div class="col">
+																						<div class="form-group dropdown-menu">
+																							<label for="barang-rusak-berat">Rusak Berat</label>
+																							<input type="text" class="form-control" id="rusak-berat" />
+																						</div>
+																					</div>
+																					<div class="col">
+																						<div class="form-group dropdown-menu">
+																							<label for="total-barang">Total Jumlah</label>
+																							<input type="text" class="form-control" id="total-barang" />
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="container">
+																				<div class="row">
+																					<div class="col">
+																						<div class="form-group dropdown-menu">
+																							<label for="kategori">Kategori Barang</label>
+																							<select class="form-control" id="kategori">
+																								<option>Test</option>
+																								<option>Test2</option>
+																							</select>
+																						</div>
+																					</div>
+																					<div class="col">
+																						<div class="form-group dropdown-menu">
+																							<label for="kategori">Supplier</label>
+																							<select class="form-control" id="supplier">
+																								<option>Test</option>
+																								<option>Test2</option>
+																							</select>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="container">
+																				<div class="row">
+																					<div class="col">
+																						<div class="form-group">
+																							<label for="sumber">Sumber</label>
+																							<select class="form-control" id="sumber">
+																								<option>Test</option>
+																								<option>Test2</option>
+																							</select>
+																						</div>
+																					</div>
+																					<div class="col">
+																						<div class="form-group">
+																							<label for="satuan">Satuan</label>
+																							<select class="form-control" id="satuan">
+																								<option>Test</option>
+																								<option>Test2</option>
+																							</select>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			</div>
+																		<div class="modal-footer justify-content-start">
+																			<button type="button" class="btn btn-primary">Simpan</button>
+																			<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Reset</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
 													</tr>
 												</tbody>
 											</table>

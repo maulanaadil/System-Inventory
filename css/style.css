@@ -13459,7 +13459,7 @@ fieldset:disabled .btn {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid #e7eaed;
+  border: 1px transparent #e7eaed;
   border-radius: 0;
 }
 
@@ -22289,7 +22289,7 @@ code {
 
 .form-control,
 .dataTables_wrapper select {
-  border: 1px solid #f3f3f3;
+  border: 1px solid #adadad;
   font-weight: 400;
   font-size: 0.875rem;
 }
@@ -23112,7 +23112,7 @@ dl li {
 }
 
 .content-wrapper {
-  background: #f3f3f3;
+  background: #fafafa !important;
   padding: 2.1rem 1.04rem;
   width: 100%;
   -webkit-flex-grow: 1;
@@ -23270,7 +23270,6 @@ dl li {
 }
 
 .sidebar .nav:not(.sub-menu) > .nav-item {
-  border-bottom: 1px solid #f3f3f3;
   margin-top: 0;
 }
 
@@ -23356,7 +23355,6 @@ dl li {
 
 .navbar .navbar-brand-wrapper {
   background: #ffffff;
-  border-bottom: 1px solid #e3e3e3;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
@@ -23454,7 +23452,6 @@ dl li {
   padding-right: 1.062rem;
   width: calc(100% - 257px);
   height: 60px;
-  border-bottom: 1px solid #e3e3e3;
 }
 
 @media (max-width: 991px) {
@@ -24154,7 +24151,7 @@ dl li {
 .rtl .sidebar-fixed .nav::-webkit-scrollbar-track,
 .rtl .table-responsive::-webkit-scrollbar-track,
 .rtl ul.chats::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  --webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 .rtl .product-chart-wrapper::-webkit-scrollbar-thumb,

@@ -32,6 +32,7 @@ if($db->connect_errno==0){
 										<!-- Modal -->
 										<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog">
+												<form action="#">
 												<div class="modal-content">
 													<div class="modal-header">
 														<h5 class="modal-title" id="form-tambah">Form Tambah Data Supplier</h5>
@@ -49,10 +50,11 @@ if($db->connect_errno==0){
 														</div>
 													</div>
 													<div class="modal-footer justify-content-start">
-														<button type="button" class="btn btn-primary">Simpan</button>
-														<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Reset</button>
+														<input type="submit" value="Simpan" class="btn btn-primary" />								
+														<input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
 													</div>
 												</div>
+												</form>
 											</div>
 										</div>
 

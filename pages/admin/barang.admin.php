@@ -3,6 +3,8 @@ include("sidebar.admin.php");
 include("../functions.php");
 $db=dbConnect();
 $getBarang = getBarang();
+$getKategori = getKategori();
+$getSupplier = getSupplier();
 if($db->connect_errno==0){
 ?>
 <div class="content-wrapper">
@@ -31,47 +33,113 @@ if($db->connect_errno==0){
 													</div>
 												</div>
 												<div class="col-lg-6 d-flex flex-row-reverse">
-													<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah</button>
+													<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambah">Tambah</button>
 												</div>
 											</div>
 										</div>
-										<!-- Modal -->
-										<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+										<!-- MODAL TAMBAH DATA -->
+										<div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog">
+												<form action="#">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h5 class="modal-title" id="form-tambah">Form Tambah Data Anggota</h5>
-														<!-- Search -->
+														<h5 class="modal-title" id="form-tambah">Form Edit Data Barang</h5>
 														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
 													<div class="modal-body mt-2">
 														<div class="form-group mt-2">
-															<label for="nip-anggota" style="font-size: 12pt">NIP</label>
-															<input type="text" class="form-control" id="nip" />
+															<label for="nama-barang" class="mb-2">Nama Barang</label>
+															<input type="text" class="form-control" id="txt-nama-barang"/>
 														</div>
-														<div class="form-group">
-															<label for="nama-anggota" style="font-size: 12pt">Nama</label>
-															<input type="text" class="form-control" id="nama" />
-														</div>
-														<p>Jenis Kelamin</p>
-
-														<div class="container-fluid ms-4">
-															<div class="form-check">
-																<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-																<label class="form-check-label" for="flexRadioDefault1"> Laki-Laki </label>
+														<label for="jumlah-barang" class="mb-2">Jumlah Barang</p>
+														<div class="row">
+															<div class="col">
+																<label for="Baik" class="mb-2">Baik</label>
+																<input type="number" name="qty" onChange="total()" class="form-control" value="0" id="number-kondisi-baik"/>
 															</div>
-
-															<div class="form-check">
-																<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-																<label class="form-check-label" for="flexRadioDefault1"> Perempuan </label>
+															<div class="col">
+																<label for="Rusak" class="mb-2">Rusak</label>
+																<input type="number" name="qty" onChange="total()" class="form-control" value="0" id="number-kondisi-rusak"/>
+															</div>
+															<div class="col">
+																<label for="Rusak-Beratt" class="mb-2">Rusak Berat</label>
+																<input type="number" name="qty" onChange="total()" class="form-control" value="0" id="number-kondisi-rusak-berat"/>
+															</div>
+															<div class="col offset-1">
+																<label for="Total" class="mb-2">Total</label>
+																<input type="number" class="form-control" value="0" id="total-number-kondisi"/>
+															</div>
+														</div>
+														<div class="row mt-2">
+															<div class="col">
+																<div class="form-group">
+																	<label for="kategori-barang">Kategori Barang</label>
+																	<div>
+																		<select class="form-select" aria-label="Default select example" name="kategori-barang">
+																			<option selected>Pilih Kategori Barang</option>
+																			<?php foreach ($getKategori as $kb) :?>
+																			<option value="<?= $kb['id_kat'] ?>"><?= $kb['nm_kat'] ?></option>
+																			<?php endforeach; ?>
+																		</select>
+																	</div>
+																</div>
+															</div>
+															<div class="col">
+																<div class="form-group">
+																<label for="supplier">Supplier</label>
+																	<div>
+																		<select class="form-select" aria-label="Default select example" name="supplier">
+																			<option selected>Pilih Supplier</option>
+																			<?php foreach ($getSupplier as $supplier) :?>
+																			<option value="<?= $supplier['id_supplier'] ?>"><?= $supplier['nm_supplier'] ?></option>
+																			<?php endforeach; ?>
+																		</select>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col">
+																<div class="form-group">
+																	<label for="sumber">Sumber</label>
+																	<div>
+																		<select class="form-select" aria-label="Default select example" name="sumber">
+																			<option selected>Pilih Sumber</option>
+																			<option value="admin">Admin</option>
+																			<option value="kepala">Kepala</option>
+																			<option value="laboran">Laboran</option>
+																		</select>
+																	</div>
+																</div>
+															</div>
+															<div class="col">
+																<div class="form-group">
+																<label for="satuan">Satuan</label>
+																	<div>
+																		<select class="form-select" aria-label="Default select example" name="satuan">
+																			<option selected>Pilih Satuan</option>
+																			<option value="Buah">Buah</option>
+																			<option value="Pasang">Pasang</option>
+																			<option value="Pak">Pak</option>
+																			<option value="Botol">Botol</option>
+																			<option value="Roll">Roll</option>
+																			<option value="500 mL">500 mL</option>
+																			<option value="2 kg">2 kg</option>
+																			<option value="Set">Set</option>
+																			<option value="Unit">Unit</option>
+																		</select>
+																	</div>
+																</div>
 															</div>
 														</div>
 													</div>
 													<div class="modal-footer justify-content-start">
-														<button type="button" class="btn btn-primary">Simpan</button>
-														<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Reset</button>
+														<input type="submit" class="btn btn-primary" value="Simpan"></input>
+														<input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal"></input>
 													</div>
 												</div>
+												</form>
 											</div>
 										</div>
 
@@ -101,7 +169,9 @@ if($db->connect_errno==0){
 														<td><?= $data['rusak_berat'] ?></td>
 														<td><?php echo "JUMLAH CENAH"; ?></td>
 														<td><?= $data['sumber'] ?></td>
-														<td><?= $data['tanggal'] ?></td>
+														<td><?= 
+															date("d F Y", strtotime($data['tanggal']));
+														 ?></td>
 														<td>
 															<button type="button" class="btn btn-warning btn-sm me-3">Edit</button>
 														</td>
@@ -121,3 +191,15 @@ include("footer.admin.php");
     echo "Gagal koneksi" . (DEVELOPMENT ? " : " . $db->connect_error : "") . "<br>";
 }
 ?>;
+
+<script type="text/javascript">
+	function total(){
+    var arr = document.getElementsByName('qty');
+    var tot=0;
+    for(var i=0;i<arr.length;i++){
+        if(parseInt(arr[i].value))
+            tot += parseInt(arr[i].value);
+    }
+    document.getElementById('total-number-kondisi').value = tot;
+}
+</script>

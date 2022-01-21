@@ -49,7 +49,7 @@
                                 <i class="mdi mdi-account-circle text-primary"></i>
                                 Profile
                             </a>
-                            <a class="dropdown-item text-danger" href="../index.html">
+                            <a class="dropdown-item text-danger" href="../../index.html">
                                 <i class="mdi mdi-logout text-danger"></i>
                                 Logout
                             </a>
@@ -117,6 +117,12 @@
                         <a class="nav-link" href="pengembalian.admin.php">
                             <i class="mdi mdi-dialpad menu-icon"></i>
                             <span class="menu-title">Pengembalian</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="laporan.admin.php">
+                            <i class="mdi mdi-file-document menu-icon"></i>
+                            <span class="menu-title">Laporan</span>
                         </a>
                     </li>
                 </ul>

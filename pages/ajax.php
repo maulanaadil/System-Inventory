@@ -37,7 +37,33 @@ if($db->connect_errno==0){
         }else{
             $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
         } 
-    }else if(isset($_POST['id_supplier'])){
+    }else if(isset($_POST['hapus_anggota'])){
+        $id_anggota=$_POST['hapus_anggota'];            
+        $sql="DELETE from anggota where id_anggota='$id_anggota'";
+        $res=$db->query($sql);
+        if($res){
+            if($db->affected_rows>0){
+                $response['status']="OK";
+            }
+        }                                                                                                                                                                                                                                                                                                                                                                                                    
+        else $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
+    }else if(isset($_POST['ubah_anggota'])){
+        $id_anggota = $db->escape_string($_POST['ubah_anggota']);
+        $nama = $db->escape_string($_POST['nama']);
+        $jk = $db->escape_string($_POST['jk']);
+        if($id_anggota!=""){
+             $res=$db->query("UPDATE anggota set nm_anggota='$nama', jk='$jk' where id_anggota='$id_anggota'");
+             if($res){
+                  if($db->affected_rows>0){
+                    $response['status']="OK";
+                  }else{
+                    $response['status']="ERROR2".(DEVELOPMENT?" : ".$db->error:"");
+                  }
+             }else{
+                $response['status']='ERROR'.(DEVELOPMENT?" : ".$db->error:"");
+             }
+        }
+   }else if(isset($_POST['id_supplier'])){
         $id_supplier = $db->escape_string($_POST['id_supplier']);
         $sql = "SELECT * from supplier where id_supplier = '$id_supplier'";
         $res = $db->query($sql);

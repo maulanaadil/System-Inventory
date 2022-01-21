@@ -11,7 +11,7 @@ if($db->connect_errno==0){
         $data=$res->fetch_all(MYSQLI_ASSOC);
 			  $res->free();
       }
-    } echo "Gagal Eksekusi SQL" . (DEVELOPMENT ? " : " . $db->error : "") . "<br>";
+    } else echo "Gagal Eksekusi SQL" . (DEVELOPMENT ? " : " . $db->error : "") . "<br>";
   } else {
     echo "
     <script>
