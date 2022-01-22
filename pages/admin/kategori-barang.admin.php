@@ -80,7 +80,7 @@ if($db->connect_errno==0){
                                         <div class="modal fade" id="modals-edit" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <form action="#">
+                                                <form method="post" id="insert_form">
                                                     <div class="modal-content text-start">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="form-tambah">Form Tambah Data
@@ -92,7 +92,7 @@ if($db->connect_errno==0){
                                                             <div class="form-group mt-2">
                                                                 <label for="nip-anggota">Id Kategori Barang</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="edit_id_kat_barang" name="id_kat_barang"
+                                                                    id="edit_id_kat_barang" name="ubah_id_kat_barang"
                                                                     required readonly />
                                                             </div>
                                                             <div class="form-group">
@@ -103,10 +103,10 @@ if($db->connect_errno==0){
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer justify-content-start">
-                                                            <input type="submit" value="Simpan"
-                                                                class="btn btn-primary" />
-                                                            <input type="reset" class="btn btn-outline-danger"
-                                                                data-bs-dismiss="modal" />
+                                                            <input type="submit" value="Simpan" class="btn btn-primary"
+                                                                name="insert" id="insert" value="Insert" />
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                data-bs-dismiss="modal">Kembali</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -170,7 +170,6 @@ include("footer.admin.php");
 $(document).ready(function() {
     $('.table-paginate').dataTable();
 });
-
 $(document).ready(function() {
     $(".table-paginate").on("click", ".view-edit", function() {
         var id_kat = $(this).attr("id");
@@ -273,5 +272,44 @@ $(document).ready(function() {
             }
         })
     });
+    $('#insert_form').on("submit", function(event) {
+        event.preventDefault();
+        if ($('#edit_nama_kat_barang').val() == "") {
+            alert("Nama kategori tidak boleh kosong");
+        } else {
+            $.ajax({
+                url: "../ajax.php",
+                method: "post",
+                dataType: "json",
+                data: $('#insert_form').serialize(),
+                beforeSend: function() {
+                    $('#insert').val("Inserting");
+                },
+                success: function(resp) {
+                    if (resp.status == "OK") {
+                        Swal.fire({
+                            title: 'Data berhasil diubah',
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ok!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                document.location.href =
+                                    "kategori-barang.admin.php";
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Data gagal diubah',
+                            text: 'Data sama dengan sebelumnya',
+                            icon: 'error',
+                            showCloseButton: true,
+                        })
+                    }
+                },
+            });
+        }
+    })
 })
 </script>

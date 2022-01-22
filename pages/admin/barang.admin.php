@@ -387,8 +387,6 @@ $(document).ready(function() {
                     $("#supplier").val(resp.data.id_supplier);
                     $("#sumber").val(resp.data.sumber);
                     $("#satuan").val(resp.data.satuan);
-
-
                     $("#modals-edit").modal("show");
                 }
             }
