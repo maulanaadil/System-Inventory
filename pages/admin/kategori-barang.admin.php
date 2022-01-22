@@ -177,7 +177,6 @@ $(document).ready(function() {
 $(document).ready(function() {
 	$("#tambah_id_kat_barang").on('keyup', function() {
 		let id_kat = $("#tambah_id_kat_barang").val();
-		console.log(id_kat);
 		$.ajax({
 			url: "../ajax.php",
             method: "post", 

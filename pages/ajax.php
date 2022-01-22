@@ -86,8 +86,22 @@ if($db->connect_errno==0){
             }
         }else{
             $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
+        }  
+    } else if(isset($_POST['cek_id_supplier']))  {
+        $id_supplier = $db->escape_string($_POST['cek_id_supplier']);
+        $sql = "SELECT * from supplier where id_supplier = '$id_supplier'";
+        $res = $db->query($sql);
+        if($res){
+            if($res->num_rows==0){
+                $response['status'] = "OK";
+            }else if($res->num_rows>0){
+                $response['status'] = "ERROR";
+            }
+        }else{
+            $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
         }
-    }else if(isset($_POST['id_kat'])){
+    } 
+    else if(isset($_POST['id_kat'])){
         $id_kat = $db->escape_string($_POST['id_kat']);
         $sql = "SELECT * from kategori_barang where id_kat = '$id_kat'";
         $res = $db->query($sql);
