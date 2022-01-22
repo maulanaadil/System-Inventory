@@ -5,6 +5,20 @@ function dbConnect(){
 	$db=new mysqli("localhost","root","","sistem-inventory");
 	return $db;
 }
+function generateIDPetugas(){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$sql = "SELECT RIGHT(MAX(id_petugas),2)+1 as id FROM petugas";
+		$res=$db->query($sql);
+		if($res){
+			$data=$res->fetch_assoc();
+			$res->free();
+			return $data;
+		}else
+		return FALSE; 
+	}else
+		return FALSE;
+}
 function getDataPetugas(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
