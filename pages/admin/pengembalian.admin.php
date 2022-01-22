@@ -3,6 +3,7 @@ include("sidebar.admin.php");
 include("../functions.php");
 $db=dbConnect();
 $getDataPengembalian = getDataPengembalian();
+$getIdPinjam = getIdPinjam();
 if($db->connect_errno==0){
 ?>
 <div class="content-wrapper">
@@ -98,7 +99,59 @@ if($db->connect_errno==0){
 
 
 					<!-- Modal Tambah Pengembalian -->
-					
+					<div class="modal fade" id="modalTambah" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+								<div class="modal-content text-start">
+									<div class="modal-header">
+										<h5 class="modal-title">Form Tambah Pengembalian</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body mt-2">
+										<div class="form-group">
+											<label for="id-pinjam-label">ID Pinjam</label>
+											<div>
+												<select class="form-select"
+													aria-label="Default select example" name="id-pinjam">
+													<option selected>Pilih ID Pinjam</option>
+													<?php foreach ($getIdPinjam as $ip) : ?>
+													<option value="<?= $ip['id_pinjam'] ?>"><?= $ip['id_pinjam'] ?></option>
+													<?php endforeach; ?>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="id_tanggal_pengembalian" style="font-size: 12pt">Tanggal Pengembalian</label>
+												<input type="date" class="form-control mt-2" id="tambah_tanggal_pengembalian"
+													name="tambah_tanggal_pengembalian" />
+											<label id="info-id"></label>
+										</div>
+
+										<div class="table-responsive">
+											<table class="table" >
+												<thead>
+													<tr style="background-color: white;">
+														<th>Nama Barang</th>
+														<th>Jumlah</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>test</td>
+														<td>test</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="modal-footer justify-content-start">
+										<input type="reset" class="btn btn-success" value="Simpan"
+											data-bs-dismiss="modal" />
+									</div>
+								</div>
+						</div>
+					</div>
 
 					<!-- End Modal Tambah Pengembalian -->
 

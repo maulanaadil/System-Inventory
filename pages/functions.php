@@ -123,8 +123,7 @@ function getKategori(){
 function getIdPinjam(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		$sql= "SELECT p.id_pinjam,a.nm_anggota FROM peminjaman p JOIN anggota a USING(id_anggota) WHERE p.id_pinjam NOT IN 
-		(SELECT id_pinjam FROM pengembalian)";
+		$sql= "SELECT * FROM rincian_peminjaman";
 		$res=$db->query($sql);
 		if($res){
 			$data=$res->fetch_all(MYSQLI_ASSOC);

@@ -97,9 +97,97 @@ if($db->connect_errno==0){
 					</div>
 
 					<!-- Modal Tambah Peminjaman -->
-					
+					<div class="modal fade" id="modalTambah" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" style="width: 1000px; margin: 1.75rem 250px;">
+								<div class="modal-content text-start" style="width: 1000px;">
+									<div class="modal-header">
+										<h5 class="modal-title">Form Tambah Peminjaman</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body mt-2">
+										<div class="row">
+											<div class="col-6">
+												<label for="id_pinjam" style="font-size: 12pt">ID Pinjam</label>
+												<input type="text" class="form-control mt-2" id="tambah_id_pinjam"
+													name="tambah_id_pinjam" />
+												<label id="info-id"></label>
+											</div>
+											<div class="col-6">
+												<label for="id_tanggal_peminjaman" style="font-size: 12pt">Tanggal Peminjaman</label>
+												<input type="date" class="form-control mt-2" id="tambah_tanggal_peminjaman"
+													name="tambah_tanggal_peminjaman" />
+												<label id="info-id"></label>
+											</div>
+										</div>
 
+										<label for="id_nama_peminjam" style="font-size: 12pt">Nama Peminjam</label>
+										<input type="text" class="form-control mt-2" id="tambah_nama_peminjam"
+											name="tambah_nama_peminjam" />
+										<label id="info-id"></label>
+
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="table-responsive">
+
+													<table class="table" >
+														<thead>
+															<tr style="background-color: white;">
+																<th>ID Barang</th>
+																<th>Nama Peminjam</th>
+																<th>Jumlah</th>
+																<th>Aksi</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>test</td>
+																<td>test</td>
+																<td>test</td>
+																<td>
+																	<button type="button" class="btn btn-success">Pinjam</button>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+											<div class="col-lg-6">
+													<table class="table" >
+														<thead>
+															<tr style="background-color: white;">
+																<th>ID Barang</th>
+																<th>Jumlah</th>
+																<th>Aksi</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>test</td>
+																<td>test</td>
+																<td>
+																	<button type="button" class="btn btn-danger btn-sm"><i class="mdi mdi mdi-delete text-white"></i></button>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+											</div>
+
+
+										</div>
+										
+									</div>
+									<div class="modal-footer justify-content-start">
+										<input type="reset" class="btn btn-outline-danger" value="Tutup"
+											data-bs-dismiss="modal" />
+									</div>
+								</div>
+						</div>
+					</div>
 					<!-- End Modal Tambah Peminjaman -->
+					
 				</div>
 			</div>
 		</div>
