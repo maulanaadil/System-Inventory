@@ -5,17 +5,26 @@ $db=dbConnect();
 $getDataPetugas = getDataPetugas();
 if($db->connect_errno==0){
 	if(isset($_POST['tambahPetugas'])){
-        $id_petugas = $db->escape_string($_POST['id_petugas']);
+        $generateID = generateIDPetugas();
+            if(strlen($generateID["id"])<2){
+                $id_petugas = "P0". $generateID["id"];
+            }else{
+                $id_petugas = "P".$generateID["id"];
+            }
         $nama = $db->escape_string($_POST['nama']);
         $jk = $db->escape_string($_POST['jk']);
 		$username = $db->escape_string($_POST['username']);
 		$password = $db->escape_string($_POST['password']);
-		$hak_akses = $db->escape_string($_POST['hak_akses']);
-		$reset_question = $db->escape_string($_POST['reset_question']);
-		$answer_question = $db->escape_string($_POST['answer_question']);
+        $repeatPassword = $db->escape_string($_POST['repeat-password']);
+            if($password === $repeatPassword){
+                $newpass = substr(password_hash($password,PASSWORD_DEFAULT),0,50);
+            }
+		$hak_akses = $db->escape_string($_POST['hak-akses']);
+		$reset_question = $db->escape_string($_POST['pertanyaan-reset']);
+		$answer_question = strtoupper($db->escape_string($_POST['jawaban']));
 		$alamat = $db->escape_string($_POST['alamat']);
-		$no_hp = $db->escape_string($_POST['no_hp']);
-        // $sql = "INSERT into anggota values('$nip','$nama','$jk')";
+		$no_hp = $db->escape_string($_POST['no-handphone']);
+        $sql = "INSERT into petugas values('$id_petugas','$nama','$username','$newpass','$hak_akses','$reset_question','$answer_question','$alamat','$no_hp','','$jk')";
         $res=$db->query($sql);
         if($res){
             if($db->affected_rows>0){
@@ -224,7 +233,7 @@ if($db->connect_errno==0){
                         <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambah"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable">
-                                <form action="#">
+                                <form action="" method="post">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="form-tambah">Form Tambah Data Petugas</h5>
@@ -233,7 +242,7 @@ if($db->connect_errno==0){
                                         </div>
                                         <div class="modal-body mt-2">
                                             <div class="form-group mt-2">
-                                                <label for="nip-anggota">Nama</label>
+                                                <label for="nama">Nama</label>
                                                 <input type="text" class="form-control" name="nama" />
                                             </div>
                                             <p>Jenis Kelamin</p>
@@ -319,7 +328,8 @@ if($db->connect_errno==0){
                                             </div>
                                         </div>
                                         <div class="modal-footer justify-content-start">
-                                            <input type="submit" value="Simpan" class="btn btn-primary"></input>
+                                            <input type="submit" value="Simpan" name="tambahPetugas"
+                                                class="btn btn-primary"></input>
                                             <input type="reset" class="btn btn-outline-danger"></input>
                                         </div>
                                     </div>
