@@ -21,7 +21,7 @@ if($db->connect_errno==0){
                     </nav>
                     <div class="container-fluid">
                         <div class="row">
-                            <a href="../"
+                            <a href="./index.php"
                                 class="auth-link text-black text-decoration-none float-end mdi mdi-keyboard-backspace menu-icon mb-3"
                                 style="text-align: left; font-size: 18pt">
                                 Profil
