@@ -51,6 +51,10 @@ if($db->connect_errno==0){
 </head>
 
 <body>
+  <?php 
+  
+    if (!empty($data[0]["reset_question"])) {
+  ?>
     <div class="container">
         <div class="row" style="margin-top: 100px; max-width: 500px">
             <div class="col">
@@ -69,6 +73,18 @@ if($db->connect_errno==0){
             </div>
         </div>
     </div>
+
+    <?php } else { ?>
+        <div class="container">
+        <div class="row" style="margin-top: 100px; max-width: 500px">
+            <div class="col">
+                <h3 class="h2 my-3">Username Tidak ditemukan!</h3>
+                <p class="text-start text-gray mt-2">Silahkan tekan kembali untuk memasukan username lagi</p>
+                <a href="./lupa-password.html" class="btn btn-link btn-lg mt-3 text-black">Kembali mengisi username</a>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
 </body>
 
 </html>

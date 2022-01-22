@@ -96,9 +96,9 @@ if($db->connect_errno==0){
                                             id="<?=$data["id_petugas"]?>">Edit</button>
                                         <!-- Modal Edit Petugas -->
                                         <div class="modal fade" id="modals-edit" tabindex="-1"
-                                            aria-labelledby="modals-edit" aria-hidden="true" style="text-align: left">
+                                            aria-labelledby="modals-edit" aria-hidden="true">
                                             <div class="modal-dialog">
-                                                <div class="modal-content">
+                                                <div class="modal-content text-start">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="form-tambah">Form Edit Data Petugas
                                                         </h5>
@@ -397,6 +397,7 @@ function validate(evt) {
     var regex = /[0-9]|\./;
     if (!regex.test(key)) {
         theEvent.returnValue = false;
+        alert("Hanya dapat mengetik number")
         if (theEvent.preventDefault) theEvent.preventDefault();
     }
 }
