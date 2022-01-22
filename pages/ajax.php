@@ -5,8 +5,7 @@ if($db->connect_errno==0){
     $response = array();
     if(!isset($_POST)){
         $response['status'] = "ERROR";
-    }
-    else if(isset($_POST['id_petugas'])){
+    }else if(isset($_POST['id_petugas'])){
         $id_petugas=$db->escape_string($_POST['id_petugas']);
         $sql="SELECT * from petugas where id_petugas='$id_petugas'";
         $res=$db->query($sql);
@@ -15,6 +14,28 @@ if($db->connect_errno==0){
                 $data=$res->fetch_assoc();
                 $response['status']="OK";
                 $response['data']= $data;
+            }else{
+                $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
+            }
+        }else{
+            $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
+        }
+    }else if(isset($_POST['ubah_id_petugas'])){
+        $id_petugas=$db->escape_string($_POST['ubah_id_petugas']);
+        $nama_petugas=$db->escape_string($_POST['ubah_nama_petugas']);
+        $jk=$db->escape_string($_POST['jk']);
+        $hak_akses=$db->escape_string($_POST['hak-akses']);
+        $username=$db->escape_string($_POST['username']);
+        $reset_question=$db->escape_string($_POST['pertanyaan-reset']);
+        $answer_question=strtoupper($db->escape_string($_POST['answer_question']));
+        $no_handphone=$db->escape_string($_POST['no-handphone']);
+        $alamat=$db->escape_string($_POST['alamat']);
+        
+        $sql="UPDATE petugas set nm_petugas='$nama_petugas', username='$username', hak_akses='$hak_akses', reset_question='$reset_question', answer_question='$answer_question', alamat='$alamat', no_hp='$no_handphone', jk='$jk' where id_petugas='$id_petugas'";
+        $res=$db->query($sql);
+        if($res){
+            if($db->affected_rows>0){
+                $response['status']="OK";
             }else{
                 $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
             }
@@ -66,7 +87,7 @@ if($db->connect_errno==0){
                   if($db->affected_rows>0){
                     $response['status']="OK";
                   }else{
-                    $response['status']="ERROR2".(DEVELOPMENT?" : ".$db->error:"");
+                    $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
                   }
              }else{
                 $response['status']='ERROR'.(DEVELOPMENT?" : ".$db->error:"");
@@ -119,14 +140,13 @@ if($db->connect_errno==0){
                   if($db->affected_rows>0){
                     $response['status']="OK";
                   }else{
-                    $response['status']="ERROR2".(DEVELOPMENT?" : ".$db->error:"");
+                    $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
                   }
              }else{
                 $response['status']='ERROR'.(DEVELOPMENT?" : ".$db->error:"");
              }
         }
-   } 
-    else if(isset($_POST['id_kat'])){
+   }else if(isset($_POST['id_kat'])){
         $id_kat = $db->escape_string($_POST['id_kat']);
         $sql = "SELECT * from kategori_barang where id_kat = '$id_kat'";
         $res = $db->query($sql);
@@ -136,6 +156,20 @@ if($db->connect_errno==0){
                 $response['status']="OK";
                 $response['data']= $data;
             }else{
+                $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
+            }
+        }else{
+            $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
+        }
+    }else if(isset($_POST['ubah_id_kat_barang'])){
+        $id_kat = $db->escape_string($_POST['ubah_id_kat_barang']);
+        $nm_kat = $db->escape_string($_POST['nama_kat_barang']);
+        $sql = "UPDATE kategori_barang set nm_kat='$nm_kat' where id_kat='$id_kat'";
+        $res = $db->query($sql);
+        if($res){
+            if($db->affected_rows>0){
+                $response['status']="OK";
+              }else{
                 $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
             }
         }else{
