@@ -249,7 +249,6 @@ $(document).ready(function() {
                     $("#nip").val(resp.data.id_anggota);
                     $("#modals-edit").modal("show");
                 }
-
             }
         })
     });
