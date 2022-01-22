@@ -115,6 +115,16 @@ if($db->connect_errno==0){
         }else{
             $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
         }
+    }else if(isset($_POST['hapus_kat'])){
+        $id_kat=$_POST['hapus_kat'];            
+        $sql="DELETE from kategori_barang where id_kat='$id_kat'";
+        $res=$db->query($sql);
+        if($res){
+            if($db->affected_rows>0){
+                $response['status']="OK";
+            }
+        }                                                                             
+        else $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
     }else if(isset($_POST['id_barang'])){
         $id_barang = $db->escape_string($_POST['id_barang']);
         $sql= "SELECT * FROM barang WHERE id_barang = '$id_barang'";

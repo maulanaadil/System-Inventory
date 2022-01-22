@@ -5,8 +5,8 @@ $db=dbConnect();
 $getKategori = getKategori();
 if($db->connect_errno==0){
 	if(isset($_POST['tambahKategori'])){
-		$id_kat = $db->escape_string($_POST['$id_kat_barang']);
-		$nm_kat = $db->escape_string($_POST['$nama_kat_barang']);
+		$id_kat = $db->escape_string($_POST['tambah_id_kat_barang']);
+		$nm_kat = $db->escape_string($_POST['tambah_nama_kat_barang']);
 		$sql = "INSERT into kategori_barang values('$id_kat','$nm_kat')";
 		$res=$db->query($sql);
 		if($res){
@@ -18,7 +18,7 @@ if($db->connect_errno==0){
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Ok!'
                 }).then((result) => {
-                    document.location.href = 'kategori.admin.php'
+                    document.location.href = 'kategori-barang.admin.php'
                 })
                 </script>";
             }
@@ -87,11 +87,11 @@ if($db->connect_errno==0){
 													<div class="modal-body mt-2">
 														<div class="form-group mt-2">
 															<label for="nip-anggota">Id Kategori Barang</label>
-															<input type="text" class="form-control" id="id_kat_barang" name="id_kat_barang" required readonly />
+															<input type="text" class="form-control" id="edit_id_kat_barang" name="id_kat_barang" required readonly />
 														</div>
 														<div class="form-group">
 															<label for="nama-anggota">Nama Kategori Barang</label>
-															<input type="text" class="form-control" id="nama_kat_barang" name="nama_kat_barang" required />
+															<input type="text" class="form-control" id="edit_nama_kat_barang" name="nama_kat_barang" required />
 														</div>
 													</div>
 													<div class="modal-footer justify-content-start">
@@ -102,7 +102,7 @@ if($db->connect_errno==0){
 												</form>
 											</div>
 										</div>
-										<button type="button" class="btn btn-danger me-3">Hapus</button>
+										<button type="button" class="btn btn-danger me-3 hapus" id="<?=$data["id_kat"]?>">Hapus</button>
 									</td>
 								</tr>
 								<?php endforeach; ?>
@@ -112,29 +112,29 @@ if($db->connect_errno==0){
 					<!-- Modal Tambah Data-->
 					<div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form action="" method="post">
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="form-tambah">Form Tambah Data Kategori Barang</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
-								<div class="modal-body mt-2">
-									<div class="form-group mt-2">
-										<label for="nip-anggota" style="font-size: 12pt">ID Kategori Barang</label>
-										<input type="text" class="form-control" id="id_kat_barang" name="id_kat_barang" />
-										<label id="info-id"></label>
+								<form action="" method="post">
+									<div class="modal-body mt-2">
+										<div class="form-group mt-2">
+											<label for="id_kat_barang" style="font-size: 12pt">ID Kategori Barang</label>
+											<input type="text" class="form-control" id="tambah_id_kat_barang" name="tambah_id_kat_barang" />
+											<label id="info-id"></label>
+										</div>
+										<div class="form-group">
+											<label for="nama-anggota" style="font-size: 12pt">Nama Kategori Barang</label>
+											<input type="text" class="form-control" id="tambah_nama_kat_barang" name="tambah_nama_kat_barang" />
+										</div>
 									</div>
-									<div class="form-group">
-										<label for="nama-anggota" style="font-size: 12pt">Nama Kategori Barang</label>
-										<input type="text" class="form-control" id="nama_kat_barang" name="nama_kat_barang" />
+									<div class="modal-footer justify-content-start">
+										<input type="submit" value="Simpan" name="tambahKategori" class="btn btn-primary tblTambah" />								
+										<input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
 									</div>
-								</div>
-								<div class="modal-footer justify-content-start">
-									<input type="submit" value="Simpan" name="tambahKategori" class="btn btn-primary tblTambah" />								
-									<input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
-								</div>
+								</form>
 							</div>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -165,16 +165,19 @@ $(document).ready(function() {
             },
             success: function(resp) {
                 if (resp.status === "OK") {
-                    $("#id_kat_barang").val(resp.data.id_kat);
-                    $("#nama_kat_barang").val(resp.data.nm_kat);
+                    $("#edit_id_kat_barang").val(resp.data.id_kat);
+                    $("#edit_nama_kat_barang").val(resp.data.nm_kat);
                     $("#modals-edit").modal("show");
                 }
             }
         })
     });
+});
 
-	$("#id_kat_barang").on("keyup",function(){
-		let id_kat = $("#id_kat_barang").val();
+$(document).ready(function() {
+	$("#tambah_id_kat_barang").on('keyup', function() {
+		let id_kat = $("#tambah_id_kat_barang").val();
+		console.log(id_kat);
 		$.ajax({
 			url: "../ajax.php",
             method: "post", 
@@ -196,5 +199,63 @@ $(document).ready(function() {
             }
 		})
 	})
-});
+	$(".hapus").on("click", function() {
+        var id_kat = $(this).attr("id");
+        $.ajax({
+            url: "../ajax.php",
+            method: "post",
+            dataType: "json",
+            data: {
+                id_kat: id_kat
+            },
+            success: function(resp) {
+                if (resp.status === "OK") {
+                    Swal.fire({
+                        title: 'Apakah anda yakin menghapus data<br>' + resp.data
+                            .nm_kat + ' ?',
+                        icon: 'warning',
+                        allowOutsideClick: false,
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "../ajax.php",
+                                method: "post",
+                                dataType: "json",
+                                data: {
+                                    hapus_kat: id_kat
+                                },
+                                success: function(resp) {
+                                    if (resp.status == "OK") {
+                                        Swal.fire({
+                                            title: 'Deleted',
+                                            text: 'Data berhasil dihapus',
+                                            icon: 'success',
+                                            confirmButtonText: `Ok`
+                                        }).then((result) => {
+                                            document.location
+                                                .href =
+                                                'kategori-barang.admin.php'
+                                        })
+                                    } else {
+                                        Swal.fire({
+                                            title: 'ERROR',
+                                            text: 'Data gagal dihapus',
+                                            icon: 'error',
+                                            showCloseButton: true,
+                                        })
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        })
+    });
+})
+
 </script>

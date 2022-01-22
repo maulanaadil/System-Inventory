@@ -427,7 +427,6 @@ $(document).ready(function() {
                     id: id_petugas
                 },
                 success: function(resp) {
-                    console.log(resp);
                     if (resp.status === "OK") {
                         $("#info-username").html("Username dapat digunakan");
                         $("#info-username").css("color", "green");

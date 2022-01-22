@@ -58,7 +58,7 @@ if($db->connect_errno==0){
 									<td><?= $data['baik'] ?></td>
 									<td><?= $data['rusak'] ?></td>
 									<td><?= $data['rusak_berat'] ?></td>
-									<td><?php echo "JUMLAH CENAH"; ?></td>
+									<td><?= sum($data['baik'], $data['rusak'], $data['rusak_berat']) ?></td>
 									<td><?= $data['sumber'] ?></td>
 									<td><?= 
 										date("d F Y", strtotime($data['tanggal']));
@@ -83,19 +83,19 @@ if($db->connect_errno==0){
 														<div class="row">
 															<div class="col">
 																<label for="Baik" class="mb-2">Baik</label>
-																<input type="number" name="qty" onChange="total()" class="form-control" value="0" id="number-kondisi-baik"/>
+																<input type="number" name="qty" onChange="total()" min="0" class="form-control" value="0" id="number-kondisi-baik"/>
 															</div>
 															<div class="col">
 																<label for="Rusak" class="mb-2">Rusak</label>
-																<input type="number" name="qty" onChange="total()" class="form-control" value="0" id="number-kondisi-rusak"/>
+																<input type="number" name="qty" onChange="total()" min="0" class="form-control" value="0" id="number-kondisi-rusak"/>
 															</div>
 															<div class="col">
 																<label for="Rusak-Beratt" class="mb-2">Rusak Berat</label>
-																<input type="number" name="qty" onChange="total()" class="form-control" value="0" id="number-kondisi-rusak-berat"/>
+																<input type="number" name="qty" onChange="total()" min="0" class="form-control" value="0" id="number-kondisi-rusak-berat"/>
 															</div>
 															<div class="col offset-1">
 																<label for="Total" class="mb-2">Total</label>
-																<input type="number" class="form-control" value="0" id="total-number-kondisi"/>
+																<input type="number" class="form-control" value="0" id="total-number-kondisi" readonly/>
 															</div>
 														</div>
 														<div class="row mt-2">
@@ -195,19 +195,19 @@ if($db->connect_errno==0){
 												<div class="row">
 													<div class="col">
 														<label for="Baik" class="mb-2">Baik</label>
-														<input type="number" name="qty1" onChange="total2()" class="form-control" value="0" id="number-kondisi-baik"/>
+														<input type="number" name="qty1" onChange="total2()" min="0" class="form-control" value="0" id="number-kondisi-baik"/>
 													</div>
 													<div class="col">
 														<label for="Rusak" class="mb-2">Rusak</label>
-														<input type="number" name="qty1" onChange="total2()" class="form-control" value="0" id="number-kondisi-rusak"/>
+														<input type="number" name="qty1" onChange="total2()" min="0" class="form-control" value="0" id="number-kondisi-rusak"/>
 													</div>
 													<div class="col">
 														<label for="Rusak-Beratt" class="mb-2">Rusak Berat</label>
-														<input type="number" name="qty1" onChange="total2()" class="form-control" value="0" id="number-kondisi-rusak-berat"/>
+														<input type="number" name="qty1" onChange="total2()" min="0" class="form-control" value="0" id="number-kondisi-rusak-berat"/>
 													</div>
 													<div class="col offset-1">
 														<label for="Total" class="mb-2">Total</label>
-														<input type="number" class="form-control" value="0" id="total-number-kondisi2"/>
+														<input type="number" class="form-control" value="0" id="total-number-kondisi2" readonly/>
 													</div>
 												</div>
 												<div class="row mt-2">

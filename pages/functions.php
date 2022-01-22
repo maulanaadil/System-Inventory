@@ -5,6 +5,11 @@ function dbConnect(){
 	$db=new mysqli("localhost","root","","sistem-inventory");
 	return $db;
 }
+
+function sum($x, $y, $k) {
+    $z = $x + $y + $k;
+    return $z;
+}
 function generateIDPetugas(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
