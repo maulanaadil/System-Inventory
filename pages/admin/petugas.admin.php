@@ -320,8 +320,7 @@ if($db->connect_errno==0){
                                         </div>
                                         <div class="modal-footer justify-content-start">
                                             <input type="submit" value="Simpan" class="btn btn-primary"></input>
-                                            <input type="reset" class="btn btn-outline-danger"
-                                                data-bs-dismiss="modal"></input>
+                                            <input type="reset" class="btn btn-outline-danger"></input>
                                         </div>
                                     </div>
                                 </form>

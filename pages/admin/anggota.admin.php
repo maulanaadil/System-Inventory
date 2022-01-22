@@ -4,6 +4,7 @@ include("../functions.php");
 $db=dbConnect();
 if($db->connect_errno==0){
     if(isset($_POST['tambahAnggota'])){
+        var_dump($_POST['tambahAnggota']);
         $nip = $db->escape_string($_POST['nip']);
         $nama = $db->escape_string($_POST['nama']);
         $jk = $db->escape_string($_POST['jk']);
@@ -132,7 +133,6 @@ if($db->connect_errno==0){
                                                 </div>
                                             </div>
                                         </div>
-
                                         <!--Button Hapus-->
                                         <button type="button" class="btn btn-danger btn-sm hapus"
                                             id="<?=$data["id_anggota"]?>">Hapus</button>
@@ -164,7 +164,7 @@ if($db->connect_errno==0){
                             </tbody>
                         </table>
                         <!-- Modal Tambah-->
-                        <form method="post" action="">
+                        <form method="POST">
                             <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog">
@@ -204,8 +204,9 @@ if($db->connect_errno==0){
                                             </div>
                                         </div>
                                         <div class="modal-footer justify-content-start">
-                                            <inputt type="submit" class="btn btn-primary" name="tambahAnggota">Simpan
-                                            </inputt>
+                                            <input type="submit" value="Simpan" class="btn btn-primary"
+                                                name="tambahAnggota">
+                                            </input>
                                             <input type="reset" class="btn btn-outline-danger"
                                                 data-bs-dismiss="modal"></input>
                                         </div>
