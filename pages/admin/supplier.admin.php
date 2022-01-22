@@ -80,32 +80,34 @@ if($db->connect_errno==0){
 										<!-- Modal Edit -->
 										<div class="modal fade" id="modals-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog">
-												<form action="#">
+												<form method="post" id="insert_form">
 												<div class="modal-content text-start">
 													<div class="modal-header">
-														<h5 class="modal-title" id="form-tambah">Form Tambah Data Supplier</h5>
+														<h5 class="modal-title" id="form-tambah">Form Edit Data Supplier</h5>
 														<!-- Search -->
 														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
 													<div class="modal-body mt-2">
 														<div class="form-group mt-2">
 															<label for="nip-anggota" style="font-size: 12pt">Id Supplier</label>
-															<input type="text" class="form-control" id="edit_id_supplier" />
+															<input type="text" class="form-control" id="edit_id_supplier" name="ubah_supplier" required readonly />
 														</div>
 														<div class="form-group">
 															<label for="nama-anggota" style="font-size: 12pt">Nama Supplier</label>
-															<input type="text" class="form-control" id="edit_nama_supplier" />
+															<input type="text" class="form-control" id="edit_nama_supplier" name="nama_supplier" required/>
 														</div>
 													</div>
 													<div class="modal-footer justify-content-start">
-														<input type="submit" value="Simpan" class="btn btn-primary" />								
-														<input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
+													<button type="submit" class="btn btn-primary" name="insert"
+                                                                id="insert" value="Insert">Simpan</button>
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                                data-bs-dismiss="modal">Cancel</button>
 													</div>
 												</div>
 												</form>
 											</div>
 										</div>
-										<button type="button" class="btn btn-danger btn-sm me-3">Hapus</button>
+										<button type="button" class="btn btn-danger btn-sm me-3 hapus" id="<?=$data["id_supplier"]?>">Hapus</button>
 									</td>
 								</tr>
 								<?php endforeach; ?>
@@ -168,13 +170,13 @@ $(document).ready(function() {
             },
             success: function(resp) {
                 if (resp.status === "OK") {
-                    $("#id_supplier").val(resp.data.id_supplier);
-                    $("#nama_supplier").val(resp.data.nm_supplier);
+                    $("#edit_id_supplier").val(resp.data.id_supplier);
+                    $("#edit_nama_supplier").val(resp.data.nm_supplier);
                     $("#modals-edit").modal("show");
                 }
             }
         })
-    });
+    })
 
 	$("#tambah_id_supplier").on('keyup', function() {
 		let id_supplier = $("#tambah_id_supplier").val();
@@ -199,7 +201,103 @@ $(document).ready(function() {
             }
 		})
 	})
-});
+	$(".hapus").on("click", function() {
+        var id_supplier= $(this).attr("id");
+        $.ajax({
+            url: "../ajax.php",
+            method: "post",
+            dataType: "json",
+            data: {
+                id_supplier: id_supplier
+            },
+            success: function(resp) {
+                if (resp.status === "OK") {
+                    Swal.fire({
+                        title: 'Apakah anda yakin menghapus data<br>' + resp.data
+                            .nm_supplier + ' ?',
+                        icon: 'warning',
+                        allowOutsideClick: false,
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "../ajax.php",
+                                method: "post",
+                                dataType: "json",
+                                data: {
+                                    hapus_supplier: id_supplier
+                                },
+                                success: function(resp) {
+                                    if (resp.status == "OK") {
+                                        Swal.fire({
+                                            title: 'Deleted',
+                                            text: 'Data berhasil dihapus',
+                                            icon: 'success',
+                                            confirmButtonText: `Ok`
+                                        }).then((result) => {
+                                            document.location
+                                                .href =
+                                                'supplier.admin.php'
+                                        })
+                                    } else {
+                                        Swal.fire({
+                                            title: 'ERROR',
+                                            text: 'Data gagal dihapus',
+                                            icon: 'error',
+                                            showCloseButton: true,
+                                        })
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        })
+    })
+	$('#insert_form').on("submit", function(event) {
+        event.preventDefault();
+        if ($('#nama_supplier').val() == "") {
+            alert("Nama Supplier tidak boleh kosong");
+        }
+		else {
+            $.ajax({
+                url: "../ajax.php",
+                method: "post",
+                dataType: "json",
+                data: $('#insert_form').serialize(),
+                beforeSend: function() {
+                    $('#insert').val("Inserting");
+                },
+                success: function(resp) {
+                    if (resp.status == "OK") {
+                        Swal.fire({
+                            title: 'Data berhasil diubah',
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ok!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                document.location.href = "supplier.admin.php";
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Data gagal diubah',
+                            text: 'Data sama dengan sebelumnya',
+                            icon: 'error',
+                            showCloseButton: true,
+                        })
+                    }
+                },
+            });
+        }
+    })
+})
 
 
 

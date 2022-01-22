@@ -100,7 +100,32 @@ if($db->connect_errno==0){
         }else{
             $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
         }
-    } 
+    }else if(isset($_POST['hapus_supplier'])){
+        $id_supplier=$_POST['hapus_supplier'];            
+        $sql="DELETE from supplier where id_supplier='$id_supplier'";
+        $res=$db->query($sql);
+        if($res){
+            if($db->affected_rows>0){
+                $response['status']="OK";
+            }
+        }                                                                             
+        else $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
+    }else if(isset($_POST['ubah_supplier'])){
+        $id_supplier = $db->escape_string($_POST['ubah_supplier']);
+        $nama_supplier = $db->escape_string($_POST['nama_supplier']);
+        if($id_supplier!=""){
+             $res=$db->query("UPDATE supplier set nm_supplier='$nama_supplier' where id_supplier='$id_supplier'");
+             if($res){
+                  if($db->affected_rows>0){
+                    $response['status']="OK";
+                  }else{
+                    $response['status']="ERROR2".(DEVELOPMENT?" : ".$db->error:"");
+                  }
+             }else{
+                $response['status']='ERROR'.(DEVELOPMENT?" : ".$db->error:"");
+             }
+        }
+   } 
     else if(isset($_POST['id_kat'])){
         $id_kat = $db->escape_string($_POST['id_kat']);
         $sql = "SELECT * from kategori_barang where id_kat = '$id_kat'";
