@@ -172,7 +172,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $(".table-paginate").on("click", ".view-edit", function() {
+    $(".table-paginate").on("click",".view-edit", function() {
         var id_kat = $(this).attr("id");
         $.ajax({
             url: "../ajax.php",
@@ -216,7 +216,7 @@ $(document).ready(function() {
             }
         })
     })
-    $(".hapus").on("click", function() {
+    $(".table-paginate").on("click",".hapus", function() {
         var id_kat = $(this).attr("id");
         $.ajax({
             url: "../ajax.php",

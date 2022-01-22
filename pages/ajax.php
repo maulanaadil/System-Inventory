@@ -219,6 +219,22 @@ if($db->connect_errno==0){
                     $response['status'] = "OK";
                 }
             }
+    } else if(isset($_POST['id_pinjam'])) {
+        $id_pinjam = $db->escape_string($_POST['id_pinjam']);
+        $sql= "SELECT b.nm_barang ,rp.jml_barang
+		from rincian_peminjaman rp join barang b using(id_barang) where rp.id_pinjam = '$id_pinjam'";
+        $res=$db->query($sql);
+        if($res){
+            if($db->affected_rows>0){
+                $data=$res->fetch_assoc();
+                $response['status']="OK";
+                $response['data']= $data;
+            }else{
+                $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
+            }
+        }else{
+            $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
+        } 
     }
 }
 echo json_encode($response);

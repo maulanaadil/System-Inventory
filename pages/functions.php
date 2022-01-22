@@ -175,7 +175,7 @@ function getDataPeminjaman(){
 function getRincianPeminjaman($id_pinjam){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		$sql= "SELECT b.nm_barang,rp.jml_barang,rp.id_pinjam
+		$sql= "SELECT b.nm_barang as 'nm_barang',rp.jml_barang as 'qty'
 		from rincian_peminjaman rp join barang b using(id_barang) where rp.id_pinjam = '$id_pinjam'";
 		$res=$db->query($sql);
 		if($res){
