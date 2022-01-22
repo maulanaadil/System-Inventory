@@ -269,7 +269,7 @@ if($db->connect_errno==0){
         }else{
             $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
         } 
-    }
+    } 
 }
 echo json_encode($response);
 ?>
