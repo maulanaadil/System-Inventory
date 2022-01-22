@@ -78,9 +78,9 @@ if($db->connect_errno==0){
         <div class="container">
         <div class="row" style="margin-top: 100px; max-width: 500px">
             <div class="col">
-                <h3 class="h2 my-3">Username Tidak ditemukan!</h3>
+                <h3 class="h2 my-3 lh-base">Username <span class="text-primary"><?= $username ?></span> Tidak ditemukan!😓</h3>
                 <p class="text-start text-gray mt-2">Silahkan tekan kembali untuk memasukan username lagi</p>
-                <a href="./lupa-password.html" class="btn btn-link btn-lg mt-3 text-black">Kembali mengisi username</a>
+                <a href="./lupa-password.html" class="btn btn-link btn-lg mt-3 text-black">Kembali</a>
             </div>
         </div>
     </div>

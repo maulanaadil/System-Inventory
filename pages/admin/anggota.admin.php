@@ -63,7 +63,7 @@ if($db->connect_errno==0){
                                     <th>ID Anggota</th>
                                     <th>Nama Anggota</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Aksi</th>
+                                    <th colspan="2">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,8 +75,8 @@ if($db->connect_errno==0){
                                     <td><?=$data["id_anggota"]?></td>
                                     <td><?=$data["nm_anggota"]?></td>
                                     <td><?=$data["jk"]=="L" ? 'Laki-Laki':'Perempuan';?></td>
-                                    <td>
-                                        <!--Button Edit-->
+                                <td>
+                                    <!--Button Edit-->
                                         <button type="button" class="btn btn-warning btn-sm me-3 view-edit"
                                             id="<?=$data["id_anggota"]?>">Edit</button>
                                         <!-- Modal Edit Anggota -->
@@ -158,7 +158,7 @@ if($db->connect_errno==0){
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
+                                </td>
                                 </tr>
                                 <?php endforeach;?>
                             </tbody>

@@ -4,6 +4,35 @@ include("../functions.php");
 $db=dbConnect();
 $getKategori = getKategori();
 if($db->connect_errno==0){
+	if(isset($_POST['tambahKategori'])){
+		$id_kat = $db->escape_string($_POST['$id_kat_barang']);
+		$nm_kat = $db->escape_string($_POST['$nama_kat_barang']);
+		$sql = "INSERT into kategori_barang values('$id_kat','$nm_kat')";
+		$res=$db->query($sql);
+		if($res){
+			if($db->affected_rows>0){
+                echo "<script>
+                Swal.fire({
+                    title: 'Data kategori berhasil ditambahkan',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    document.location.href = 'kategori.admin.php'
+                })
+                </script>";
+            }
+		}else {
+            echo "<script>
+                Swal.fire({
+                icon: 'error',
+                title: 'ERROR',
+                text: 'Data gagal ditambahkan!'
+                })
+                </script>";
+            echo 'Gagal Eksekusi SQL' . (DEVELOPMENT ? ' : ' . $db->error : '') . "<br>";
+		}
+	}
 ?>
 <div class="content-wrapper">
 	<div class="row">
@@ -29,17 +58,14 @@ if($db->connect_errno==0){
 							</div>
 						</div>
 					</div>
-					
-
 					<div class="table-responsive">
-						<table id="data-anggota" class="table table-hover" style="text-align: center">
+						<table id="data-anggota" class="table table-hover table-paginate" style="text-align: center">
 							<thead>
 								<tr>
 									<th>Id Kategori Barang</th>
 									<th>Nama Kategori Barang</th>
 									<th>Aksi</th>
 								</tr>
-								
 							</thead>
 							<tbody>
 								<?php foreach ($getKategori as $data) :?>
@@ -47,7 +73,7 @@ if($db->connect_errno==0){
 									<td><?= $data['id_kat'] ?></td>
 									<td><?= $data['nm_kat'] ?></td>
 									<td>
-										<button type="button" class="btn btn-warning btn-sm me-3 view-edit"
+										<button type="button" class="btn btn-warning me-3 view-edit"
                                             id="<?=$data["id_kat"]?>">Edit</button>
 										<!-- Modal Edit Kategori Barang -->
 										<div class="modal fade" id="modals-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,7 +87,7 @@ if($db->connect_errno==0){
 													<div class="modal-body mt-2">
 														<div class="form-group mt-2">
 															<label for="nip-anggota">Id Kategori Barang</label>
-															<input type="text" class="form-control" id="id_kat_barang" name="id_kat_barang" required />
+															<input type="text" class="form-control" id="id_kat_barang" name="id_kat_barang" required readonly />
 														</div>
 														<div class="form-group">
 															<label for="nama-anggota">Nama Kategori Barang</label>
@@ -76,20 +102,17 @@ if($db->connect_errno==0){
 												</form>
 											</div>
 										</div>
-
-										<button type="button" class="btn btn-danger btn-sm me-3">Hapus</button>
+										<button type="button" class="btn btn-danger me-3">Hapus</button>
 									</td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>
 						</table>
 					</div>
-
-
 					<!-- Modal Tambah Data-->
 					<div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
-							<form action="#">
+							<form action="" method="post">
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="form-tambah">Form Tambah Data Kategori Barang</h5>
@@ -97,16 +120,17 @@ if($db->connect_errno==0){
 								</div>
 								<div class="modal-body mt-2">
 									<div class="form-group mt-2">
-										<label for="nip-anggota" style="font-size: 12pt">Id Kategori Barang</label>
-										<input type="text" class="form-control" id="id_kat_barang" />
+										<label for="nip-anggota" style="font-size: 12pt">ID Kategori Barang</label>
+										<input type="text" class="form-control" id="id_kat_barang" name="id_kat_barang" />
+										<label id="info-id"></label>
 									</div>
 									<div class="form-group">
 										<label for="nama-anggota" style="font-size: 12pt">Nama Kategori Barang</label>
-										<input type="text" class="form-control" id="nama_kat_barang" />
+										<input type="text" class="form-control" id="nama_kat_barang" name="nama_kat_barang" />
 									</div>
 								</div>
 								<div class="modal-footer justify-content-start">
-									<input type="submit" value="Simpan" class="btn btn-primary" />								
+									<input type="submit" value="Simpan" name="tambahKategori" class="btn btn-primary tblTambah" />								
 									<input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
 								</div>
 							</div>
@@ -126,6 +150,10 @@ include("footer.admin.php");
 ?>;
 <script>
 $(document).ready(function() {
+	    $('.table-paginate').dataTable();
+});
+
+$(document).ready(function() {
     $(".view-edit").on("click", function() {
         var id_kat = $(this).attr("id");
         $.ajax({
@@ -144,5 +172,29 @@ $(document).ready(function() {
             }
         })
     });
+
+	$("#id_kat_barang").on("keyup",function(){
+		let id_kat = $("#id_kat_barang").val();
+		$.ajax({
+			url: "../ajax.php",
+            method: "post", 
+            dataType: "json",
+            data: {
+                cek_id_kat: id_kat
+            },
+            success: function(resp) {
+                if (resp.status === "OK") {
+                	$("#info-id").html("ID Kategori dapat digunakan");
+                	$("#info-id").css("color","green");
+					$(".tblTambah").removeAttr("disabled");
+				   
+                } else if (resp.status === "ERROR") {
+					$("#info-id").html("ID Kategori tidak dapat digunakan");
+                	$("#info-id").css("color","red");
+					$(".tblTambah").attr("disabled", "disabled");
+                }
+            }
+		})
+	})
 });
 </script>
