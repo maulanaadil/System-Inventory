@@ -35,112 +35,130 @@ if($db->connect_errno==0){
 	}
 ?>
 <div class="content-wrapper">
-	<div class="row">
-		<div class="col-md-12 stretch-card">
-			<div class="card">
-				<div class="card-body">
-					<nav aria-label="breadcrumb">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item">
-								<a href="./index.php"><i class="mdi mdi-home menu-icon"></i></a>
-							</li>
-							<li class="breadcrumb-item"><a href="./index.php">Dashboard</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Data Kategori Barang</li>
-						</ol>
-					</nav>
-					<div class="me-md-3 me-xl-5 py-2">
-						<h2>Data Kategori Barang</h2>
-					</div>
-					<div class="container-fluid mt-3 mb-3">
-						<div class="row">
-							<div class="d-flex flex-row-reverse">
-								<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambah">Tambah</button>
-							</div>
-						</div>
-					</div>
-					<div class="table-responsive">
-						<table id="data-anggota" class="table table-hover table-paginate" style="text-align: center">
-							<thead>
-								<tr>
-									<th>Id Kategori Barang</th>
-									<th>Nama Kategori Barang</th>
-									<th>Aksi</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php foreach ($getKategori as $data) :?>
-								<tr>
-									<td><?= $data['id_kat'] ?></td>
-									<td><?= $data['nm_kat'] ?></td>
-									<td>
-										<button type="button" class="btn btn-warning me-3 view-edit"
+    <div class="row">
+        <div class="col-md-12 stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="./index.php"><i class="mdi mdi-home menu-icon"></i></a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="./index.php">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Data Kategori Barang</li>
+                        </ol>
+                    </nav>
+                    <div class="me-md-3 me-xl-5 py-2">
+                        <h2>Data Kategori Barang</h2>
+                    </div>
+                    <div class="container-fluid mt-3 mb-3">
+                        <div class="row">
+                            <div class="d-flex flex-row-reverse">
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#modalTambah">Tambah</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="data-anggota" class="table table-hover table-paginate" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th>Id Kategori Barang</th>
+                                    <th>Nama Kategori Barang</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($getKategori as $data) :?>
+                                <tr>
+                                    <td><?= $data['id_kat'] ?></td>
+                                    <td><?= $data['nm_kat'] ?></td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning me-3 view-edit"
                                             id="<?=$data["id_kat"]?>">Edit</button>
-										<!-- Modal Edit Kategori Barang -->
-										<div class="modal fade" id="modals-edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog">
-												<form action="#">
-												<div class="modal-content text-start">
-													<div class="modal-header">
-														<h5 class="modal-title" id="form-tambah">Form Tambah Data Kategori Barang</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<div class="modal-body mt-2">
-														<div class="form-group mt-2">
-															<label for="nip-anggota">Id Kategori Barang</label>
-															<input type="text" class="form-control" id="edit_id_kat_barang" name="id_kat_barang" required readonly />
-														</div>
-														<div class="form-group">
-															<label for="nama-anggota">Nama Kategori Barang</label>
-															<input type="text" class="form-control" id="edit_nama_kat_barang" name="nama_kat_barang" required />
-														</div>
-													</div>
-													<div class="modal-footer justify-content-start">
-														<input type="submit" value="Simpan" class="btn btn-primary" />								
-														<input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
-													</div>
-												</div>
-												</form>
-											</div>
-										</div>
-										<button type="button" class="btn btn-danger me-3 hapus" id="<?=$data["id_kat"]?>">Hapus</button>
-									</td>
-								</tr>
-								<?php endforeach; ?>
-							</tbody>
-						</table>
-					</div>
-					<!-- Modal Tambah Data-->
-					<div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="form-tambah">Form Tambah Data Kategori Barang</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<form action="" method="post">
-									<div class="modal-body mt-2">
-										<div class="form-group mt-2">
-											<label for="id_kat_barang" style="font-size: 12pt">ID Kategori Barang</label>
-											<input type="text" class="form-control" id="tambah_id_kat_barang" name="tambah_id_kat_barang" />
-											<label id="info-id"></label>
-										</div>
-										<div class="form-group">
-											<label for="nama-anggota" style="font-size: 12pt">Nama Kategori Barang</label>
-											<input type="text" class="form-control" id="tambah_nama_kat_barang" name="tambah_nama_kat_barang" />
-										</div>
-									</div>
-									<div class="modal-footer justify-content-start">
-										<input type="submit" value="Simpan" name="tambahKategori" class="btn btn-primary tblTambah" />								
-										<input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                        <!-- Modal Edit Kategori Barang -->
+                                        <div class="modal fade" id="modals-edit" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <form action="#">
+                                                    <div class="modal-content text-start">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="form-tambah">Form Tambah Data
+                                                                Kategori Barang</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body mt-2">
+                                                            <div class="form-group mt-2">
+                                                                <label for="nip-anggota">Id Kategori Barang</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="edit_id_kat_barang" name="id_kat_barang"
+                                                                    required readonly />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="nama-anggota">Nama Kategori Barang</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="edit_nama_kat_barang" name="nama_kat_barang"
+                                                                    required />
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-start">
+                                                            <input type="submit" value="Simpan"
+                                                                class="btn btn-primary" />
+                                                            <input type="reset" class="btn btn-outline-danger"
+                                                                data-bs-dismiss="modal" />
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-danger me-3 hapus"
+                                            id="<?=$data["id_kat"]?>">Hapus</button>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Modal Tambah Data-->
+                    <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="form-tambah">Form Tambah Data Kategori Barang</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="" method="post">
+                                    <div class="modal-body mt-2">
+                                        <div class="form-group mt-2">
+                                            <label for="id_kat_barang" style="font-size: 12pt">ID Kategori
+                                                Barang</label>
+                                            <input type="text" class="form-control" id="tambah_id_kat_barang"
+                                                name="tambah_id_kat_barang" />
+                                            <label id="info-id"></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nama-anggota" style="font-size: 12pt">Nama Kategori
+                                                Barang</label>
+                                            <input type="text" class="form-control" id="tambah_nama_kat_barang"
+                                                name="tambah_nama_kat_barang" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-start">
+                                        <input type="submit" value="Simpan" name="tambahKategori"
+                                            class="btn btn-primary tblTambah" />
+                                        <input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php 
 include("footer.admin.php");
@@ -150,15 +168,15 @@ include("footer.admin.php");
 ?>;
 <script>
 $(document).ready(function() {
-	    $('.table-paginate').dataTable();
+    $('.table-paginate').dataTable();
 });
 
 $(document).ready(function() {
-    $(".view-edit").on("click", function() {
+    $(".table-paginate").on("click", ".view-edit", function() {
         var id_kat = $(this).attr("id");
         $.ajax({
             url: "../ajax.php",
-            method: "post", 
+            method: "post",
             dataType: "json",
             data: {
                 id_kat: id_kat
@@ -175,30 +193,30 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-	$("#tambah_id_kat_barang").on('keyup', function() {
-		let id_kat = $("#tambah_id_kat_barang").val();
-		$.ajax({
-			url: "../ajax.php",
-            method: "post", 
+    $("#tambah_id_kat_barang").on('keyup', function() {
+        let id_kat = $("#tambah_id_kat_barang").val();
+        $.ajax({
+            url: "../ajax.php",
+            method: "post",
             dataType: "json",
             data: {
                 cek_id_kat: id_kat
             },
             success: function(resp) {
                 if (resp.status === "OK") {
-                	$("#info-id").html("ID Kategori dapat digunakan");
-                	$("#info-id").css("color","green");
-					$(".tblTambah").removeAttr("disabled");
-				   
+                    $("#info-id").html("ID Kategori dapat digunakan");
+                    $("#info-id").css("color", "green");
+                    $(".tblTambah").removeAttr("disabled");
+
                 } else if (resp.status === "ERROR") {
-					$("#info-id").html("ID Kategori tidak dapat digunakan");
-                	$("#info-id").css("color","red");
-					$(".tblTambah").attr("disabled", "disabled");
+                    $("#info-id").html("ID Kategori tidak dapat digunakan");
+                    $("#info-id").css("color", "red");
+                    $(".tblTambah").attr("disabled", "disabled");
                 }
             }
-		})
-	})
-	$(".hapus").on("click", function() {
+        })
+    })
+    $(".hapus").on("click", function() {
         var id_kat = $(this).attr("id");
         $.ajax({
             url: "../ajax.php",
@@ -256,5 +274,4 @@ $(document).ready(function() {
         })
     });
 })
-
 </script>
