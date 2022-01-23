@@ -22,15 +22,16 @@ if($db->connect_errno==0){
                     document.location.href = 'anggota.admin.php'
                 })
                 </script>";
-            }
-        }else {
-            echo "<script>
+            } else{
+                echo "<script>
                 Swal.fire({
                 icon: 'error',
                 title: 'ERROR',
                 text: 'Data gagal ditambahkan!'
                 })
                 </script>";
+            }
+        }else {
             echo 'Gagal Eksekusi SQL' . (DEVELOPMENT ? ' : ' . $db->error : '') . "<br>";
         }
     }
@@ -75,8 +76,8 @@ if($db->connect_errno==0){
                                     <td><?=$data["id_anggota"]?></td>
                                     <td><?=$data["nm_anggota"]?></td>
                                     <td><?=$data["jk"]=="L" ? 'Laki-Laki':'Perempuan';?></td>
-                                <td>
-                                    <!--Button Edit-->
+                                    <td>
+                                        <!--Button Edit-->
                                         <button type="button" class="btn btn-warning btn-sm me-3 view-edit"
                                             id="<?=$data["id_anggota"]?>">Edit</button>
                                         <!-- Modal Edit Anggota -->
@@ -158,7 +159,7 @@ if($db->connect_errno==0){
                                                 </div>
                                             </div>
                                         </div>
-                                </td>
+                                    </td>
                                 </tr>
                                 <?php endforeach;?>
                             </tbody>

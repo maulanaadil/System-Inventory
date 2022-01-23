@@ -6,6 +6,42 @@ $getBarang = getBarang();
 $getKategori = getKategori();
 $getSupplier = getSupplier();
 if($db->connect_errno==0){
+    if(isset($_POST['tblTambah'])){
+        $id_kat = $db->escape_string($_POST['kategori-barang']);
+        $id_barang = generateIDBarang($id_kat);
+        $nm_barang = $db->escape_string($_POST['nama-barang']);
+        $baik = (int)$_POST['jml-baik'];
+        $rusak = (int)$_POST['jml-rusak'];
+        $rusak_berat = (int)$_POST['jml-rusak-berat'];
+        $supplier = $db->escape_string($_POST['supplier']);
+        $sumber = $db->escape_string($_POST['sumber']);
+        $satuan = $db->escape_string($_POST['satuan']);
+        $tanggal = $db->escape_string($_POST['tanggal']);
+            $sql = "INSERT into barang values('$id_barang','$id_kat','$supplier','$nm_barang','$baik','$rusak','$rusak_berat','$tanggal','$sumber','$satuan')";
+            $res=$db->query($sql);
+            if($res){
+                if($db->affected_rows>0){
+                    echo "<script>
+                    Swal.fire({
+                        title: 'Data barang berhasil ditambahkan',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok!'
+                    }).then((result) => {
+                        document.location.href = 'barang.admin.php'
+                    })
+                    </script>";
+                }else{
+                    echo "<script>
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'ERROR',
+                    text: 'Data gagal ditambahkan!'
+                    })
+                    </script>";
+                }
+            }else echo 'Gagal Eksekusi SQL' . (DEVELOPMENT ? ' : ' . $db->error : '') . "<br>";
+    }
 ?>
 <div class="content-wrapper">
     <div class="row">
@@ -216,10 +252,10 @@ if($db->connect_errno==0){
                         </table>
                     </div>
                     <!-- MODAL TAMBAH DATA -->
-                    <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form action="#">
+                    <form action="" method="post">
+                        <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="form-tambah">Form Edit Data Barang</h5>
@@ -229,24 +265,27 @@ if($db->connect_errno==0){
                                     <div class="modal-body mt-2">
                                         <div class="form-group mt-2">
                                             <label for="nama-barang" class="mb-2">Nama Barang</label>
-                                            <input type="text" class="form-control" id="txt-nama-barang" />
+                                            <input type="text" class="form-control" id="txt-nama-barang"
+                                                name="nama-barang" />
                                         </div>
                                         <label for="jumlah-barang" class="mb-2">Jumlah Barang</p>
                                             <div class="row">
                                                 <div class="col">
                                                     <label for="Baik" class="mb-2">Baik</label>
-                                                    <input type="number" name="qty1" onChange="total2()" min="0"
-                                                        class="form-control" value="0" id="number-kondisi-baik" />
+                                                    <input type="number" name="jml-baik" min="0"
+                                                        class="form-control qty1" onChange="total2()" value="0"
+                                                        id="number-kondisi-baik" />
                                                 </div>
                                                 <div class="col">
-                                                    <label for="Rusak" class="mb-2">Rusak</label>
-                                                    <input type="number" name="qty1" onChange="total2()" min="0"
-                                                        class="form-control" value="0" id="number-kondisi-rusak" />
+                                                    <label for="Rusak" class="mb-2 ">Rusak</label>
+                                                    <input type="number" name="jml-rusak" min="0"
+                                                        class="form-control qty1" onChange="total2()" value="0"
+                                                        id="number-kondisi-rusak" />
                                                 </div>
                                                 <div class="col">
-                                                    <label for="Rusak-Beratt" class="mb-2">Rusak Berat</label>
-                                                    <input type="number" name="qty1" onChange="total2()" min="0"
-                                                        class="form-control" value="0"
+                                                    <label for="Rusak-Beratt" class="mb-2 ">Rusak Berat</label>
+                                                    <input type="number" name="jml-rusak-berat" min="0"
+                                                        class="form-control qty1" onChange="total2()" value="0"
                                                         id="number-kondisi-rusak-berat" />
                                                 </div>
                                                 <div class="col offset-1">
@@ -266,7 +305,7 @@ if($db->connect_errno==0){
                                                                 <option selected>Pilih Kategori Barang</option>
                                                                 <?php foreach ($getKategori as $kb) :?>
                                                                 <option value="<?= $kb['id_kat'] ?>">
-                                                                    <?= $kb['nm_kat'] ?></option>
+                                                                    <?= $kb['nm_kat']?></option>
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
@@ -323,16 +362,23 @@ if($db->connect_errno==0){
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <label for="tgl">Tanggal</label>
+                                                    <input type="date" class="form-control" id="tgl" name="tanggal" />
+                                                </div>
+                                            </div>
                                     </div>
                                     <div class="modal-footer justify-content-start">
-                                        <input type="submit" class="btn btn-primary" value="Simpan"></input>
+                                        <input type="submit" name="tblTambah" class="btn btn-primary"
+                                            value="Simpan"></input>
                                         <input type="reset" class="btn btn-outline-danger"
                                             data-bs-dismiss="modal"></input>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     <!-- END MODAL TAMBAH -->
                 </div>
             </div>
@@ -348,7 +394,7 @@ include("footer.admin.php");
 
 <script>
 function total2() {
-    var arr = document.getElementsByName('qty1');
+    var arr = document.getElementsByClassName('qty1');
     var tot = 0;
     for (var i = 0; i < arr.length; i++) {
         if (parseInt(arr[i].value))
@@ -395,7 +441,7 @@ $(document).ready(function() {
 });
 
 function total() {
-    var arr = document.getElementsByName('qty');
+    var arr = document.getElementsByClassName('qty1');
     var tot = 0;
     for (var i = 0; i < arr.length; i++) {
         if (parseInt(arr[i].value))

@@ -10,6 +10,27 @@ function sum($x, $y, $k) {
     $z = $x + $y + $k;
     return $z;
 }
+function generateIDBarang($id_kat){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$sql = "SELECT RIGHT(MAX(id_barang),3)+1 as id_barang FROM barang WHERE id_kat = '$id_kat'";
+            $res=$db->query($sql);
+            if($res){
+                if($db->affected_rows>0){
+                    $data = $res->fetch_assoc();
+					$res->free();
+                    if($data['id_barang']==null){
+                        $id_barang = $id_kat."1";
+                    }else{
+                        $id_barang = $id_kat.$data['id_barang'];
+                    }
+					return $id_barang;
+                }else{
+                    return FALSE;
+                }
+            } return FALSE;
+	}
+}
 function generateIDPetugas(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
