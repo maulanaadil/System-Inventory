@@ -6,7 +6,10 @@ $getDataPetugas = getDataPetugas();
 if($db->connect_errno==0){
 	if(isset($_POST['tambahPetugas'])){
         $generateID = generateIDPetugas();
-            if(strlen($generateID["id"])<2){
+            if(strlen($generateID["id"])<1){
+                $id_petugas = "P01";
+            }
+            else if(strlen($generateID["id"])<2){
                 $id_petugas = "P0". $generateID["id"];
             }else{
                 $id_petugas = "P".$generateID["id"];
@@ -94,138 +97,6 @@ if($db->connect_errno==0){
                                         <!--Button Edit-->
                                         <button type="button" class="btn btn-warning btn-sm me-3 view-edit"
                                             id="<?=$data["id_petugas"]?>">Edit</button>
-                                        <!-- Modal Edit Petugas -->
-                                        <form method="post" id="insert_form">
-                                            <div class="modal fade" id="modals-edit" tabindex="-1"
-                                                aria-labelledby="modals-edit" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-scrollable">
-                                                    <div class="modal-content text-start">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="form-tambah">Form Edit Data
-                                                                Petugas
-                                                            </h5>
-                                                            <!-- Search -->
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body mt-2">
-                                                            <div class="form-group mt-2">
-                                                                <label for="nama_petugas">Nama</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="ubah_nama_petugas" id="nama_petugas" />
-                                                                <input type="hidden" class="form-control"
-                                                                    name="ubah_id_petugas" id="id_petugas"
-                                                                    value="<?= $data['id_petugas'] ?>" />
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <p>Jenis Kelamin</p>
-                                                                    <div class="form-group">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-label">
-                                                                                <input type="radio"
-                                                                                    class="form-check-input" name="jk"
-                                                                                    id="jk" value="L">
-                                                                                Laki - Laki
-                                                                                <i class="input-helper"></i></label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-label">
-                                                                                <input type="radio"
-                                                                                    class="form-check-input" name="jk"
-                                                                                    id="jk" value="P">
-                                                                                Perempuan
-                                                                                <i class="input-helper"></i></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label for="hak-akses">Hak Akses</label>
-                                                                        <div>
-                                                                            <select class="form-select"
-                                                                                aria-label="Default select example"
-                                                                                name="hak-akses" id="hak-akses">
-                                                                                <option selected>Pilih Hak Akses
-                                                                                </option>
-                                                                                <option value="admin">Admin</option>
-                                                                                <option value="kepala">Kepala</option>
-                                                                                <option value="laboran">Laboran</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="username">Username</label>
-                                                                <input type="text" class="form-control edit-username"
-                                                                    name="username" id="username" autocomplete="off" />
-                                                                <label id="info-username"></label>
-                                                            </div>
-                                                            <div class="form-group mt-2">
-                                                                <div class="form-group">
-                                                                    <label for="reset-question">Pertanyaan Reset
-                                                                        Password</label>
-                                                                    <select class="form-select"
-                                                                        aria-label="Default select example"
-                                                                        name="pertanyaan-reset" id="reset-question">
-                                                                        <option selected>Pilih Pertanyaan Reset
-                                                                        </option>
-                                                                        <option
-                                                                            value="Siapa nama hewan peliharaan anda?">
-                                                                            Siapa nama
-                                                                            hewan
-                                                                            peliharaan anda?</option>
-                                                                        <option
-                                                                            value="Siapa nama guru favorit anda saat sekolah?">
-                                                                            Siapa
-                                                                            nama guru favorit anda saat sekolah?
-                                                                        </option>
-                                                                        <option value="Dimanakah tempat lahir anda?">
-                                                                            Dimanakah tempat
-                                                                            lahir
-                                                                            anda?</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label for="answer_question">Jawaban</label>
-                                                                        <input type="text" class="form-control"
-                                                                            placeholder="Masukan jawabannya disini"
-                                                                            id="answer_question"
-                                                                            name="answer_question" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label for="nip-anggota">No
-                                                                            Handphone</label>
-                                                                        <input type="text" onkeypress="validate(event)"
-                                                                            class="form-control" name="no-handphone"
-                                                                            id="no_handphone" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group mt-2">
-                                                                <div class="form-group">
-                                                                    <label for="alamat">Alamat</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="alamat" id="alamat" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer justify-content-start">
-                                                            <button type="submit" class="btn btn-primary tblSimpan"
-                                                                name="insert" id="insert" value="Insert">Simpan</button>
-                                                            <button type="button" class="btn btn-outline-danger"
-                                                                data-bs-dismiss="modal">Cancel</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger btn-sm hapus"
@@ -235,6 +106,130 @@ if($db->connect_errno==0){
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <!-- Modal Edit Petugas -->
+                        <form method="post" id="insert_form">
+                            <div class="modal fade" id="modals-edit" tabindex="-1" aria-labelledby="modals-edit"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content text-start">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="form-tambah">Form Edit Data
+                                                Petugas
+                                            </h5>
+                                            <!-- Search -->
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body mt-2">
+                                            <div class="form-group mt-2">
+                                                <label for="nama_petugas">Nama</label>
+                                                <input type="hidden" class="form-control" name="ubah_id_petugas"
+                                                    id="edit_id_petugas" value="" />
+                                                <input type="text" class="form-control" name="ubah_nama_petugas"
+                                                    id="nama_petugas" />
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p>Jenis Kelamin</p>
+                                                    <div class="form-group">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input type="radio" class="form-check-input" name="jk"
+                                                                    id="jk" value="L">
+                                                                Laki - Laki
+                                                                <i class="input-helper"></i></label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input type="radio" class="form-check-input" name="jk"
+                                                                    id="jk" value="P">
+                                                                Perempuan
+                                                                <i class="input-helper"></i></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="hak-akses">Hak Akses</label>
+                                                        <div>
+                                                            <select class="form-select"
+                                                                aria-label="Default select example" name="hak-akses"
+                                                                id="hak-akses">
+                                                                <option selected>Pilih Hak Akses
+                                                                </option>
+                                                                <option value="admin">Admin</option>
+                                                                <option value="kepala">Kepala</option>
+                                                                <option value="laboran">Laboran</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="username">Username</label>
+                                                <input type="text" class="form-control edit-username" name="username"
+                                                    id="username" autocomplete="off" />
+                                                <label id="info-username"></label>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <div class="form-group">
+                                                    <label for="reset-question">Pertanyaan Reset
+                                                        Password</label>
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        name="pertanyaan-reset" id="reset-question">
+                                                        <option selected>Pilih Pertanyaan Reset
+                                                        </option>
+                                                        <option value="Siapa nama hewan peliharaan anda?">
+                                                            Siapa nama
+                                                            hewan
+                                                            peliharaan anda?</option>
+                                                        <option value="Siapa nama guru favorit anda saat sekolah?">
+                                                            Siapa
+                                                            nama guru favorit anda saat sekolah?
+                                                        </option>
+                                                        <option value="Dimanakah tempat lahir anda?">
+                                                            Dimanakah tempat
+                                                            lahir
+                                                            anda?</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="answer_question">Jawaban</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Masukan jawabannya disini" id="answer_question"
+                                                            name="answer_question" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="nip-anggota">No
+                                                            Handphone</label>
+                                                        <input type="text" onkeypress="validate(event)"
+                                                            class="form-control" name="no-handphone"
+                                                            id="no_handphone" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <div class="form-group">
+                                                    <label for="alamat">Alamat</label>
+                                                    <input type="text" class="form-control" name="alamat" id="alamat" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer justify-content-start">
+                                            <button type="submit" class="btn btn-primary tblSimpan" name="insert"
+                                                id="insert" value="Insert">Simpan</button>
+                                            <button type="button" class="btn btn-outline-danger"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                         <!-- Modal Tambah Petugas -->
                         <form action="" method="post">
                             <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambah"
@@ -373,6 +368,7 @@ include("footer.admin.php");
 $(document).ready(function() {
     $(".view-edit").on("click", function() {
         var id_petugas = $(this).attr("id");
+        $("#edit_id_petugas").val(id_petugas);
         $.ajax({
             url: "../ajax.php",
             method: "post",

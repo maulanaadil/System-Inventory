@@ -291,7 +291,23 @@ if($db->connect_errno==0){
         }else{
             $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
         } 
-    } 
+    }else if(isset($_POST['detail_id_pinjam'])){
+        $output = '';
+        $k = getRincianPeminjaman($_POST['detail_id_pinjam']);
+        $output .= "
+        <table class='table table-borderless table-responsive' style='color:black;'>";
+        foreach($k as $row){
+            $output .= '
+            <tr>
+                <td>'.$row["nm_barang"].'</td>
+                <td>'.$row["qty"].'</td>
+            </tr>';
+        };
+    $output .= "</table>";
+    echo $output;
+    }
 }
-echo json_encode($response);
+if($response!=[]){
+    echo json_encode($response);
+}
 ?>

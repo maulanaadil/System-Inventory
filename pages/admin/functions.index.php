@@ -78,5 +78,6 @@
 	    $sql = "SELECT peminjaman.id_pinjam as 'id', anggota.nm_anggota as 'nama', peminjaman.tgl_pinjam as 'pinjam', peminjaman.tgl_kembali as 'kembali' FROM peminjaman INNER JOIN anggota ON peminjaman.id_anggota = anggota.id_anggota ";
 		return $res=$db->query($sql);
     }
-    ?>
+
     
+    ?>

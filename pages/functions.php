@@ -227,7 +227,17 @@ function getDataPengembalian(){
 	else
 		return FALSE;
 }
-
+function getJumlahBarang($id_barang){
+	$db=dbConnect();
+	$sql = "SELECT baik as jumlah from barang where id_barang='$id_barang'";
+	$res=$db->query($sql);
+	if($res){
+		$data=$res->fetch_assoc();
+		$res->free();
+		return $data;
+	}else
+		return FALSE; 
+}
 function showError($message){
 	?>
 <div class="alert alert-danger d-flex align-items-center" role="alert">
