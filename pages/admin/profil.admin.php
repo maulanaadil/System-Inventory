@@ -26,10 +26,11 @@ if($db->connect_errno==0){
                                 style="text-align: left; font-size: 18pt">
                                 Profil
                             </a>
-                            <div class="form-group mt-2">
-                                <img src="../../images/logo.png" class="img-thumbnail" alt="..."
+                            <div class="form-group mt-2 d-flex">
+                                <img src="../../images/logo.png" class="img-fluid me-3" alt="..."
                                     style="width:140pt; height: 140pt;">
-                                Ubah Foto Profil
+                                 <input type="file" id="ubah-gambar" name="ubah-gambar" style="display: none;" accept="image/*" />
+                                 <label for="ubah-gambar" class="ms-3 text-primary" style="margin: auto 5px; font-size: 16px; font-weight: 500;">Ubah Gambar</label>
                             </div>
                         </div>
                     </div>
@@ -70,7 +71,7 @@ if($db->connect_errno==0){
                                         input>
                                 </div>
                             </div>
-                            <a href="../" class="auth-link text-black text-decoration-none float-end"
+                            <a href="../lupa-password/lupa-password.html" class="auth-link text-black text-decoration-none float-end"
                                 style="text-align: right;">Ubah Password</a>
                             <div class="form-group">
                                 <label for="exampleDataList" class="form-label">Reset Pertanyaan</label>
