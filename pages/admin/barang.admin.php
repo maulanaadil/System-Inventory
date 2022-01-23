@@ -101,10 +101,10 @@ if($db->connect_errno==0){
                                         <button type="button" class="btn btn-warning btn-sm me-3 view-edit"
                                             id="<?= $data['id_barang'] ?>">Edit</button>
                                         <!-- MODAL EDIT DATA -->
-                                        <div class="modal fade" id="modals-edit" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <form action="">
+                                        <form method="post" id="insert_form">
+                                            <div class="modal fade" id="modals-edit" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-scrollable">
                                                     <div class="modal-content text-start">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="form-tambah">Form Edit Data
@@ -116,32 +116,35 @@ if($db->connect_errno==0){
                                                             <div class="form-group mt-2">
                                                                 <label for="nama-barang" class="mb-2">Nama
                                                                     Barang</label>
+                                                                <input type="hidden" class="form-control"
+                                                                    name="ubah_barang"
+                                                                    value="<?=$data['id_barang']?>" />
                                                                 <input type="text" class="form-control"
-                                                                    id="txt-nama-barang" />
+                                                                    id="edit-nama-barang" name="nama-barang" />
                                                             </div>
                                                             <label for="jumlah-barang" class="mb-2">Jumlah Barang</p>
                                                                 <div class="row">
                                                                     <div class="col">
                                                                         <label for="Baik" class="mb-2">Baik</label>
-                                                                        <input type="number" name="qty"
-                                                                            onChange="total()" min="0"
-                                                                            class="form-control" value="0"
-                                                                            id="number-kondisi-baik" />
+                                                                        <input type="number" min="0"
+                                                                            class="form-control qty1-edit"
+                                                                            onChange="total()" value="0" id="edit-baik"
+                                                                            name="jml-baik" />
                                                                     </div>
                                                                     <div class="col">
                                                                         <label for="Rusak" class="mb-2">Rusak</label>
-                                                                        <input type="number" name="qty"
-                                                                            onChange="total()" min="0"
-                                                                            class="form-control" value="0"
-                                                                            id="number-kondisi-rusak" />
+                                                                        <input type="number" name="jml-rusak" min="0"
+                                                                            class="form-control qty1-edit"
+                                                                            onChange="total()" value="0"
+                                                                            id="edit-rusak" />
                                                                     </div>
                                                                     <div class="col">
                                                                         <label for="Rusak-Beratt" class="mb-2">Rusak
                                                                             Berat</label>
-                                                                        <input type="number" name="qty"
-                                                                            onChange="total()" min="0"
-                                                                            class="form-control" value="0"
-                                                                            id="number-kondisi-rusak-berat" />
+                                                                        <input type="number" name="jml-rusak-berat"
+                                                                            min="0" class="form-control qty1-edit"
+                                                                            onChange="total()" value="0"
+                                                                            id="edit-rusak-berat" />
                                                                     </div>
                                                                     <div class="col offset-1">
                                                                         <label for="Total" class="mb-2">Total</label>
@@ -159,7 +162,7 @@ if($db->connect_errno==0){
                                                                                 <select class="form-select"
                                                                                     aria-label="Default select example"
                                                                                     name="kategori-barang"
-                                                                                    id="kategori-barang">
+                                                                                    id="edit-kategori-barang">
                                                                                     <option selected>Pilih Kategori
                                                                                         Barang</option>
                                                                                     <?php foreach ($getKategori as $kb) :?>
@@ -177,7 +180,7 @@ if($db->connect_errno==0){
                                                                             <div>
                                                                                 <select class="form-select"
                                                                                     aria-label="Default select example"
-                                                                                    name="supplier" id="supplier">
+                                                                                    name="supplier" id="edit-supplier">
                                                                                     <option selected>Pilih Supplier
                                                                                     </option>
                                                                                     <?php foreach ($getSupplier as $supplier) :?>
@@ -198,7 +201,7 @@ if($db->connect_errno==0){
                                                                             <div>
                                                                                 <select class="form-select"
                                                                                     aria-label="Default select example"
-                                                                                    name="sumber" id="sumber">
+                                                                                    name="sumber" id="edit-sumber">
                                                                                     <option selected>Pilih Sumber
                                                                                     </option>
                                                                                     <option value="APBD">APBD</option>
@@ -214,7 +217,7 @@ if($db->connect_errno==0){
                                                                             <div>
                                                                                 <select class="form-select"
                                                                                     aria-label="Default select example"
-                                                                                    name="satuan" id="satuan">
+                                                                                    name="satuan" id="edit-satuan">
                                                                                     <option selected>Pilih Satuan
                                                                                     </option>
                                                                                     <option value="Buah">Buah</option>
@@ -233,17 +236,24 @@ if($db->connect_errno==0){
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <label for="tgl">Tanggal</label>
+                                                                        <input type="date" class="form-control"
+                                                                            id="edit-tgl" name="tanggal" />
+                                                                    </div>
+                                                                </div>
                                                         </div>
                                                         <div class="modal-footer justify-content-start">
-                                                            <input type="submit" class="btn btn-primary"
-                                                                value="Simpan"></input>
-                                                            <input type="reset" class="btn btn-outline-danger"
-                                                                data-bs-dismiss="modal"></input>
+                                                            <button type="submit" class="btn btn-primary tblSimpan"
+                                                                name="insert" id="insert" value="Insert">Simpan</button>
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                data-bs-dismiss="modal">Kembali</button>
                                                         </div>
                                                     </div>
-                                                </form>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
                                         <!-- END MODAL EDIT DATA -->
                                     </td>
                                 </tr>
@@ -402,8 +412,6 @@ function total2() {
     }
     document.getElementById('total-number-kondisi2').value = tot;
 }
-
-
 $(document).ready(function() {
     $('.table-paginate').dataTable();
 
@@ -417,22 +425,22 @@ $(document).ready(function() {
                 id_barang: id_barang
             },
             success: function(resp) {
-                console.log(resp)
                 if (resp.status === "OK") {
-                    $("#txt-nama-barang").val(resp.data.nm_barang);
                     var qtyBaik = resp.data.baik;
                     var qtyRusak = resp.data.rusak;
                     var qtyRusakBerat = resp.data.rusak_berat;
                     var total = parseInt(qtyBaik) + parseInt(qtyRusak) + parseInt(
                         qtyRusakBerat);
-                    $("#number-kondisi-baik").val(resp.data.baik);
-                    $("#number-kondisi-rusak").val(resp.data.rusak);
-                    $("#number-kondisi-rusak-berat").val(resp.data.rusak_berat);
+                    $("#edit-nama-barang").val(resp.data.nm_barang);
+                    $("#edit-baik").val(resp.data.baik);
+                    $("#edit-rusak").val(resp.data.rusak);
+                    $("#edit-rusak-berat").val(resp.data.rusak_berat);
+                    $("#edit-kategori-barang").val(resp.data.id_kat);
+                    $("#edit-supplier").val(resp.data.id_supplier);
+                    $("#edit-sumber").val(resp.data.sumber);
                     $("#total-number-kondisi").val(total);
-                    $("#kategori-barang").val(resp.data.id_kat);
-                    $("#supplier").val(resp.data.id_supplier);
-                    $("#sumber").val(resp.data.sumber);
-                    $("#satuan").val(resp.data.satuan);
+                    $("#edit-satuan").val(resp.data.satuan);
+                    $("#edit-tgl").val(resp.data.tanggal);
                     $("#modals-edit").modal("show");
                 }
             }
@@ -440,8 +448,59 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $('#insert_form').on("submit", function(event) {
+        event.preventDefault();
+        if ($('#edit-nama-barang').val() == "") {
+            alert("Nama tidak boleh kosong");
+        } else if ($('#edit-kategori-barang').val() == 'Pilih Kategori Barang') {
+            alert("Kategori Barang tidak boleh kosong");
+        } else if ($('#edit-supplier').val() == 'Pilih Supplier') {
+            alert("Supplier tidak boleh kosong");
+        } else if ($('#edit-sumber').val() == 'Pilih Sumber') {
+            alert("Sumber tidak boleh kosong");
+        } else if ($('#edit-satuan').val() == 'Pilih Satuan') {
+            alert("Satuan tidak boleh kosong");
+        } else if ($('#edit-tgl').val() == '') {
+            alert("Tanggal tidak boleh kosong");
+        } else {
+            $.ajax({
+                url: "../ajax.php",
+                method: "post",
+                dataType: "json",
+                data: $('#insert_form').serialize(),
+                beforeSend: function() {
+                    $('#insert').val("Inserting");
+                },
+                success: function(resp) {
+                    if (resp.status == "OK") {
+                        Swal.fire({
+                            title: 'Data berhasil diubah',
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ok!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                document.location.href = "barang.admin.php";
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Data gagal diubah',
+                            text: 'Kemungkinan data sama atau gagal eksekusi',
+                            icon: 'error',
+                            showCloseButton: true,
+                        })
+                    }
+                },
+            });
+        }
+    })
+})
+
 function total() {
-    var arr = document.getElementsByClassName('qty1');
+    var arr = document.getElementsByClassName('qty1-edit');
     var tot = 0;
     for (var i = 0; i < arr.length; i++) {
         if (parseInt(arr[i].value))

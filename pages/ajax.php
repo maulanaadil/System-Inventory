@@ -30,7 +30,6 @@ if($db->connect_errno==0){
         $answer_question=strtoupper($db->escape_string($_POST['answer_question']));
         $no_handphone=$db->escape_string($_POST['no-handphone']);
         $alamat=$db->escape_string($_POST['alamat']);
-        
         $sql="UPDATE petugas set nm_petugas='$nama_petugas', username='$username', hak_akses='$hak_akses', reset_question='$reset_question', answer_question='$answer_question', alamat='$alamat', no_hp='$no_handphone', jk='$jk' where id_petugas='$id_petugas'";
         $res=$db->query($sql);
         if($res){
@@ -213,6 +212,29 @@ if($db->connect_errno==0){
         }else{
             $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
         }
+    }else if(isset($_POST['ubah_barang'])){
+        $id_barang = $db->escape_string($_POST['ubah_barang']);
+        $id_kat = $db->escape_string($_POST['kategori-barang']);
+        $nm_barang = $db->escape_string($_POST['nama-barang']);
+        $baik = (int)$_POST['jml-baik'];
+        $rusak = (int)$_POST['jml-rusak'];
+        $rusak_berat = (int)$_POST['jml-rusak-berat'];
+        $supplier = $db->escape_string($_POST['supplier']);
+        $sumber = $db->escape_string($_POST['sumber']);
+        $satuan = $db->escape_string($_POST['satuan']);
+        $tanggal = $db->escape_string($_POST['tanggal']);
+        if($id_barang!=""){
+            $res=$db->query("UPDATE barang SET id_kat='$id_kat', id_supplier='$supplier', nm_barang='$nm_barang', baik='$baik', rusak='$rusak', rusak_berat='$rusak_berat',tanggal='$tanggal', sumber='$sumber', satuan='$satuan' WHERE id_barang='$id_barang'");
+            if($res){
+                if($db->affected_rows>0){
+                  $response['status']="OK";
+                }else{
+                  $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
+                }
+           }else{
+              $response['status']="ERROR".(DEVELOPMENT?" : ".$db->error:"");
+           }
+        }else $response['status']= "ERROR".(DEVELOPMENT?" : ".$db->error:"");
     }else if(isset($_POST['id_satuan'])){
         $id_satuan = $db->escape_string($_POST['id_satuan']);
         $sql= "SELECT * from satuan where id_satuan = '$id_satuan'";
