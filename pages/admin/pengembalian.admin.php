@@ -125,7 +125,7 @@ if($db->connect_errno==0){
 
 
                     <!-- Modal Tambah Pengembalian -->
-                    <form action="" method="post">
+                    <form action="" method="post" id="insert_form">
                         <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable">
@@ -154,8 +154,7 @@ if($db->connect_errno==0){
                                             <label for="id_tanggal_pengembalian" style="font-size: 12pt">Tanggal
                                                 Pengembalian</label>
                                             <input type="date" class="form-control mt-2"
-                                                id="tambah_tanggal_pengembalian" required
-                                                name="tambah_tanggal_pengembalian" />
+                                                id="tambah_tanggal_pengembalian" name="tambah_tanggal_pengembalian" />
                                             <label id="info-id"></label>
                                         </div>
                                         <div id="detail">
@@ -244,5 +243,14 @@ $(document).ready(function() {
             }
         })
     });
+    $('#insert_form').on("submit", function(event) {
+        event.preventDefault();
+        if ($('#id_pinjam').val() == "") {
+            alert("ID Pinjam tidak boleh kosong!");
+        } else if ($('#tambah_tanggal_pengembalian').val() == "") {
+            alert("Tanggal tidak boleh kosong!");
+        }
+
+    })
 });
 </script>
