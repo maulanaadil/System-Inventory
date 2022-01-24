@@ -26,7 +26,7 @@ if($db->connect_errno==0){
                             <h4 class="h5 mt-2 me-3">Periode: </h4>
                             <select class="form-select" aria-label="Default select example" name="periode"
                                 style="width: 200px;" id="periode">
-                                <option selected>Pilih Periode</option>
+                                <option value="0" selected>Pilih Periode</option>
                                 <option value="1">Januari</option>
                                 <option value="2">Februari</option>
                                 <option value="3">Maret</option>
@@ -89,7 +89,9 @@ if($db->connect_errno==0){
                             </div>
                             <div class="container px-5">
                                 <div class="text-end">
-                                    <button class="btn btn-success my-3 mx-5">Export</button>
+                                    <a href="excel-barang.php" target="_blank"
+                                        class="btn btn-success my-3 mx-5">Export</a>
+                                    <!-- <button class="btn btn-success my-3 mx-5">Export</button> -->
                                 </div>
                             </div>
                         </div>
@@ -101,25 +103,30 @@ if($db->connect_errno==0){
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table id="data-peminjam" class="table table-hover" style="text-align: center">
-                                    <thead>
-                                        <tr>
-                                            <th>ID Pinjam</th>
-                                            <th>Nama Peminjam</th>
-                                            <th>Tgl Pinjam</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <form action="excel-pinjam.php" method="post">
+                                <input type="hidden" value="" name="tgl_periode" id="tgl_periode">
+                                <div class="table-responsive">
+                                    <table id="data-peminjam" class="table table-hover" style="text-align: center">
+                                        <thead>
+                                            <tr>
+                                                <th>ID Pinjam</th>
+                                                <th>Nama Peminjam</th>
+                                                <th>Tgl Pinjam</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="container">
-                                <div class="text-end">
-                                    <button class="btn btn-success my-3">Export</button>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
+                                <div class="container">
+                                    <div class="text-end">
+                                        <input type="submit" value="Export" class="btn btn-success my-3 mx-5"
+                                            name="tblExport">
+                                        <!-- <button class="btn btn-success my-3">Export</button> -->
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="tab-pane fade" id="pengembalian" role="tabpanel" aria-labelledby="pengembalian-tab">
                             <div class="d-flex flex-wrap justify-content-xl-between">
@@ -129,25 +136,32 @@ if($db->connect_errno==0){
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table id="data-pengembalian" class="table table-hover" style="text-align: center">
-                                    <thead>
-                                        <tr>
-                                            <th>ID Pinjam</th>
-                                            <th>Nama Peminjam</th>
-                                            <th>Tgl Kembali</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <form action="excel-pinjam.php" method="post">
+                                <input type="hidden" value="" name="tgl_periode" id="tgl_periode_kembali">
+                                <div class="table-responsive">
+                                    <table id="data-pengembalian" class="table table-hover" style="text-align: center">
+                                        <thead>
+                                            <tr>
+                                                <th>ID Pinjam</th>
+                                                <th>Nama Peminjam</th>
+                                                <th>Tgl Kembali</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="container">
-                                <div class="text-end">
-                                    <button class="btn btn-success my-3">Export</button>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
+                                <div class="container">
+                                    <div class="text-end">
+                                        <!-- <a href="excel-barang.php" target="_blank"
+                                            class="btn btn-success my-3 mx-5">Export</a> -->
+                                        <input type="submit" value="Export" class="btn btn-success my-3 mx-5"
+                                            name="tblExport">
+                                        <!-- <button class="btn btn-success my-3">Export</button> -->
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <?php 
@@ -162,6 +176,8 @@ include("footer.admin.php");
                     <script>
                     $("#periode").on("change", function() {
                         var periode = $("#periode").val();
+                        $("#tgl_periode").val(periode);
+                        $("#tgl_periode_kembali").val(periode);
                         $.ajax({
                             url: "../ajax.php",
                             method: "post",
