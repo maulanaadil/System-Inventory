@@ -10,8 +10,7 @@ if($db->connect_errno==0){
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body dashboard-tabs p-0">
-
+                <div class="card-body">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
