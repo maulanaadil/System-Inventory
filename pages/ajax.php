@@ -252,7 +252,7 @@ if($db->connect_errno==0){
         }
     }else if(isset($_POST['username'])){
         $username = $db->escape_string($_POST['username']);
-        $id_petugas = $db->escape_string($_POST['id']);
+        // $id_petugas = $db->escape_string($_POST['id']);
         $sql = "SELECT username from petugas where username='$username'";
         $res=$db->query($sql); 
             if($res){
@@ -328,41 +328,41 @@ if($db->connect_errno==0){
         $periode = $db->escape_string($_POST['barang']);
         $tableBarang = getBarangPeriode($periode);
         foreach ($tableBarang as $data) : ?>
-            <tr>
-                <td><?= $data['id_barang'] ?></td>
-                <td><?= $data['nm_barang']; ?></td>
-                <td><?= $data['baik']; ?></td>
-                <td><?= $data['rusak']; ?></td>
-                <td><?= $data['rusak_berat']; ?></td>
-                <td><?= sum($data['baik'], $data['rusak'], $data['rusak_berat']) ?></td>
-                <td><?= $data['sumber'] ?></td>
-                <td><?= date("d F Y", strtotime($data['tanggal']));?></td>
-            </tr>
-        <?php endforeach;
+<tr>
+    <td><?= $data['id_barang'] ?></td>
+    <td><?= $data['nm_barang']; ?></td>
+    <td><?= $data['baik']; ?></td>
+    <td><?= $data['rusak']; ?></td>
+    <td><?= $data['rusak_berat']; ?></td>
+    <td><?= sum($data['baik'], $data['rusak'], $data['rusak_berat']) ?></td>
+    <td><?= $data['sumber'] ?></td>
+    <td><?= date("d F Y", strtotime($data['tanggal']));?></td>
+</tr>
+<?php endforeach;
     } else if (isset($_POST['peminjam'])) {
         $periode = $db->escape_string($_POST['peminjam']);
         $tablePeminjam = getDataPeminjamanPeriode($periode);
         foreach ($tablePeminjam as $data) : ?>
-                <tr>
-                    <td><?= $data['id_pinjam'] ?></td>
-                    <td><?= $data['nama'] ?></td>
-                    <td><?= 
+<tr>
+    <td><?= $data['id_pinjam'] ?></td>
+    <td><?= $data['nama'] ?></td>
+    <td><?= 
                         date("d F Y", strtotime($data['tanggal']));
                         ?></td>
-                </tr>
-        <?php endforeach;
+</tr>
+<?php endforeach;
     } else if (isset($_POST['laporanpengembalian'])) {
         $periode = $db->escape_string($_POST['laporanpengembalian']);
         $tablePengembalian = getDataPengembalianPeriode($periode);
         foreach ($tablePengembalian as $data) : ?>
-                <tr>
-                    <td><?= $data['id_pinjam'] ?></td>
-                    <td><?= $data['nama'] ?></td>
-                    <td><?= 
+<tr>
+    <td><?= $data['id_pinjam'] ?></td>
+    <td><?= $data['nama'] ?></td>
+    <td><?= 
                         date("d F Y", strtotime($data['tanggal']));
                         ?></td>
-                </tr>
-        <?php endforeach;
+</tr>
+<?php endforeach;
     }
 }
 if($response!=[]){

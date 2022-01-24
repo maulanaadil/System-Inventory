@@ -167,8 +167,8 @@ if($db->connect_errno==0){
                                             </div>
                                             <div class="form-group">
                                                 <label for="username">Username</label>
-                                                <input type="text" class="form-control edit-username" name="username"
-                                                    id="username" autocomplete="off" />
+                                                <input type="text" class="form-control" name="username" id="username"
+                                                    autocomplete="off" />
                                                 <label id="info-username"></label>
                                             </div>
                                             <div class="form-group mt-2">
@@ -282,10 +282,10 @@ if($db->connect_errno==0){
                                                 </div>
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="nip-anggota">Username</label>
-                                                <input type="text" class="form-control edit-username" name="username"
-                                                    autocomplete="off" />
-                                                <label id="info-username"></label>
+                                                <label for="username">Username</label>
+                                                <input type="text" class="form-control username" id="tambah-username"
+                                                    name="username" autocomplete="off" />
+                                                <label id="info-tambah-username"></label>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
@@ -411,19 +411,21 @@ $(document).ready(function() {
             }
         }
     })
-    $(".edit-username").on("keyup", function() {
-        let username = $(".edit-username").val();
-        let id_petugas = $("#id_petugas").val();
-        if (username && id_petugas != "") {
+    $("#username").on("keyup", function() {
+        let username = $("#username").val();
+        // let id_petugas = $("#id_petugas").val();
+        console.log(username);
+        if (username != "") {
             $.ajax({
                 url: "../ajax.php",
                 method: "post",
                 dataType: "json",
                 data: {
                     username: username,
-                    id: id_petugas
+                    // id: id_petugas
                 },
                 success: function(resp) {
+                    console.log(resp);
                     if (resp.status === "OK") {
                         $("#info-username").html("Username dapat digunakan");
                         $("#info-username").css("color", "green");
@@ -431,6 +433,37 @@ $(document).ready(function() {
                     } else if (resp.status === "ERROR") {
                         $("#info-username").html("Username telah digunakan!");
                         $("#info-username").css("color", "red");
+                        $(".tblSimpan").attr("disabled", "disabled");
+                    }
+                }
+            })
+        } else if (username.trim().length == 0) {
+            $("#info-username").html("");
+            $(".tblSimpan").attr("disabled", "disabled");
+        }
+    })
+    $("#tambah-username").on("keyup", function() {
+        let username = $("#tambah-username").val();
+        // let id_petugas = $("#id_petugas").val();
+        console.log(username);
+        if (username != "") {
+            $.ajax({
+                url: "../ajax.php",
+                method: "post",
+                dataType: "json",
+                data: {
+                    username: username,
+                    // id: id_petugas
+                },
+                success: function(resp) {
+                    console.log(resp);
+                    if (resp.status === "OK") {
+                        $("#info-tambah-username").html("Username dapat digunakan");
+                        $("#info-tambah-username").css("color", "green");
+                        $(".tblSimpan").removeAttr("disabled");
+                    } else if (resp.status === "ERROR") {
+                        $("#info-tambah-username").html("Username telah digunakan!");
+                        $("#info-tambah-username").css("color", "red");
                         $(".tblSimpan").attr("disabled", "disabled");
                     }
                 }
