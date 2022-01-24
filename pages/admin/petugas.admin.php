@@ -20,7 +20,8 @@ if($db->connect_errno==0){
 		$password = $db->escape_string($_POST['password']);
         $repeatPassword = $db->escape_string($_POST['repeat-password']);
             if($password === $repeatPassword){
-                $newpass = substr(password_hash($password,PASSWORD_DEFAULT),0,50);
+                // $newpass = substr(password_hash($password,PASSWORD_DEFAULT),0,50);
+                $newpass = password_hash($password,PASSWORD_DEFAULT);
             }
 		$hak_akses = $db->escape_string($_POST['hak-akses']);
 		$reset_question = $db->escape_string($_POST['pertanyaan-reset']);
