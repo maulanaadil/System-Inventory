@@ -162,7 +162,7 @@ if($db->connect_errno==0){
                         <!-- End Modal Detail Peminjaman -->
                         <!-- Modal Tambah Peminjaman -->
                         <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true" style="padding: 0 120px !important;">
+                            aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable"
                                 style="width: 1100px; margin: 1.75rem 50px;">
                                 <div class="modal-content text-start" style="width: 1100px;">
@@ -284,7 +284,8 @@ if($db->connect_errno==0){
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-target="#modalTambah"
                                             data-bs-toggle="modal">Close</button>
-                                        <button type="submit" class="btn btn-success" name="simpan">Simpan</button>
+                                        <button type="submit" class="btn btn-success" name="simpan"
+                                            id="btn-simpan">Simpan</button>
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +310,8 @@ $(document).ready(function() {
     $(".table-paginate").on("click", ".pinjam", function() {
         var id_barang = $(this).attr("Id");
         const myArray = id_barang.split("-");
-        $("#rincian tbody").append("<tr><td><input type='text' name='nm_barang[]' min='0' id='nm_brg' value='" +
+        $("#rincian tbody").append(
+            "<tr><td><input type='text' name='nm_barang[]' min='0' id='nm_brg' value='" +
             myArray[1] +
             "' style='width:6rem;'></td><td><input type='number' name='jml[]' min='0' id='jml' style='width:4rem;'></td><td><button class='btn btn-danger btn-sm' id='hapus'><i class='mdi mdi mdi-delete text-white'></i></button></td>"
         );
@@ -324,19 +326,30 @@ $(document).ready(function() {
             $("#simpan").attr("hidden", "hidden");
         }
     });
+    $("#btn-simpan").on("click", function(event) {
+        if ($('#tambah_tanggal_peminjaman').val() == "") {
+            alert("Tanggal tidak boleh kosong!");
+            event.preventDefault();
+        } else if ($('#tambah_nama_peminjam').val() == "") {
+            alert("Nama tidak boleh kosong!");
+            event.preventDefault();
+        } else {
+            $("#insert_form").submit();
+        }
+    })
     // $("#simpan").on("click", function() {
     //     // var jml = $(this).val();
     //     // var id = $("#rincian").find("#id_brg", this).val();
     //     $("#staticBackdrop").modal("show");
     // })
-    $('#insert_form').on("submit", function(event) {
-        event.preventDefault();
-        if ($('#tambah_tanggal_peminjaman').val() == "") {
-            alert("Tanggal tidak boleh kosong!");
-        } else if ($('#tambah_nama_peminjam').val() == "") {
-            alert("Nama tidak boleh kosong!");
-        }
-    })
+    // $('#insert_form').on("submit", function(event) {
+    //     event.preventDefault();
+    //     if ($('#tambah_tanggal_peminjaman').val() == "") {
+    //         alert("Tanggal tidak boleh kosong!");
+    //     } else if ($('#tambah_nama_peminjam').val() == "") {
+    //         alert("Nama tidak boleh kosong!");
+    //     }
+    // })
 });
 
 

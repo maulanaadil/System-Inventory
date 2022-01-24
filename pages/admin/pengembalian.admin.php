@@ -51,6 +51,11 @@ if($db->connect_errno==0){
         }
     }
 ?>
+<style type="text/css">
+.error {
+    color: red;
+}
+</style>
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 stretch-card">
@@ -122,10 +127,8 @@ if($db->connect_errno==0){
                             </tbody>
                         </table>
                     </div>
-
-
                     <!-- Modal Tambah Pengembalian -->
-                    <form action="" method="post" id="insert_form">
+                    <form action="" method="post" id="form_tambah">
                         <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable">
@@ -140,11 +143,11 @@ if($db->connect_errno==0){
                                             <label for="id-pinjam-label">ID Pinjam</label>
                                             <div>
                                                 <select class="form-select" aria-label="Default select example"
-                                                    name="id-pinjam" id="id_pinjam">
+                                                    name="id-pinjam" id="id_pinjam" required>
                                                     <option value="" selected>Pilih ID Pinjam</option>
                                                     <?php foreach ($getIdPinjam as $ip) : ?>
                                                     <option value="<?= $ip['id_pinjam'] ?>">
-                                                        <?= $ip['id_pinjam'] ?>
+                                                        <?= $ip['id_pinjam']." a.n ".$ip['nm_anggota'] ?>
                                                     </option>
                                                     <?php endforeach; ?>
                                                 </select>
@@ -154,7 +157,8 @@ if($db->connect_errno==0){
                                             <label for="id_tanggal_pengembalian" style="font-size: 12pt">Tanggal
                                                 Pengembalian</label>
                                             <input type="date" class="form-control mt-2"
-                                                id="tambah_tanggal_pengembalian" name="tambah_tanggal_pengembalian" />
+                                                id="tambah_tanggal_pengembalian" name="tambah_tanggal_pengembalian"
+                                                title="Tanggal tidak boleh kosong!" />
                                             <label id="info-id"></label>
                                         </div>
                                         <div id="detail">
@@ -162,7 +166,8 @@ if($db->connect_errno==0){
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-start">
-                                        <input type="submit" name="tblSimpan" class="btn btn-success" id="btn-simpan" value="Simpan" disabled />
+                                        <input type="submit" name="tblSimpan" class="btn btn-success" id="btn-simpan"
+                                            value="Simpan" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -184,6 +189,14 @@ include("footer.admin.php");
 <script type="text/javascript">
 $(document).ready(function() {
     $('.table-paginate').dataTable();
+    $("#btn-simpan").on("click", function(event) {
+        if ($('#tambah_tanggal_pengembalian').val() == "") {
+            alert("Tanggal tidak boleh kosong!");
+            event.preventDefault();
+        } else {
+            $("#insert_form").submit();
+        }
+    })
 });
 
 
@@ -221,12 +234,12 @@ $(document).ready(function() {
                 },
                 success: function(resp) {
                     $("#detail").html(resp);
-					$("#btn-simpan").prop("disabled", false);
+                    $("#btn-simpan").prop("disabled", false);
                 }
             })
         } else {
             $("#detail").html("Pilih ID Peminjaman terlebih dahulu");
-			$("#btn-simpan").prop("disabled", true);
+            $("#btn-simpan").prop("disabled", true);
         }
     })
     $(".table-paginate").on("click", ".view-detail", function() {
@@ -243,14 +256,6 @@ $(document).ready(function() {
             }
         })
     });
-    $('#insert_form').on("submit", function(event) {
-        event.preventDefault();
-        if ($('#id_pinjam').val() == "") {
-            alert("ID Pinjam tidak boleh kosong!");
-        } else if ($('#tambah_tanggal_pengembalian').val() == "") {
-            alert("Tanggal tidak boleh kosong!");
-        }
 
-    })
 });
 </script>
