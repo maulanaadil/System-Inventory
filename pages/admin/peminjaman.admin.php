@@ -161,7 +161,7 @@ if($db->connect_errno==0){
                         <!-- End Modal Detail Peminjaman -->
                         <!-- Modal Tambah Peminjaman -->
                         <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                            aria-hidden="true" style="padding: 0 120px !important;">
                             <div class="modal-dialog modal-dialog-scrollable"
                                 style="width: 1100px; margin: 1.75rem 50px;">
                                 <div class="modal-content text-start" style="width: 1100px;">
@@ -309,11 +309,11 @@ $(document).ready(function() {
     $(".table-paginate").on("click", ".pinjam", function() {
         var id_barang = $(this).attr("Id");
         const myArray = id_barang.split("-");
-        $("#rincian tbody").append("<tr><td><input type='text' name='nm_barang[]' id='nm_brg' value='" +
+        $("#rincian tbody").append("<tr><td><input type='text' name='nm_barang[]' min='0' id='nm_brg' value='" +
             myArray[1] +
-            "' style='width:6rem;'></td><td><input type='number' name='jml[]' id='jml' style='width:4rem;'></td><td><button class='btn btn-danger btn-sm' id='hapus'><i class='mdi mdi mdi-delete text-white'></i></button></td>"
+            "' style='width:6rem;'></td><td><input type='number' name='jml[]' min='0' id='jml' style='width:4rem;'></td><td><button class='btn btn-danger btn-sm' id='hapus'><i class='mdi mdi mdi-delete text-white'></i></button></td>"
         );
-        $("#rincian tbody").append("<input type='hidden' name='id_barang[]' id='id_brg' value='" +
+        $("#rincian tbody").append("<input type='hidden' name='id_barang[]'  id='id_brg' value='" +
             myArray[0] +
             "'>")
         $("#simpan").removeAttr("hidden");

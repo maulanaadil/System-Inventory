@@ -92,7 +92,7 @@ if($db->connect_errno==0){
                                 <tr>
                                     <td><?= $data['id_pinjam'] ?></td>
                                     <td><?= $data['nama'] ?></td>
-                                    <td><?= date("d F Y", strtotime($data['tgl_kembali'])); ?></td>
+                                    <td><?= date("d F Y", strtotime($data['tanggal'])); ?></td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm me-3 view-detail"
                                             id="<?= $data['id_pinjam'] ?>">Detail</button>
@@ -144,7 +144,7 @@ if($db->connect_errno==0){
                                                     <option value="" selected>Pilih ID Pinjam</option>
                                                     <?php foreach ($getIdPinjam as $ip) : ?>
                                                     <option value="<?= $ip['id_pinjam'] ?>">
-                                                        <?= $ip['id_pinjam']." a.n ".$ip['nm_anggota'] ?>
+                                                        <?= $ip['id_pinjam'] ?>
                                                     </option>
                                                     <?php endforeach; ?>
                                                 </select>
@@ -163,7 +163,7 @@ if($db->connect_errno==0){
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-start">
-                                        <input type="submit" name="tblSimpan" class="btn btn-success" value="Simpan" />
+                                        <input type="submit" name="tblSimpan" class="btn btn-success" id="btn-simpan" value="Simpan" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -208,6 +208,7 @@ $(document).ready(function() {
             }
         })
     });
+
     $("#id_pinjam").on("change", function() {
         var id_pinjam = $("#id_pinjam").val();
         var tgl = $("#tambah_tanggal_pengembalian").val();
@@ -221,10 +222,12 @@ $(document).ready(function() {
                 },
                 success: function(resp) {
                     $("#detail").html(resp);
+					$("#btn-simpan").prop("disabled", false);
                 }
             })
         } else {
             $("#detail").html("Pilih ID Peminjaman terlebih dahulu");
+			$("#btn-simpan").prop("disabled", true);
         }
     })
     $(".table-paginate").on("click", ".view-detail", function() {

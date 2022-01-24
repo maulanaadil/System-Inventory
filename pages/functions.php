@@ -160,7 +160,7 @@ function getKategori(){
 function getIdPinjam(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		$sql= "SELECT id_pinjam, nm_anggota FROM peminjaman join anggota using(id_anggota) where tgl_kembali  IN (SELECT tgl_kembali FROM peminjaman WHERE tgl_kembali = '0000-00-00')";
+		$sql= "SELECT * FROM rincian_peminjaman";
 		$res=$db->query($sql);
 		if($res){
 			$data=$res->fetch_all(MYSQLI_ASSOC);
@@ -229,7 +229,7 @@ function getRincianPeminjaman($id_pinjam){
 function getDataPengembalian(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		$sql= "SELECT p.id_pinjam as 'id_pinjam',a.nm_anggota as 'nama',p.tgl_kembali
+		$sql= "SELECT p.id_pinjam as 'id_pinjam',a.nm_anggota as 'nama',p.tgl_kembali as 'tanggal'
 		FROM peminjaman p JOIN anggota a ON p.id_anggota = a.id_anggota where p.tgl_kembali NOT IN (SELECT tgl_kembali FROM peminjaman WHERE tgl_kembali = '0000-00-00')";
 		$res=$db->query($sql);
 		if($res){
@@ -254,6 +254,55 @@ function getJumlahBarang($id_barang){
 	}else
 		return FALSE; 
 }
+
+function getBarangPeriode($periode) {
+	$db=dbConnect();
+	$sql = "SELECT * FROM barang WHERE MONTH(tanggal) = '$periode'";
+	$res=$db->query($sql);
+	if($res){
+		$data=$res->fetch_all(MYSQLI_ASSOC);
+		$res->free();
+		return $data;
+	}else
+		return FALSE; 
+}
+
+function getDataPeminjamanPeriode($periode){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$sql= "SELECT p.id_pinjam as 'id_pinjam',a.nm_anggota as 'nama',p.tgl_pinjam as 'tanggal'
+		FROM peminjaman p JOIN anggota a ON p.id_anggota = a.id_anggota WHERE MONTH(p.tgl_pinjam) = '$periode'";
+		$res=$db->query($sql);
+		if($res){
+			$data=$res->fetch_all(MYSQLI_ASSOC);
+			$res->free();
+			return $data;
+		}
+		else
+			return FALSE; 
+	}
+	else
+		return FALSE;
+}
+
+function getDataPengembalianPeriode($periode){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$sql= "SELECT p.id_pinjam as 'id_pinjam',a.nm_anggota as 'nama',p.tgl_kembali as 'tanggal'
+		FROM peminjaman p JOIN anggota a ON p.id_anggota = a.id_anggota where MONTH(p.tgl_kembali) = '$periode';";
+		$res=$db->query($sql);
+		if($res){
+			$data=$res->fetch_all(MYSQLI_ASSOC);
+			$res->free();
+			return $data;
+		}
+	else
+			return FALSE; 
+	}
+	else
+		return FALSE;
+}
+
 function showError($message){
 	?>
 <div class="alert alert-danger d-flex align-items-center" role="alert">

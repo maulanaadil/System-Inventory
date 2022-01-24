@@ -3,9 +3,6 @@ include("sidebar.admin.php");
 include("../functions.php");
 
 $db=dbConnect();
-$getBarang = getBarang();
-$getDataPeminjaman = getDataPeminjaman();
-$getDataPengembalian = getDataPengembalian();
 if($db->connect_errno==0){
 ?>
 
@@ -29,8 +26,20 @@ if($db->connect_errno==0){
                         <div class="d-flex my-4">
                                 <h4 class="h5 mt-2 me-3">Periode: </h4>
                                 <select class="form-select"
-                                    aria-label="Default select example" name="periode" style="width: 200px;">
+                                    aria-label="Default select example" name="periode" style="width: 200px;" id="periode">
                                     <option selected>Pilih Periode</option>
+                                    <option value="1">Januari</option>
+                                    <option value="2">Februari</option>
+                                    <option value="3">Maret</option>
+                                    <option value="4">April</option>
+                                    <option value="5">Mei</option>
+                                    <option value="6">Juni</option>
+                                    <option value="7">Juli</option>
+                                    <option value="8">Agustus</option>
+                                    <option value="9">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
                                 </select>
                         </div>
 					</div>
@@ -56,7 +65,7 @@ if($db->connect_errno==0){
                                     <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                                         <div class="d-flex flex-column justify-content-around">
                                         <div class="table-responsive">
-                                        <table id="data-anggota" class="table table-hover table-paginate" style="text-align: center">
+                                        <table id="data-barang" class="table table-hover table-paginate" style="text-align: center">
                                             <thead>
                                                 <tr>
                                                     <th rowspan="2">ID Barang</th>
@@ -71,18 +80,7 @@ if($db->connect_errno==0){
                                                 <td>Rusak Berat</td>
                                             </thead>
                                             <tbody>
-                                            <?php foreach ($getBarang as $data) :?>
-                                                <tr>
-                                                    <td><?= $data['id_barang'] ?></td>
-                                                    <td><?= $data['nm_barang'] ?></td>
-                                                    <td><?= $data['baik'] ?></td>
-                                                    <td><?= $data['rusak'] ?></td>
-                                                    <td><?= $data['rusak_berat'] ?></td>
-                                                    <td><?= sum($data['baik'], $data['rusak'], $data['rusak_berat']) ?></td>
-                                                    <td><?= $data['sumber'] ?></td>
-                                                    <td><?= date("d F Y", strtotime($data['tanggal']));?></td>
-                                                </tr>
-                                            <?php endforeach; ?>
+                                                    
                                             </tbody>
                                         </table>
                                         </div>
@@ -101,7 +99,7 @@ if($db->connect_errno==0){
                 <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                     <div class="d-flex flex-column justify-content-around">
                             <div class="table-responsive">
-                                <table id="data-anggota" class="table table-hover" style="text-align: center">
+                                <table id="data-peminjam" class="table table-hover" style="text-align: center">
                                     <thead>
                                         <tr>
                                             <th>ID Pinjam</th>
@@ -110,15 +108,7 @@ if($db->connect_errno==0){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($getDataPeminjaman as $data) :?>
-                                        <tr>
-                                            <td><?= $data['id_pinjam'] ?></td>
-                                            <td><?= $data['nama'] ?></td>
-                                            <td><?= 
-                                                date("d F Y", strtotime($data['tanggal']));
-                                                ?></td>
-                                        </tr>
-                                        <?php endforeach; ?>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -137,7 +127,7 @@ if($db->connect_errno==0){
             <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
                 <div class="d-flex flex-column justify-content-around">
                         <div class="table-responsive">
-                            <table id="data-anggota" class="table table-hover" style="text-align: center">
+                            <table id="data-pengembalian" class="table table-hover" style="text-align: center">
                                 <thead>
                                     <tr>
                                         <th>ID Pinjam</th>
@@ -146,15 +136,7 @@ if($db->connect_errno==0){
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($getDataPengembalian as $data) :?>
-                                    <tr>
-                                        <td><?= $data['id_pinjam'] ?></td>
-                                        <td><?= $data['nama'] ?></td>
-                                        <td><?= 
-                                            date("d F Y", strtotime($data['tanggal']));
-                                            ?></td>
-                                    </tr>
-                                    <?php endforeach; ?>
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -168,13 +150,50 @@ if($db->connect_errno==0){
         </div>
     </div>
 </div>
-                    
-                    
-
-
 <?php 
 include("footer.admin.php");
 }else{
     echo "Gagal koneksi" . (DEVELOPMENT ? " : " . $db->connect_error : "") . "<br>";
 }
-?>                                
+?>    
+
+
+
+<script>
+    $("#periode").on("change", function() {
+        var periode = $("#periode").val();
+        $.ajax({
+                url: "../ajax.php",
+                method: "post",
+                data: {
+                    barang: periode,
+                },
+                success: function(resp)  {
+                    $("#data-barang").find('tbody').html(resp);
+                },
+            });
+            
+        $.ajax({
+                url: "../ajax.php",
+                method: "post",
+                data: {
+                    peminjam: periode,
+                },
+                success: function(resp)  {
+                    $("#data-peminjam").find('tbody').html(resp);
+                },
+            });
+
+        $.ajax({
+                url: "../ajax.php",
+                method: "post",
+                data: {
+                    laporanpengembalian: periode,
+                },
+                success: function(resp)  {
+                    $("#data-pengembalian").find('tbody').html(resp);
+                },
+            });
+            
+    })
+</script>

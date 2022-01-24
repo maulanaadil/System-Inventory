@@ -323,7 +323,47 @@ if($db->connect_errno==0){
     </tr>
     <?php endforeach;?>
 </table>
-<?php }
+<?php 
+    } else if (isset($_POST['barang'])) {
+        $periode = $db->escape_string($_POST['barang']);
+        $tableBarang = getBarangPeriode($periode);
+        foreach ($tableBarang as $data) : ?>
+            <tr>
+                <td><?= $data['id_barang'] ?></td>
+                <td><?= $data['nm_barang']; ?></td>
+                <td><?= $data['baik']; ?></td>
+                <td><?= $data['rusak']; ?></td>
+                <td><?= $data['rusak_berat']; ?></td>
+                <td><?= sum($data['baik'], $data['rusak'], $data['rusak_berat']) ?></td>
+                <td><?= $data['sumber'] ?></td>
+                <td><?= date("d F Y", strtotime($data['tanggal']));?></td>
+            </tr>
+        <?php endforeach;
+    } else if (isset($_POST['peminjam'])) {
+        $periode = $db->escape_string($_POST['peminjam']);
+        $tablePeminjam = getDataPeminjamanPeriode($periode);
+        foreach ($tablePeminjam as $data) : ?>
+                <tr>
+                    <td><?= $data['id_pinjam'] ?></td>
+                    <td><?= $data['nama'] ?></td>
+                    <td><?= 
+                        date("d F Y", strtotime($data['tanggal']));
+                        ?></td>
+                </tr>
+        <?php endforeach;
+    } else if (isset($_POST['laporanpengembalian'])) {
+        $periode = $db->escape_string($_POST['laporanpengembalian']);
+        $tablePengembalian = getDataPengembalianPeriode($periode);
+        foreach ($tablePengembalian as $data) : ?>
+                <tr>
+                    <td><?= $data['id_pinjam'] ?></td>
+                    <td><?= $data['nama'] ?></td>
+                    <td><?= 
+                        date("d F Y", strtotime($data['tanggal']));
+                        ?></td>
+                </tr>
+        <?php endforeach;
+    }
 }
 if($response!=[]){
     echo json_encode($response);
