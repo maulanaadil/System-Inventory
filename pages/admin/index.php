@@ -149,16 +149,17 @@ $getRiwayatPeminjamanBarang = getRiwayatPeminjamanBarang();
                                 </tr>
                             </thead>
                             <tbody>
-                                
 
-                            <?php foreach ($getRiwayatPeminjamanBarang as $data) : ?>
+
+                                <?php foreach ($getRiwayatPeminjamanBarang as $data) : ?>
                                 <tr>
                                     <td><?= $data['id']; ?></td>
                                     <td><?= $data['nama']; ?></td>
                                     <td><?= $data['pinjam']; ?></td>
-                                    <td><?= $data['kembali']; ?></td>
+                                    <td><?= $data['kembali']=="0000-00-00"?"Belum dikembalikan":$data['kembali']; ?>
+                                    </td>
                                 </tr>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
