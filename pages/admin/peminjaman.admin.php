@@ -41,7 +41,8 @@ if($db->connect_errno==0){
                            "id_petugas"=>$petugas,
                            "jumlah"=>$jml[$i]);
         }
-		$db1=dbConnectPDO();
+        //PDO
+    	$db1=dbConnectPDO();
         try{
             $query = "";
             $db1->beginTransaction();
@@ -90,7 +91,7 @@ if($db->connect_errno==0){
         <div class="col-md-12 stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="" method="post" id="insert_form">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
@@ -182,8 +183,7 @@ if($db->connect_errno==0){
                                                 <label for="id_tanggal_peminjaman" style="font-size: 12pt">Tanggal
                                                     Peminjaman</label>
                                                 <input type="date" class="form-control mt-2"
-                                                    id="tambah_tanggal_peminjaman" name="tambah_tanggal_peminjaman"
-                                                    required />
+                                                    id="tambah_tanggal_peminjaman" name="tambah_tanggal_peminjaman" />
                                                 <label id="info-id"></label>
                                             </div>
                                         </div>
@@ -192,7 +192,7 @@ if($db->connect_errno==0){
                                                 <label for="id_nama_peminjam" style="font-size: 12pt">Nama
                                                     Peminjam</label>
                                                 <select class="form-select mb-4 mt-2" name="tambah_nama_peminjam"
-                                                    id="tambah_nama_peminjam" autocomplete="off" required>
+                                                    id="tambah_nama_peminjam" autocomplete="off">
                                                     <option value="" selected>Pilih</option>
                                                     <?php
 													$k = getAnggota();
@@ -261,7 +261,7 @@ if($db->connect_errno==0){
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-start">
-                                        <input type="reset" class="btn btn-outline-danger" value="Tutup"
+                                        <input type="button" class="btn btn-outline-danger" value="Tutup"
                                             data-bs-dismiss="modal" />
                                     </div>
                                 </div>
@@ -329,6 +329,14 @@ $(document).ready(function() {
     //     // var id = $("#rincian").find("#id_brg", this).val();
     //     $("#staticBackdrop").modal("show");
     // })
+    $('#insert_form').on("submit", function(event) {
+        event.preventDefault();
+        if ($('#tambah_tanggal_peminjaman').val() == "") {
+            alert("Tanggal tidak boleh kosong!");
+        } else if ($('#tambah_nama_peminjam').val() == "") {
+            alert("Nama tidak boleh kosong!");
+        }
+    })
 });
 
 
