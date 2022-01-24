@@ -160,7 +160,7 @@ function getKategori(){
 function getIdPinjam(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		$sql= "SELECT id_pinjam, nm_anggota FROM peminjaman join anggota using(id_anggota) where tgl_kembali NOT IN (SELECT tgl_kembali FROM peminjaman WHERE tgl_kembali = '0000-00-00')";
+		$sql= "SELECT id_pinjam, nm_anggota FROM peminjaman join anggota using(id_anggota) where tgl_kembali  IN (SELECT tgl_kembali FROM peminjaman WHERE tgl_kembali = '0000-00-00')";
 		$res=$db->query($sql);
 		if($res){
 			$data=$res->fetch_all(MYSQLI_ASSOC);
