@@ -6,6 +6,7 @@ $getDataPengembalian = getDataPengembalian();
 $getIdPinjam = getIdPinjam();
 if($db->connect_errno==0){
 ?>
+
 <div class="content-wrapper">
 	<div class="row">
 		<div class="col-md-12 stretch-card">
@@ -87,9 +88,6 @@ if($db->connect_errno==0){
                                             </div>
                                         </div>
 										<!-- End Modal Detail Pengembalian -->
-
-										<button type="button" class="btn btn-danger me-3 hapus"
-                                            id="<?=$data["id_pinjam"]; ?>">Hapus</button>
 									</td>
 								</tr>
 								<?php endforeach; ?>
@@ -112,13 +110,15 @@ if($db->connect_errno==0){
 										<div class="form-group">
 											<label for="id-pinjam-label">ID Pinjam</label>
 											<div>
+												<form action="" method="post">
 												<select class="form-select"
-													aria-label="Default select example" name="id-pinjam">
-													<option selected>Pilih ID Pinjam</option>
+													aria-label="Default select example" name="idpinjam" id="idpinjam">
+													<option selected >Pilih ID Pinjam</option>
 													<?php foreach ($getIdPinjam as $ip) : ?>
 													<option value="<?= $ip['id_pinjam'] ?>"><?= $ip['id_pinjam'] ?></option>
 													<?php endforeach; ?>
 												</select>
+												</form>
 											</div>
 										</div>
 										<div class="form-group">
@@ -129,18 +129,22 @@ if($db->connect_errno==0){
 										</div>
 
 										<div class="table-responsive">
-											<table class="table" >
+											<table class="table" id="table-barang">
 												<thead>
 													<tr style="background-color: white;">
 														<th>Nama Barang</th>
 														<th>Jumlah</th>
 													</tr>
 												</thead>
-												<tbody>
-													<tr>
-														<td>test</td>
-														<td>test</td>
-													</tr>
+												<tbody>	
+													<?php $idpinjam = "<script>document.write(idPinjam)</script>"?>
+													<?php $getRincianPeminjaman = getRincianPeminjaman($idpinjam); ?>
+													<?php foreach($getRincianPeminjaman as $data) : ?>
+														<tr>
+															<td><?= $data['nm_barang']?> </td>
+															<td><?= $data['qty']?> </td>
+														</tr>
+													<?php endforeach; ?>
 												</tbody>
 											</table>
 										</div>
@@ -168,10 +172,28 @@ include("footer.admin.php");
 ?>;
 
 <script type="text/javascript">
+
 	$(document).ready(function() {
     	$('.table-paginate').dataTable();
-	});
 
+
+		$('select[name=idpinjam]').on('change', function() {
+			var idPinjam = this.value;
+			console.log(idPinjam);
+
+			if (!!idPinjam) {
+				$('#table-barang').find('tbody')
+									.append('<?php $idpinjam = "<script>document.write(idPinjam)</script>"?>')
+										.append('<?php $getRincianPeminjaman = getRincianPeminjaman($idpinjam); ?>')
+											.append('<?php foreach($getRincianPeminjaman as $data) : ?>')
+												.append('<tr>')
+													.append('<td><?= $data['nm_barang']?> </td>')
+													.append('<td><?= $data['qty']?> </td>')
+												.append('</tr>')
+											.append('<?php endforeach; ?>')
+			}
+		});
+	});
 
 	$(document).ready(function() {
     $(".table-paginate").on("click",".view-detail", function() {
