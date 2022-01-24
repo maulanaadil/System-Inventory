@@ -5,6 +5,22 @@ function dbConnect(){
 	$db=new mysqli("localhost","root","","sistem-inventory");
 	return $db;
 }
+function dbConnectPDO(){
+	$dbhost = 'localhost'; // set the hostname
+	$dbname = 'sistem-inventory'; // set the database name
+	$dbuser = 'root'; // set the mysql username
+	$dbpass = '';  // set the mysql password
+
+	try {
+		$dbConnection = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
+		$dbConnection->exec("set names utf8");
+		$dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		return $dbConnection;
+	}
+		catch (PDOException $e) {
+		return 'Connection failed: ' . $e->getMessage();
+	}
+}
 
 function sum($x, $y, $k) {
     $z = $x + $y + $k;
@@ -144,7 +160,7 @@ function getKategori(){
 function getIdPinjam(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		$sql= "SELECT * FROM rincian_peminjaman";
+		$sql= "SELECT id_pinjam, nm_anggota FROM peminjaman join anggota using(id_anggota) where tgl_kembali NOT IN (SELECT tgl_kembali FROM peminjaman WHERE tgl_kembali = '0000-00-00')";
 		$res=$db->query($sql);
 		if($res){
 			$data=$res->fetch_all(MYSQLI_ASSOC);
@@ -160,7 +176,7 @@ function getIdPinjam(){
 function getPeminjaman($id_pinjam){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		$sql= "SELECT p.id_pinjam,pt.nm_petugas,a.nm_anggota,b.id_barang,b.nm_barang,r.jml_barang,s.nm_satuan FROM peminjaman p JOIN anggota a USING(id_anggota) join petugas pt using(id_petugas) join rincian_peminjaman r using(id_pinjam) join barang b using(id_barang) join satuan s using(id_satuan) where id_pinjam ='$id_pinjam'";
+		$sql= "SELECT p.id_pinjam,pt.nm_petugas,a.nm_anggota,b.id_barang,b.nm_barang,r.jml_barang,b.satuan FROM peminjaman p JOIN anggota a USING(id_anggota) join petugas pt using(id_petugas) join rincian_peminjaman r using(id_pinjam) join barang b using(id_barang) where id_pinjam ='$id_pinjam'";
 		$res=$db->query($sql);
 		if($res){
 			$data=$res->fetch_all(MYSQLI_ASSOC);
@@ -213,8 +229,8 @@ function getRincianPeminjaman($id_pinjam){
 function getDataPengembalian(){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		$sql= "SELECT p.id_pinjam as 'id_pinjam',a.nm_anggota as 'nama',p.tgl_kembali as 'tanggal'
-		FROM peminjaman p JOIN anggota a ON p.id_anggota = a.id_anggota";
+		$sql= "SELECT p.id_pinjam as 'id_pinjam',a.nm_anggota as 'nama',p.tgl_kembali
+		FROM peminjaman p JOIN anggota a ON p.id_anggota = a.id_anggota where p.tgl_kembali NOT IN (SELECT tgl_kembali FROM peminjaman WHERE tgl_kembali = '0000-00-00')";
 		$res=$db->query($sql);
 		if($res){
 			$data=$res->fetch_all(MYSQLI_ASSOC);

@@ -305,7 +305,25 @@ if($db->connect_errno==0){
         };
     $output .= "</table>";
     echo $output;
-    }
+    }else if(isset($_POST['pengembalian'])){
+        $id_pinjam = $db->escape_string($_POST['pengembalian']);
+        $tgl = $db->escape_string($_POST['tgl']);
+        $k = getPeminjaman($id_pinjam);
+        ?>
+<input type="hidden" name="id_pinjam" id="id_pinjam" value="<?=$id_pinjam;?>">
+<table class="table table-bordered" style="color: black;">
+    <tr>
+        <td>Nama Barang</td>
+        <td>Jumlah</td>
+    </tr>
+    <?php foreach($k as $row):?>
+    <tr>
+        <td><?=$row['nm_barang'];?></td>
+        <td><?=$row['jml_barang']." ".$row['satuan'];?></td>
+    </tr>
+    <?php endforeach;?>
+</table>
+<?php }
 }
 if($response!=[]){
     echo json_encode($response);

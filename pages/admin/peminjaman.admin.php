@@ -41,12 +41,11 @@ if($db->connect_errno==0){
                            "id_petugas"=>$petugas,
                            "jumlah"=>$jml[$i]);
         }
-		$db1= new PDO('mysql:host=localhost; dbname=sistem-inventory', 'root', '');
-        $db1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$db1=dbConnectPDO();
         try{
             $query = "";
             $db1->beginTransaction();
-            $sh = $db1->exec("INSERT INTO peminjaman VALUES('$id_pinjam','$petugas','$id_anggota','$tanggal','')");
+            $sh = $db1->exec("INSERT INTO peminjaman VALUES('$id_pinjam','$petugas','$id_anggota','$tanggal','null')");
                 for($i=0;$i<count($array);$i++){
                     $id_barang = $array[$i]['id_barang'];
                     $id_anggota = $array[$i]['id_anggota'];
@@ -112,9 +111,8 @@ if($db->connect_errno==0){
                                 </div>
                             </div>
                         </div>
-
                         <div class="table-responsive">
-                            <table id="data-anggota" class="table table-hover table-paginate"
+                            <table id="data-peminjaman" class="table table-hover table-paginate"
                                 style="text-align: center">
                                 <thead>
                                     <tr>
