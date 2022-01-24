@@ -99,38 +99,18 @@ if($db->connect_errno==0){
                                         <!-- Modal Detail Pengembalian -->
                                         <div class="modal fade" id="modals-detail" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
+                                            <div class="modal-dialog modal-dialog-scrollable">
                                                 <div class="modal-content text-start">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">List Barang yang Dipinjam</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
-                                                    <div class="modal-body mt-2">
-                                                        <div class="table-responsive">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <tr style="background-color: white;">
-                                                                        <th>Nama Barang</th>
-                                                                        <th>Qty</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <p id="detail_nama_barang"></p>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p id="detail_qty_barang"></p>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                                    <div class="modal-body detail mt-2">
                                                     </div>
                                                     <div class="modal-footer justify-content-start">
-                                                        <input type="reset" class="btn btn-outline-danger" value="Tutup"
-                                                            data-bs-dismiss="modal" />
+                                                        <input type="button" class="btn btn-outline-danger"
+                                                            value="Tutup" data-bs-dismiss="modal" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -246,7 +226,20 @@ $(document).ready(function() {
         } else {
             $("#detail").html("Pilih ID Peminjaman terlebih dahulu");
         }
-
     })
+    $(".table-paginate").on("click", ".view-detail", function() {
+        var id_pinjam = $(this).attr("id");
+        $.ajax({
+            url: "../ajax.php",
+            method: "post",
+            data: {
+                detail_id_pinjam: id_pinjam
+            },
+            success: function(resp) {
+                $("#modals-detail").modal("show");
+                $(".detail").html(resp);
+            }
+        })
+    });
 });
 </script>
