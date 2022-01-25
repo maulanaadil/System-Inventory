@@ -77,7 +77,8 @@ if($db->connect_errno==0){
                         <div class="row">
                             <div class="col-lg-12 d-flex flex-row-reverse">
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#modalTambah">Tambah</button>
+                                    data-bs-target="#modalTambah"
+                                    <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>Tambah</button>
                             </div>
                         </div>
                     </div>

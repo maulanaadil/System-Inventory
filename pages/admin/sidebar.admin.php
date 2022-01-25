@@ -24,6 +24,12 @@
     <!-- SweetAlert2 -->
     <script src=" //cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+<?php
+session_start();
+if (!isset($_SESSION["username"])&&!isset($_SESSION["id_petugas"])){
+header("Location: ../../index.php?error=4");
+}
+?>
 
 <body>
     <div class="container-scroller">
@@ -49,7 +55,7 @@
                                 <i class="mdi mdi-account-circle text-primary"></i>
                                 Profile
                             </a>
-                            <a class="dropdown-item text-danger" href="../../index.html">
+                            <a class="dropdown-item text-danger" href="../logout.php">
                                 <i class="mdi mdi-logout text-danger"></i>
                                 Logout
                             </a>
@@ -79,12 +85,14 @@
                             <span class="menu-title">Anggota</span>
                         </a>
                     </li>
+                    <?php if($_SESSION['hak_akses']=="admin"): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="petugas.admin.php">
                             <i class="mdi mdi-account menu-icon"></i>
                             <span class="menu-title">Petugas</span>
                         </a>
                     </li>
+                    <?php endif;?>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false"
                             aria-controls="auth">

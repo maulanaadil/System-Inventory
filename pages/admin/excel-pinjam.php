@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION["username"])&&!isset($_SESSION["id_petugas"])){
+header("Location: ../../index.php?error=4");
+}
 include('../functions.php');
 $db=dbConnect();
 require '../../vendor/autoload.php';
@@ -57,7 +61,7 @@ if(isset($_POST['tblExport'])){
 		$sheet->setCellValue('A3','Periode :');
 		$sheet->setCellValue('B3', $bulan);
 		$sheet->setCellValue('A4','Export Oleh :');
-		$sheet->setCellValue('B4','session');
+		$sheet->setCellValue('B4',$_SESSION['nm_petugas']);
 		$sheet->setCellValue('A5', 'ID Pinjam');
 		$sheet->mergeCells('A5:A6');
 		$sheet->setCellValue('B5', 'Nama Peminjam');
@@ -119,6 +123,5 @@ if(isset($_POST['tblExport'])){
 		// $writer->save('Data barang.xlsx');
 		// echo "<script>window.location = 'Data barang.xlsx'</script>";
 	}
-	
 }
 ?>

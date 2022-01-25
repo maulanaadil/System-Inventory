@@ -6,12 +6,12 @@ if($db->connect_errno==0){
         $username = $_POST['username'];
         $id_petugas = $_POST['id_petugas'];
         $password = $_POST['passwordBaru'];
-        $newpass = substr(password_hash($password,PASSWORD_DEFAULT),0,50);
+        $newpass = password_hash($password,PASSWORD_DEFAULT);
         $sql = "UPDATE petugas SET pass='$newpass' where username = '$username'and id_petugas = '$id_petugas'";
         $res = $db->query($sql);
         if($res){
             if($db->affected_rows>0){
-               header("Location: success-reset-password.html");
+               header("Location: success-reset-password.php");
             }else{
                 echo "
                     <script>

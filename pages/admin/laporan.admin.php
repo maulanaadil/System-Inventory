@@ -66,34 +66,37 @@ if($db->connect_errno==0){
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table id="data-barang" class="table table-hover table-paginate"
-                                    style="text-align: center">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2">ID Barang</th>
-                                            <th rowspan="2">Nama Barang</th>
-                                            <th colspan="3">Kondisi</th>
-                                            <th rowspan="2">Jumlah</th>
-                                            <th rowspan="2">Sumber</th>
-                                            <th rowspan="2">Tanggal</th>
-                                        </tr>
-                                        <td>Baik</td>
-                                        <td>Rusak</td>
-                                        <td>Rusak Berat</td>
-                                    </thead>
-                                    <tbody>
+                            <form action="excel-barang.php" method="post">
+                                <input type="hidden" value="" name="tgl_periode" id="tgl_periode">
+                                <div class="table-responsive">
+                                    <table id="data-barang" class="table table-hover table-paginate"
+                                        style="text-align: center">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2">ID Barang</th>
+                                                <th rowspan="2">Nama Barang</th>
+                                                <th colspan="3">Kondisi</th>
+                                                <th rowspan="2">Jumlah</th>
+                                                <th rowspan="2">Sumber</th>
+                                                <th rowspan="2">Tanggal</th>
+                                            </tr>
+                                            <td>Baik</td>
+                                            <td>Rusak</td>
+                                            <td>Rusak Berat</td>
+                                        </thead>
+                                        <tbody>
 
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="container px-5">
-                                <div class="text-end">
-                                    <a href="excel-barang.php" target="_blank"
-                                        class="btn btn-success my-3 mx-5">Export</a>
-                                    <!-- <button class="btn btn-success my-3 mx-5">Export</button> -->
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
+                                <div class="container px-5">
+                                    <div class="text-end">
+                                        <input type="submit" value="Export" class="btn btn-success my-3 mx-5"
+                                            name="tblExport">
+                                        <!-- <button class="btn btn-success my-3 mx-5">Export</button> -->
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="tab-pane fade" id="peminjaman" role="tabpanel" aria-labelledby="peminjaman-tab">
                             <div class="d-flex flex-wrap justify-content-xl-between">

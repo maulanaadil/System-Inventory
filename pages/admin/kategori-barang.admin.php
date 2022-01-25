@@ -55,7 +55,8 @@ if($db->connect_errno==0){
                         <div class="row">
                             <div class="d-flex flex-row-reverse">
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#modalTambah">Tambah</button>
+                                    data-bs-target="#modalTambah"
+                                    <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>Tambah</button>
                             </div>
                         </div>
                     </div>
@@ -65,7 +66,7 @@ if($db->connect_errno==0){
                                 <tr>
                                     <th>Id Kategori Barang</th>
                                     <th>Nama Kategori Barang</th>
-                                    <th>Aksi</th>
+                                    <th <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,7 +74,7 @@ if($db->connect_errno==0){
                                 <tr>
                                     <td><?= $data['id_kat'] ?></td>
                                     <td><?= $data['nm_kat'] ?></td>
-                                    <td>
+                                    <td <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>
                                         <button type="button" class="btn btn-warning me-3 view-edit"
                                             id="<?=$data["id_kat"]?>">Edit</button>
                                         <!-- Modal Edit Kategori Barang -->
@@ -171,7 +172,7 @@ $(document).ready(function() {
     $('.table-paginate').dataTable();
 });
 $(document).ready(function() {
-    $(".table-paginate").on("click",".view-edit", function() {
+    $(".table-paginate").on("click", ".view-edit", function() {
         var id_kat = $(this).attr("id");
         $.ajax({
             url: "../ajax.php",
@@ -215,7 +216,7 @@ $(document).ready(function() {
             }
         })
     })
-    $(".table-paginate").on("click",".hapus", function() {
+    $(".table-paginate").on("click", ".hapus", function() {
         var id_kat = $(this).attr("id");
         $.ajax({
             url: "../ajax.php",

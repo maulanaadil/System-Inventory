@@ -55,7 +55,8 @@ if($db->connect_errno==0){
                     </div>
                     <div class="d-flex justify-content-end ml-auto">
                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#modalTambah">Tambah</button>
+                            data-bs-target="#modalTambah"
+                            <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>Tambah</button>
                     </div>
                     <div class="table-responsive">
                         <table id="data-anggota" class="table table-hover" style="text-align: center">
@@ -64,7 +65,7 @@ if($db->connect_errno==0){
                                     <th>ID Anggota</th>
                                     <th>Nama Anggota</th>
                                     <th>Jenis Kelamin</th>
-                                    <th colspan="2">Aksi</th>
+                                    <th colspan="2" <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,7 +77,7 @@ if($db->connect_errno==0){
                                     <td><?=$data["id_anggota"]?></td>
                                     <td><?=$data["nm_anggota"]?></td>
                                     <td><?=$data["jk"]=="L" ? 'Laki-Laki':'Perempuan';?></td>
-                                    <td>
+                                    <td <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>
                                         <!--Button Edit-->
                                         <button type="button" class="btn btn-warning btn-sm me-3 view-edit"
                                             id="<?=$data["id_anggota"]?>">Edit</button>

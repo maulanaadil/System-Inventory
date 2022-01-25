@@ -29,8 +29,10 @@ if($db->connect_errno==0){
                             <div class="form-group mt-2 d-flex">
                                 <img src="../../images/logo.png" class="img-fluid me-3" alt="..."
                                     style="width:140pt; height: 140pt;">
-                                 <input type="file" id="ubah-gambar" name="ubah-gambar" style="display: none;" accept="image/*" />
-                                 <label for="ubah-gambar" class="ms-3 text-primary" style="margin: auto 5px; font-size: 16px; font-weight: 500;">Ubah Gambar</label>
+                                <input type="file" id="ubah-gambar" name="ubah-gambar" style="display: none;"
+                                    accept="image/*" />
+                                <label for="ubah-gambar" class="ms-3 text-primary"
+                                    style="margin: auto 5px; font-size: 16px; font-weight: 500;">Ubah Gambar</label>
                             </div>
                         </div>
                     </div>
@@ -38,12 +40,13 @@ if($db->connect_errno==0){
                         <div class="row">
                             <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input type="text" class="form-control" id="nama">
+                                <input type="text" class="form-control" value="<?=$_SESSION['nm_petugas']?>" id="nama">
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="no">Nomor Telepon</label>
-                                    <input class="form-control form-control-sm" type="text" id="no">
+                                    <input class="form-control form-control-sm" type="text"
+                                        value="<?=$_SESSION['no_hp']?>" id="no">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -56,22 +59,25 @@ if($db->connect_errno==0){
                             </div>
                             <div class="form-group">
                                 <label for="alamat" class="form-label">Alamat</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1"
+                                    value="<?=$_SESSION['alamat']?>" rows="4"></textarea>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="username">Username</label>
-                                    <input class="form-control form-control-sm" type="text" id="username">
+                                    <input class="form-control form-control-sm" value="<?=$_SESSION['username']?>"
+                                        type="text" id="username">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="no">Password</label>
-                                    <input class="form-control form-control-sm" type="text" id="password" disabled
-                                        input>
+                                    <input class="form-control form-control-sm" type="password"
+                                        value="<?=$_SESSION['password']?>" id="password" disabled input>
                                 </div>
                             </div>
-                            <a href="../lupa-password/lupa-password.html" class="auth-link text-black text-decoration-none float-end"
+                            <a href="../lupa-password/reset-password.php"
+                                class="auth-link text-black text-decoration-none float-end"
                                 style="text-align: right;">Ubah Password</a>
                             <div class="form-group">
                                 <label for="exampleDataList" class="form-label">Reset Pertanyaan</label>
@@ -84,7 +90,8 @@ if($db->connect_errno==0){
                             </div>
                             <div class="form-group">
                                 <label for="pertanyaan">Jawab Pertanyaan</label>
-                                <input class="form-control form-control-sm" type="text" id="pertanyaan">
+                                <input class="form-control form-control-sm" value="<?=$_SESSION['answer_question']?>"
+                                    type="text" id="pertanyaan">
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary">Simpan</button>

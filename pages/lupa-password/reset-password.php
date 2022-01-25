@@ -2,7 +2,8 @@
 include("../functions.php");
 $db=dbConnect();
 if($db->connect_errno==0){
-  if(isset($_POST['submitJawaban'])){
+    session_start();
+    if(isset($_POST['submitJawaban'])){
     $jawaban = strtoupper($_POST['answerQuestion']);
     $username = $_POST['username'];
     $id_petugas = $_POST['id_petugas'];
@@ -22,11 +23,14 @@ if($db->connect_errno==0){
         }
       }
     }
-  } else {
+  } else if ($_SESSION['username']){
+    $username = $_SESSION['username'];
+    $id_petugas = $_SESSION['id_petugas'];
+} else {
     echo "
     <script>
     alert('Anda tidak bisa mengakses halaman ini!');
-    document.location.href = '../../index.html';
+    document.location.href = '../../index.php';
     </script>
     ";
   }
@@ -63,13 +67,13 @@ if($db->connect_errno==0){
     <div class="container">
         <div class="row" style="margin-top: 100px; max-width: 500px">
             <div class="col">
-                <form action="konfirmReset.php" method="post">
+                <form action="konfirmReset.php" id="insert_form" method="post">
                     <h3 class="h2 mt-3">Reset Password</h3>
                     <p class="text-start text-gray">Masukan password baru anda</p>
-                    <input type="text" class="form-control my-4" id="passwordBaru" name="passwordBaru"
+                    <input type="password" class="form-control my-4" id="passwordBaru" name="passwordBaru"
                         placeholder="Masukan password baru" required />
                     <p class="text-start text-gray">Ulangi Password</p>
-                    <input type="text" class="form-control my-4" id="repeatPasswordBaru" name="repeatPasswordBaru"
+                    <input type="password" class="form-control my-4" id="repeatPasswordBaru" name="repeatPasswordBaru"
                         placeholder="Ulangi Password" required />
                     <p class="isi text-start text-gray"></p>
                     <input type="hidden" name="username" value=<?=$username?>>
@@ -86,6 +90,18 @@ if($db->connect_errno==0){
 </html>
 <script>
 $(document).ready(function() {
+    $("#simpan").on("click", function(event) {
+        if ($("#passwordBaru").val() == "") {
+            alert("Password tidak boleh kosong!");
+            event.preventDefault();
+        } else if ($("#repeatPasswordBaru").val() == "") {
+            alert("Ulangi Password tidak boleh kosong!");
+            event.preventDefault();
+        } else {
+            $("#insert_form").submit();
+        }
+    });
+
     $("#repeatPasswordBaru").on('keyup', function() {
         var inp = $("#passwordBaru").val().trim();
         var rep = $("#repeatPasswordBaru").val().trim();

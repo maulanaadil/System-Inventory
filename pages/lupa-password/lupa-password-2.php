@@ -16,7 +16,7 @@ if($db->connect_errno==0){
     echo "
     <script>
     alert('Anda tidak bisa mengakses halaman ini!');
-    document.location.href = '../../index.html';
+    document.location.href = '../../index.php';
     </script>
     ";
   }
@@ -51,34 +51,36 @@ if($db->connect_errno==0){
 </head>
 
 <body>
-  <?php 
+    <?php 
   
     if (!empty($data[0]["reset_question"])) {
   ?>
     <div class="container">
         <div class="row" style="margin-top: 100px; max-width: 500px">
             <div class="col">
-                <form method="post" action="reset-password.php">
+                <form method="post" id="insert_form" action="reset-password.php">
                     <h3 class="h2 my-3">Reset Password</h3>
                     <p class="text-start text-gray">Masukan jawaban pertanyaan dibawah ini untuk verifikasi penggantian
                         password</p>
 
                     <p class="text-start mt-3 text-gray" id="reset_question"><?=$data[0]["reset_question"] ?></p>
-                    <input type="text" class="form-control mb-4 mt-3" required id="exampleInputName1"
+                    <input type="text" class="form-control mb-4 mt-3" required id="inputJawaban"
                         placeholder="Masukan jawaban anda" name="answerQuestion" autocomplete="off" />
                     <input type="hidden" name="username" value=<?=$username?>>
                     <input type="hidden" name="id_petugas" value=<?=$data[0]['id_petugas'];?>>
-                    <button class="btn btn-primary btn-lg" type="submit" name="submitJawaban">Lanjutkan</button>
+                    <button class="btn btn-primary btn-lg" type="submit" id="tblLanjutkan"
+                        name="submitJawaban">Lanjutkan</button>
                 </form>
             </div>
         </div>
     </div>
 
     <?php } else { ?>
-        <div class="container">
+    <div class="container">
         <div class="row" style="margin-top: 100px; max-width: 500px">
             <div class="col">
-                <h3 class="h2 my-3 lh-base">Username <span class="text-primary"><?= $username ?></span> Tidak ditemukan!😓</h3>
+                <h3 class="h2 my-3 lh-base">Username <span class="text-primary"><?= $username ?></span> Tidak
+                    ditemukan!😓</h3>
                 <p class="text-start text-gray mt-2">Silahkan tekan kembali untuk memasukan username lagi</p>
                 <a href="./lupa-password.html" class="btn btn-link btn-lg mt-3 text-black">Kembali</a>
             </div>
@@ -88,3 +90,13 @@ if($db->connect_errno==0){
 </body>
 
 </html>
+<script>
+$("#tblLanjutkan").on("click", function(event) {
+    if ($("#inputJawaban").val() == "") {
+        alert("Jawaban tidak boleh kosong!");
+        event.preventDefault();
+    } else {
+        $("#insert_form").submit();
+    }
+});
+</script>

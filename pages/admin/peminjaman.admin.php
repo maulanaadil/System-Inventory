@@ -24,7 +24,7 @@ if($db->connect_errno==0){
         $id_anggota = $db->escape_string($_POST['tambah_nama_peminjam']);
         $id_pinjam = $db->escape_string($_POST['tambah_id_pinjam']);
         $tanggal = $db->escape_string($_POST['tambah_tanggal_peminjaman']);
-        $petugas = "P01";
+        $petugas = $_SESSION['id_petugas'];
         // echo "<pre>";
 		// var_dump($id_anggota);
 		// var_dump($id_pinjam);
@@ -108,7 +108,8 @@ if($db->connect_errno==0){
                             <div class="row">
                                 <div class="col-lg-12 d-flex flex-row-reverse">
                                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#modalTambah">Tambah</button>
+                                        data-bs-target="#modalTambah"
+                                        <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>Tambah</button>
                                 </div>
                             </div>
                         </div>
@@ -237,7 +238,7 @@ if($db->connect_errno==0){
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
-                                                <table class="table" id="rincian">
+                                                <table class="table table-hover" id="rincian">
                                                     <thead>
                                                         <tr style="background-color: white;">
                                                             <th>ID Barang</th>

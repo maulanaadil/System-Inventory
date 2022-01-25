@@ -64,7 +64,8 @@ if($db->connect_errno==0){
                         <div class="row">
                             <div class="col-12 d-flex flex-row-reverse">
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#modalTambah">Tambah</button>
+                                    data-bs-target="#modalTambah"
+                                    <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>Tambah</button>
                             </div>
                         </div>
                     </div>
@@ -78,7 +79,7 @@ if($db->connect_errno==0){
                                     <th rowspan="2">Jumlah</th>
                                     <th rowspan="2">Sumber</th>
                                     <th rowspan="2">Tanggal</th>
-                                    <th rowspan="2">Aksi</th>
+                                    <th rowspan="2" <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>Aksi</th>
                                 </tr>
                                 <td>Baik</td>
                                 <td>Rusak</td>
@@ -97,7 +98,7 @@ if($db->connect_errno==0){
                                     <td><?= 
 										date("d F Y", strtotime($data['tanggal']));
 										?></td>
-                                    <td>
+                                    <td <?=$_SESSION['hak_akses']=="kepala"?"hidden":""?>>
                                         <button type="button" class="btn btn-warning btn-sm me-3 view-edit"
                                             id="<?= $data['id_barang'] ?>">Edit</button>
                                         <!-- MODAL EDIT DATA -->
