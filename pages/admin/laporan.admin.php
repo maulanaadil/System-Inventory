@@ -109,7 +109,8 @@ if($db->connect_errno==0){
                             <form action="excel-pinjam.php" method="post">
                                 <input type="hidden" value="" name="tgl_periode" id="tgl_periode">
                                 <div class="table-responsive">
-                                    <table id="data-peminjam" class="table table-hover" style="text-align: center">
+                                    <table id="data-peminjam" class="table table-hover table-paginate"
+                                        style="text-align: center">
                                         <thead>
                                             <tr>
                                                 <th>ID Pinjam</th>
@@ -142,7 +143,8 @@ if($db->connect_errno==0){
                             <form action="excel-pinjam.php" method="post">
                                 <input type="hidden" value="" name="tgl_periode" id="tgl_periode_kembali">
                                 <div class="table-responsive">
-                                    <table id="data-pengembalian" class="table table-hover" style="text-align: center">
+                                    <table id="data-pengembalian" class="table table-hover table-paginate"
+                                        style="text-align: center">
                                         <thead>
                                             <tr>
                                                 <th>ID Pinjam</th>
@@ -173,46 +175,53 @@ include("footer.admin.php");
     echo "Gagal koneksi" . (DEVELOPMENT ? " : " . $db->connect_error : "") . "<br>";
 }
 ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+// $('.table-paginate').dataTable({
+//     "language": {
+//         "zeroRecords": "Tidak ada data yang ditampilkan",
+//     }
+// });
+$("#periode").on("change", function() {
+    var periode = $("#periode").val();
+    $("#tgl_periode").val(periode);
+    $("#tgl_periode_kembali").val(periode);
+    $.ajax({
+        url: "../ajax.php",
+        method: "post",
+        data: {
+            barang: periode,
+        },
+        success: function(resp) {
+            $("#data-barang").find('tbody').html(resp);
+        },
+    });
 
+    $.ajax({
+        url: "../ajax.php",
+        method: "post",
+        data: {
+            peminjam: periode,
+        },
+        success: function(resp) {
+            $("#data-peminjam").find('tbody').html(resp);
+        },
+    });
 
+    $.ajax({
+        url: "../ajax.php",
+        method: "post",
+        data: {
+            laporanpengembalian: periode,
+        },
+        success: function(resp) {
+            $("#data-pengembalian").find('tbody').html(resp);
+        },
+    });
 
-                    <script>
-                    $("#periode").on("change", function() {
-                        var periode = $("#periode").val();
-                        $("#tgl_periode").val(periode);
-                        $("#tgl_periode_kembali").val(periode);
-                        $.ajax({
-                            url: "../ajax.php",
-                            method: "post",
-                            data: {
-                                barang: periode,
-                            },
-                            success: function(resp) {
-                                $("#data-barang").find('tbody').html(resp);
-                            },
-                        });
-
-                        $.ajax({
-                            url: "../ajax.php",
-                            method: "post",
-                            data: {
-                                peminjam: periode,
-                            },
-                            success: function(resp) {
-                                $("#data-peminjam").find('tbody').html(resp);
-                            },
-                        });
-
-                        $.ajax({
-                            url: "../ajax.php",
-                            method: "post",
-                            data: {
-                                laporanpengembalian: periode,
-                            },
-                            success: function(resp) {
-                                $("#data-pengembalian").find('tbody').html(resp);
-                            },
-                        });
-
-                    })
-                    </script>
+})
+</script>

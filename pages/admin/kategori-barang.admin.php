@@ -169,7 +169,11 @@ include("footer.admin.php");
 ?>;
 <script>
 $(document).ready(function() {
-    $('.table-paginate').dataTable();
+    $('.table-paginate').dataTable({
+        "language": {
+            "zeroRecords": "Tidak ada data yang ditampilkan",
+        }
+    });
 });
 $(document).ready(function() {
     $(".table-paginate").on("click", ".view-edit", function() {

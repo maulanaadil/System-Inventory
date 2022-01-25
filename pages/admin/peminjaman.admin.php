@@ -306,7 +306,11 @@ include("footer.admin.php");
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('.table-paginate').dataTable();
+    $('.table-paginate').dataTable({
+        "language": {
+            "zeroRecords": "Tidak ada data yang ditampilkan",
+        }
+    });
 
     $(".table-paginate").on("click", ".pinjam", function() {
         var id_barang = $(this).attr("Id");

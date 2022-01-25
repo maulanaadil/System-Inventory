@@ -327,9 +327,6 @@ if($db->connect_errno==0){
     } else if (isset($_POST['barang'])) {
         $periode = $db->escape_string($_POST['barang']);
         $tableBarang = getBarangPeriode($periode);
-        if($tableBarang==FALSE){
-            echo "<tr><td colspan=3>TIDAK ADA DATA YANG DITAMPILKAN</td></tr>";
-        }
         foreach ($tableBarang as $data) : ?>
 <tr>
     <td><?= $data['id_barang'] ?></td>
@@ -345,9 +342,6 @@ if($db->connect_errno==0){
     } else if (isset($_POST['peminjam'])) {
         $periode = $db->escape_string($_POST['peminjam']);
         $tablePeminjam = getDataPeminjamanPeriode($periode);
-        if($tableBarang==FALSE){
-            echo "<tr><td colspan=3>TIDAK ADA DATA YANG DITAMPILKAN</td></tr>";
-        }
         foreach ($tablePeminjam as $data) : ?>
 <tr>
     <td><?= $data['id_pinjam'] ?></td>
@@ -360,9 +354,6 @@ if($db->connect_errno==0){
     } else if (isset($_POST['laporanpengembalian'])) {
         $periode = $db->escape_string($_POST['laporanpengembalian']);
         $tablePengembalian = getDataPengembalianPeriode($periode);
-        if($tableBarang==FALSE){
-            echo "<tr><td colspan=3>TIDAK ADA DATA YANG DITAMPILKAN</td></tr>";
-        }
         foreach ($tablePengembalian as $data) : ?>
 <tr>
     <td><?= $data['id_pinjam'] ?></td>

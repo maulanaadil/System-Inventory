@@ -189,7 +189,11 @@ include("footer.admin.php");
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('.table-paginate').dataTable();
+    $('.table-paginate').dataTable({
+        "language": {
+            "zeroRecords": "Tidak ada data yang ditampilkan",
+        }
+    });
     $("#btn-simpan").on("click", function(event) {
         if ($('#tambah_tanggal_pengembalian').val() == "") {
             alert("Tanggal tidak boleh kosong!");

@@ -414,8 +414,11 @@ function total2() {
     document.getElementById('total-number-kondisi2').value = tot;
 }
 $(document).ready(function() {
-    $('.table-paginate').dataTable();
-
+    $('.table-paginate').dataTable({
+        "language": {
+            "zeroRecords": "Tidak ada data yang ditampilkan",
+        }
+    });
     $(".table-paginate").on("click", ".view-edit", function() {
         var id_barang = $(this).attr("id");
         $.ajax({
