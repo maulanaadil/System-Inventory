@@ -29,6 +29,9 @@ session_start();
 if (!isset($_SESSION["username"])&&!isset($_SESSION["id_petugas"])){
 header("Location: ../../index.php?error=4");
 }
+include("../functions.php");
+$db=dbConnect();
+$profil = getProfilPetugas($_SESSION['id_petugas']);
 ?>
 
 <body>
@@ -45,9 +48,8 @@ header("Location: ../../index.php?error=4");
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                            <img src="https://images.unsplash.com/photo-1642265298007-c149754bc43f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                                alt="profile" class="img-fluid" />
-                            <span class="nav-profile-name"><?=$_SESSION['nm_petugas']?></span>
+                            <img src="../../images/<?=$profil['profil'] ?>" alt="profile" class="img-fluid" />
+                            <span class="nav-profile-name"><?=$profil['nm_petugas']?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">

@@ -1,7 +1,7 @@
 <?php
 include("sidebar.admin.php");
-include("../functions.php");
-$db=dbConnect();
+// include("../functions.php");
+// $db=dbConnect();
 $getDataPetugas = getDataPetugas();
 if($db->connect_errno==0){
 	if(isset($_POST['tambahPetugas'])){

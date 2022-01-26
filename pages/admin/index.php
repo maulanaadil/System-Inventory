@@ -1,6 +1,5 @@
 <?php
 include("sidebar.admin.php");
-include("functions.index.php");
 
 // VARIABEL SUM ANGGOTA
 $jumlahAnggota = getSumAnggota()->fetch_array();

@@ -21,6 +21,83 @@ function dbConnectPDO(){
 		return 'Connection failed: ' . $e->getMessage();
 	}
 }
+    // FUNCTION BUAT TAB ANGGOTA
+    function getSumAnggota() {
+        $db = dbConnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT COUNT(*) FROM anggota";
+            return $db->query($sql);
+        }
+        return FALSE;
+    }
+    function getSumAnggotaLaki() {
+        $db = dbConnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT COUNT(*) FROM anggota WHERE jk='L'";
+            return $db->query($sql);
+        }
+        return FALSE;
+    }
+    function getSumAnggotaPerempuan() {
+        $db = dbConnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT COUNT(*) FROM anggota WHERE jk='P'";
+            return $db->query($sql);
+        }
+        return FALSE;
+    }
+    
+    // FUNCTION BUAT TAB BARANG
+    function getSumBarang() {
+        $db = dbConnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT COUNT(*) FROM barang";
+            return $db->query($sql);
+        }
+        return FALSE;
+    }
+    function getSumBarangBaik() {
+        $db = dbConnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT COUNT(*) FROM barang WHERE baik";
+            return $db->query($sql);
+        }
+        return FALSE;
+    }
+    function getSumBarangRusak() {
+        $db = dbConnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT COUNT(*) FROM barang WHERE rusak";
+            return $db->query($sql);
+        }
+        return FALSE;
+    }
+
+    function getSumBarangRusakBerat() {
+        $db = dbConnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT COUNT(*) FROM barang WHERE rusak_berat";
+            return $db->query($sql);
+        }
+        return FALSE;
+    }
+
+    // FUNCTION BUAT TAB SUPPLIER
+     function getSumSupplier() {
+        $db = dbConnect();
+        if ($db->connect_errno == 0) {
+            $sql = "SELECT COUNT(*) FROM supplier";
+            return $db->query($sql);
+        }
+        return FALSE;
+    }
+
+    // FUNCTION TABLE RIWAYAT PEMINJAMAN BARANG
+    function getRiwayatPeminjamanBarang() {
+        $db = dbConnect();
+	    $sql = "SELECT peminjaman.id_pinjam as 'id', anggota.nm_anggota as 'nama', peminjaman.tgl_pinjam as 'pinjam', peminjaman.tgl_kembali as 'kembali' FROM peminjaman INNER JOIN anggota ON peminjaman.id_anggota = anggota.id_anggota ";
+		return $res=$db->query($sql);
+    }
 
 function sum($x, $y, $k) {
     $z = $x + $y + $k;
@@ -301,6 +378,67 @@ function getDataPengembalianPeriode($periode){
 	}
 	else
 		return FALSE;
+}
+function updateProfil($data) {
+	$db=dbConnect();
+
+	$id_petugas = $db->escape_string($_POST['id-petugas']);
+	$nama = $db->escape_string($_POST['nama-petugas']);
+	$no_hp = $db->escape_string($_POST['no-hp-petugas']);
+	$jk = $db->escape_string($_POST['jk']);
+	$alamat = $db->escape_string($_POST['alamat-petugas']);
+	$username = $db->escape_string($_POST['username-petugas']);
+	$question = $db->escape_string($_POST['pertanyaan-reset']);
+	$answer = $db->escape_string($_POST['jawaban-pertanyaan']);
+	$namaFile = $_FILES['ubah-gambar']['name'];
+	if($namaFile!=""){
+		$x = explode('.', $namaFile);
+		$ekstensi = strtolower(end($x));
+		$ekstensiYangDibolehkan = [
+			'image/png',
+			'image/jpg',
+			'image/jpeg',
+			'image/webp'
+		];
+		$ukuranFile = $_FILES['ubah-gambar']['size'];
+		$error = $_FILES['ubah-gambar']['error'];
+		$tmpName = $_FILES['ubah-gambar']['tmp_name'];
+			if (!in_array(mime_content_type($tmpName), $ekstensiYangDibolehkan)) {
+				echo "
+				<script>
+				alert('File tidak sesuai!');
+				document.location.href = 'index.php';
+				</script>";
+			}else if($ukuranFile > 1000 * 10000){
+				echo "
+				<script>
+				alert('File terlalu besar!');
+				document.location.href = 'index.php';
+				</script>";
+			}
+			else {
+			$file = $id_petugas.".".$ekstensi;
+			move_uploaded_file($tmpName,$_SERVER["DOCUMENT_ROOT"]."/data/System-Inventory/images/".$file);
+			}
+	//Masukkan data menu ke database
+	$db->query("UPDATE petugas set nm_petugas='$nama', username='$username', reset_question='$question', answer_question='$answer', alamat='$alamat', no_hp='$no_hp', jk='$jk', profil='$file' where id_petugas='$id_petugas'");
+	} else{
+		$db->query("UPDATE petugas set nm_petugas='$nama', username='$username', reset_question='$question', answer_question='$answer', alamat='$alamat', no_hp='$no_hp', jk='$jk' where id_petugas='$id_petugas'");
+	}
+
+	return mysqli_affected_rows($db);
+}
+
+function getProfilPetugas($id_petugas){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$sql = "SELECT * FROM petugas where id_petugas='$id_petugas'";
+		$res=$db->query($sql);
+		if($res){
+			$data = $res->fetch_assoc();
+			return $data;
+		}else return FALSE;
+	} else return FALSE;
 }
 
 function showError($message){

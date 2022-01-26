@@ -1,8 +1,8 @@
 <?php
 include("sidebar.admin.php");
-include("../functions.php");
+// include("../functions.php");
 
-$db=dbConnect();
+// $db=dbConnect();
 if($db->connect_errno==0){
 ?>
 
@@ -143,9 +143,9 @@ if($db->connect_errno==0){
                             <form action="excel-pinjam.php" method="post">
                                 <input type="hidden" value="" name="tgl_periode" id="tgl_periode_kembali">
                                 <div class="table-responsive">
-                                    
-                                        <table id="data-pengembalian" class="table table-hover table-paginate" 
-                                        style="text-align: center; width: 100%;";>
+
+                                    <table id="data-pengembalian" class="table table-hover table-paginate"
+                                        style="text-align: center; width: 100%;" ;>
                                         <thead>
                                             <tr>
                                                 <th>ID Pinjam</th>
@@ -154,10 +154,10 @@ if($db->connect_errno==0){
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
-                                            </tbody>
-                                        </table>
-                                    </div>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div class="container">
                                     <div class="text-end">
                                         <!-- <a href="excel-barang.php" target="_blank"
@@ -191,12 +191,12 @@ include("footer.admin.php");
 //     $(".table-paginate").find('tbody').empty();
 // })
 
-function sum (x, y, k) {
+function sum(x, y, k) {
     let z = parseInt(x) + parseInt(y) + parseInt(k);
     return z;
 }
 
-$("#periode").on("change" , function () {
+$("#periode").on("change", function() {
     var periode = $("#periode").val();
     $("#tgl_periode").val(periode);
     $("#tgl_periode_kembali").val(periode);
@@ -214,18 +214,33 @@ $("#periode").on("change" , function () {
                 barang: periode,
             },
         }),
-        columns: [
-            { "data" : "id_barang"},
-            { "data" : "nm_barang"},
-            { "data" : "baik"},
-            { "data" : "rusak"},
-            { "data" : "rusak_berat"},
-            { "data" : `jumlah`},
-            { "data" : "sumber"},
-            { "data" : "tanggal"},
+        columns: [{
+                "data": "id_barang"
+            },
+            {
+                "data": "nm_barang"
+            },
+            {
+                "data": "baik"
+            },
+            {
+                "data": "rusak"
+            },
+            {
+                "data": "rusak_berat"
+            },
+            {
+                "data": `jumlah`
+            },
+            {
+                "data": "sumber"
+            },
+            {
+                "data": "tanggal"
+            },
         ]
     });
-    
+
 
     $('#data-peminjam').DataTable().destroy();
     $("#data-peminjam").DataTable({
@@ -241,10 +256,15 @@ $("#periode").on("change" , function () {
                 peminjam: periode,
             },
         }),
-        columns: [
-            { "data" : "id_pinjam"},
-            { "data" : "nama"},
-            { "data" : "tanggal"},
+        columns: [{
+                "data": "id_pinjam"
+            },
+            {
+                "data": "nama"
+            },
+            {
+                "data": "tanggal"
+            },
         ]
     });
 
@@ -262,10 +282,15 @@ $("#periode").on("change" , function () {
                 laporanpengembalian: periode,
             },
         }),
-        columns: [
-            { "data" : "id_pinjam"},
-            { "data" : "nama"},
-            { "data" : "tanggal"},
+        columns: [{
+                "data": "id_pinjam"
+            },
+            {
+                "data": "nama"
+            },
+            {
+                "data": "tanggal"
+            },
         ]
     });
 })
@@ -308,7 +333,7 @@ $("#periode").on("change" , function () {
 //             if (resp.status === "OK") {
 //                  $("#data-peminjam").find('tbody').find('tr').detach();
 //                 $.each(resp.data, function(key, val) {
-                    
+
 //                     let data = `<tr><td>${val.id_pinjam}</td><td>${val.nama}</td><td>${val.tanggal}</td></tr>`;
 //                     $("#data-peminjam").find('tbody').append(data);
 //                 })
@@ -329,7 +354,7 @@ $("#periode").on("change" , function () {
 //             if (resp.status === "OK") {
 //                  $("#data-pengembalian").find('tbody').find('tr').detach();
 //                 $.each(resp.data, function(key, val) {
-                    
+
 //                     let data = `<tr><td>${val.id_pinjam}</td><td>${val.nama}</td><td>${val.tanggal}</td></tr>`;
 //                     $("#data-pengembalian").find('tbody').append(data);
 //                 })
