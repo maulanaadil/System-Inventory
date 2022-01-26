@@ -277,7 +277,7 @@ $(document).ready(function() {
             }
         })
     });
-    $('#insert_form').on("submit", function(event) {
+    $('.table-paginate').on("submit", "#insert_form", function(event) {
         event.preventDefault();
         if ($('#edit_nama_kat_barang').val() == "") {
             alert("Nama kategori tidak boleh kosong");
