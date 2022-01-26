@@ -62,7 +62,7 @@ if($db->connect_errno==0){
             echo "
                     <script>
                     Swal.fire({
-                        title: 'Data berhasil ditambahkan',
+                        title: 'Data Peminjaman berhasil ditambahkan',
                         icon: 'success',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Ok!'
