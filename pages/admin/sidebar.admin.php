@@ -47,7 +47,7 @@ header("Location: ../../index.php?error=4");
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
                             <img src="https://images.unsplash.com/photo-1642265298007-c149754bc43f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
                                 alt="profile" class="img-fluid" />
-                            <span class="nav-profile-name">Louis Barnett</span>
+                            <span class="nav-profile-name"><?=$_SESSION['nm_petugas']?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
