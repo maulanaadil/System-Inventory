@@ -181,89 +181,114 @@ include("footer.admin.php");
     </div>
 </div>
 <script>
-$(document).ready(function() {
-    $(".table-paginate").dataTable({
-        "language": {
-            "zeroRecords": "Tidak ada data yang ditampilkan",
-        }, 
-    });
-    $(".table-paginate").find('tbody').empty();
-})
+// $(document).ready(function() {
+//     $("table-paginate").dataTable({
+//         "language": {
+//             "zeroRecords": "Tidak ada data yang ditampilkan",
+//         }, 
+//     });
+//     $(".table-paginate").find('tbody').empty();
+// })
 
 function sum (x, y, k) {
     let z = parseInt(x) + parseInt(y) + parseInt(k);
     return z;
 }
 
-$("#periode").on("change", function() {
+$("#periode").on("change" , function () {
     var periode = $("#periode").val();
     $("#tgl_periode").val(periode);
     $("#tgl_periode_kembali").val(periode);
-    $.ajax({
-        url: "../ajax.php",
-        method: "post",
-        dataType: "json",
-        data: {
-            barang: periode,
+    $("#data-barang").DataTable({
+        ajax: {
+            url: '../ajax.php',
+            method: "POST",
+            dataType: "json",
+            data: {
+                barang: periode,
+            },
         },
-        beforeSend: function () {
-             $("#table-paginate").find('tbody').empty();  
-        },
-        success: function(resp) {
-            console.log(resp);
-            if (resp.status === "OK") {
-                $("#data-barang").find('tbody').find('tr').detach();
-                $.each(resp.data, function(key, val) {           
-                    let data = `<tr><td>${val.id_barang}</td><td>${val.nm_barang}</td><td>${val.baik}</td><td>${val.rusak}</td><td>${val.rusak_berat}</td><td>${sum(val.baik, val.rusak, val.rusak_berat)}</td><td>${val.sumber}</td><td>${val.tanggal}</td></tr>`
-                    $("#data-barang").find('tbody').append(data);
-                })
-            } else {
-                $("#data-barang").find('tbody').empty();
-            }
-        },
-    });
-
-    $.ajax({
-        url: "../ajax.php",
-        method: "post",
-        dataType: "json",
-        data: {
-            peminjam: periode,
-        },
-        success: function(resp) {
-            if (resp.status === "OK") {
-                 $("#data-peminjam").find('tbody').find('tr').detach();
-                $.each(resp.data, function(key, val) {
-                    
-                    let data = `<tr><td>${val.id_pinjam}</td><td>${val.nama}</td><td>${val.tanggal}</td></tr>`;
-                    $("#data-peminjam").find('tbody').append(data);
-                })
-            } else {
-                $("#data-peminjam").find('tbody').empty();
-            }
-        },
-    });
-
-    $.ajax({
-        url: "../ajax.php",
-        method: "post",
-        dataType: "json",
-        data: {
-            laporanpengembalian: periode,
-        },
-        success: function(resp) {
-            if (resp.status === "OK") {
-                 $("#data-pengembalian").find('tbody').find('tr').detach();
-                $.each(resp.data, function(key, val) {
-                    
-                    let data = `<tr><td>${val.id_pinjam}</td><td>${val.nama}</td><td>${val.tanggal}</td></tr>`;
-                    $("#data-pengembalian").find('tbody').append(data);
-                })
-            } else {
-                $("#data-pengembalian").find('tbody').empty();
-            }
-        },
-    });
-
+        columns: [
+            { "data" : "id_barang"},
+            { "data" : "nm_barang"},
+            { "data" : "baik"},
+            { "data" : "rusak"},
+            { "data" : "rusak_berat"},
+            { "data" : "jumlah"},
+            { "data" : "sumber"},
+            { "data" : "tanggal"},
+        ]
+    })
 })
+
+// $("#periode").on("change", function() {
+//     var periode = $("#periode").val();
+//     $("#tgl_periode").val(periode);
+//     $("#tgl_periode_kembali").val(periode);
+//     $.ajax({
+//         url: "../ajax.php",
+//         method: "post",
+//         dataType: "json",
+//         data: {
+//             barang: periode,
+//         },
+//         beforeSend: function () {
+//              $("#table-paginate").find('tbody').empty();  
+//         },
+//         success: function(resp) {
+//             // console.log(resp);
+//             if (resp.status === "OK") {
+//                 $("#data-barang").find('tbody').find('tr').detach();
+//                 $.each(resp.data, function(key, val) {           
+//                     let data = `<tr><td>${val.id_barang}</td><td>${val.nm_barang}</td><td>${val.baik}</td><td>${val.rusak}</td><td>${val.rusak_berat}</td><td>${sum(val.baik, val.rusak, val.rusak_berat)}</td><td>${val.sumber}</td><td>${val.tanggal}</td></tr>`
+//                     $("#data-barang").find('tbody').append(data);
+//                 })
+//             } else {
+//                 $("#data-barang").find('tbody').empty();
+//             }
+//         },
+//     });
+//     $.ajax({
+//         url: "../ajax.php",
+//         method: "post",
+//         dataType: "json",
+//         data: {
+//             peminjam: periode,
+//         },
+//         success: function(resp) {
+//             if (resp.status === "OK") {
+//                  $("#data-peminjam").find('tbody').find('tr').detach();
+//                 $.each(resp.data, function(key, val) {
+                    
+//                     let data = `<tr><td>${val.id_pinjam}</td><td>${val.nama}</td><td>${val.tanggal}</td></tr>`;
+//                     $("#data-peminjam").find('tbody').append(data);
+//                 })
+//             } else {
+//                 $("#data-peminjam").find('tbody').empty();
+//             }
+//         },
+//     });
+
+//     $.ajax({
+//         url: "../ajax.php",
+//         method: "post",
+//         dataType: "json",
+//         data: {
+//             laporanpengembalian: periode,
+//         },
+//         success: function(resp) {
+//             if (resp.status === "OK") {
+//                  $("#data-pengembalian").find('tbody').find('tr').detach();
+//                 $.each(resp.data, function(key, val) {
+                    
+//                     let data = `<tr><td>${val.id_pinjam}</td><td>${val.nama}</td><td>${val.tanggal}</td></tr>`;
+//                     $("#data-pengembalian").find('tbody').append(data);
+//                 })
+//             } else {
+//                 $("#data-pengembalian").find('tbody').empty();
+//             }
+//         },
+//     });
+
+// })
 </script>
