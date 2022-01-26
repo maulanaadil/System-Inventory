@@ -46,15 +46,15 @@ if($db->connect_errno==0){
                     <ul class="nav nav-tabs px-4" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="barang-tab" data-bs-toggle="tab" href="#barang" role="tab"
-                                aria-controls="barang" aria-selected="true">Barang</a>
+                                aria-controls="barang" aria-selected="true">Laporan Barang</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="peminjaman-tab" data-bs-toggle="tab" href="#peminjaman" role="tab"
-                                aria-controls="peminjaman" aria-selected="false">Peminjaman</a>
+                                aria-controls="peminjaman" aria-selected="false">Laporan Peminjaman</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="pengembalian-tab" data-bs-toggle="tab" href="#pengembalian"
-                                role="tab" aria-controls="pengembalian" aria-selected="false">Pengembalian</a>
+                                role="tab" aria-controls="pengembalian" aria-selected="false">Laporan Pengembalian</a>
                         </li>
                     </ul>
                     <div class="tab-content py-0 px-0">

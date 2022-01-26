@@ -274,7 +274,7 @@ $(document).ready(function() {
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: 'Hapus!'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({

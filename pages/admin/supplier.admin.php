@@ -13,7 +13,7 @@ if($db->connect_errno==0){
 			if ($db->affected_rows>0) {
 				 echo "<script>
                 Swal.fire({
-                    title: 'Data kategori berhasil ditambahkan',
+                    title: 'Data Supplier berhasil ditambahkan',
                     icon: 'success',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Ok!'
@@ -212,7 +212,7 @@ $(document).ready(function() {
                     $(".tblTambah").removeAttr("disabled");
 
                 } else if (resp.status === "ERROR") {
-                    $("#info-id").html("ID Kategori tidak dapat digunakan");
+                    $("#info-id").html("ID Supplier tidak dapat digunakan");
                     $("#info-id").css("color", "red");
                     $(".tblTambah").attr("disabled", "disabled");
                 }
@@ -238,7 +238,7 @@ $(document).ready(function() {
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: 'Hapus!'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
