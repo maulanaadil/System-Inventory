@@ -70,7 +70,7 @@ if($db->connect_errno==0){
                                 <input type="hidden" value="" name="tgl_periode" id="tgl_periode">
                                 <div class="table-responsive">
                                     <table id="data-barang" class="table table-hover table-paginate"
-                                        style="text-align: center">
+                                        style="text-align: center; width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th rowspan="2">ID Barang</th>
@@ -110,7 +110,7 @@ if($db->connect_errno==0){
                                 <input type="hidden" value="" name="tgl_periode" id="tgl_periode">
                                 <div class="table-responsive">
                                     <table id="data-peminjam" class="table table-hover table-paginate"
-                                        style="text-align: center">
+                                        style="text-align: center; width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th>ID Pinjam</th>
@@ -143,8 +143,9 @@ if($db->connect_errno==0){
                             <form action="excel-pinjam.php" method="post">
                                 <input type="hidden" value="" name="tgl_periode" id="tgl_periode_kembali">
                                 <div class="table-responsive">
-                                    <table id="data-pengembalian" class="table table-hover table-paginate"
-                                        style="text-align: center">
+                                    
+                                        <table id="data-pengembalian" class="table table-hover table-paginate" 
+                                        style="text-align: center; width: 100%;";>
                                         <thead>
                                             <tr>
                                                 <th>ID Pinjam</th>
@@ -153,10 +154,10 @@ if($db->connect_errno==0){
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 <div class="container">
                                     <div class="text-end">
                                         <!-- <a href="excel-barang.php" target="_blank"
@@ -199,26 +200,74 @@ $("#periode").on("change" , function () {
     var periode = $("#periode").val();
     $("#tgl_periode").val(periode);
     $("#tgl_periode_kembali").val(periode);
+    $('#data-barang').DataTable().destroy();
     $("#data-barang").DataTable({
-        ajax: {
+        language: {
+            "zeroRecords": "Tidak ada data yang ditampilkan",
+        },
+        retrieve: true,
+        ajax: ({
             url: '../ajax.php',
             method: "POST",
             dataType: "json",
             data: {
                 barang: periode,
             },
-        },
+        }),
         columns: [
             { "data" : "id_barang"},
             { "data" : "nm_barang"},
             { "data" : "baik"},
             { "data" : "rusak"},
             { "data" : "rusak_berat"},
-            { "data" : "jumlah"},
+            { "data" : `jumlah`},
             { "data" : "sumber"},
             { "data" : "tanggal"},
         ]
-    })
+    });
+    
+
+    $('#data-peminjam').DataTable().destroy();
+    $("#data-peminjam").DataTable({
+        language: {
+            "zeroRecords": "Tidak ada data yang ditampilkan",
+        },
+        retrieve: true,
+        ajax: ({
+            url: '../ajax.php',
+            method: "POST",
+            dataType: "json",
+            data: {
+                peminjam: periode,
+            },
+        }),
+        columns: [
+            { "data" : "id_pinjam"},
+            { "data" : "nama"},
+            { "data" : "tanggal"},
+        ]
+    });
+
+    $('#data-pengembalian').DataTable().destroy();
+    $("#data-pengembalian").DataTable({
+        language: {
+            "zeroRecords": "Tidak ada data yang ditampilkan",
+        },
+        retrieve: true,
+        ajax: ({
+            url: '../ajax.php',
+            method: "POST",
+            dataType: "json",
+            data: {
+                laporanpengembalian: periode,
+            },
+        }),
+        columns: [
+            { "data" : "id_pinjam"},
+            { "data" : "nama"},
+            { "data" : "tanggal"},
+        ]
+    });
 })
 
 // $("#periode").on("change", function() {
