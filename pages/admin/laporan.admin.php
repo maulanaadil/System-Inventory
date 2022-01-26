@@ -209,22 +209,30 @@ $("#periode").on("change", function() {
     $.ajax({
         url: "../ajax.php",
         method: "post",
+        dataType: "json",
         data: {
             peminjam: periode,
         },
         success: function(resp) {
-            $("#data-peminjam").find('tbody').html(resp);
+            console.log(resp);
+            if (resp.status === "OK") {
+                //looping jquery
+            }
         },
     });
 
     $.ajax({
         url: "../ajax.php",
         method: "post",
+        dataType: "json",
         data: {
             laporanpengembalian: periode,
         },
         success: function(resp) {
-            $("#data-pengembalian").find('tbody').html(resp);
+            console.log(resp);
+            if (resp.status === "OK") {
+                //looping jquery
+            }
         },
     });
 
