@@ -163,7 +163,8 @@ if($db->connect_errno==0){
                                                                                     aria-label="Default select example"
                                                                                     name="kategori-barang"
                                                                                     id="edit-kategori-barang">
-                                                                                    <option selected>Pilih Kategori
+                                                                                    <option value="" selected>Pilih
+                                                                                        Kategori
                                                                                         Barang</option>
                                                                                     <?php foreach ($getKategori as $kb) :?>
                                                                                     <option
@@ -181,7 +182,8 @@ if($db->connect_errno==0){
                                                                                 <select class="form-select"
                                                                                     aria-label="Default select example"
                                                                                     name="supplier" id="edit-supplier">
-                                                                                    <option selected>Pilih Supplier
+                                                                                    <option value="" selected>Pilih
+                                                                                        Supplier
                                                                                     </option>
                                                                                     <?php foreach ($getSupplier as $supplier) :?>
                                                                                     <option
@@ -202,7 +204,8 @@ if($db->connect_errno==0){
                                                                                 <select class="form-select"
                                                                                     aria-label="Default select example"
                                                                                     name="sumber" id="edit-sumber">
-                                                                                    <option selected>Pilih Sumber
+                                                                                    <option value="" selected>Pilih
+                                                                                        Sumber
                                                                                     </option>
                                                                                     <option value="APBD">APBD</option>
                                                                                     <option value="Mandiri">Mandiri
@@ -218,7 +221,8 @@ if($db->connect_errno==0){
                                                                                 <select class="form-select"
                                                                                     aria-label="Default select example"
                                                                                     name="satuan" id="edit-satuan">
-                                                                                    <option selected>Pilih Satuan
+                                                                                    <option value="" selected>Pilih
+                                                                                        Satuan
                                                                                     </option>
                                                                                     <option value="Buah">Buah</option>
                                                                                     <option value="Pasang">Pasang
@@ -262,7 +266,7 @@ if($db->connect_errno==0){
                         </table>
                     </div>
                     <!-- MODAL TAMBAH DATA -->
-                    <form action="" method="post">
+                    <form action="" method="post" id="form_tambah">
                         <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable">
@@ -311,8 +315,8 @@ if($db->connect_errno==0){
                                                         <div>
                                                             <select class="form-select"
                                                                 aria-label="Default select example"
-                                                                name="kategori-barang">
-                                                                <option selected>Pilih Kategori Barang</option>
+                                                                name="kategori-barang" id="tambah-kategori-barang">
+                                                                <option value="" selected>Pilih Kategori Barang</option>
                                                                 <?php foreach ($getKategori as $kb) :?>
                                                                 <option value="<?= $kb['id_kat'] ?>">
                                                                     <?= $kb['nm_kat']?></option>
@@ -326,8 +330,9 @@ if($db->connect_errno==0){
                                                         <label for="supplier">Supplier</label>
                                                         <div>
                                                             <select class="form-select"
-                                                                aria-label="Default select example" name="supplier">
-                                                                <option selected>Pilih Supplier</option>
+                                                                aria-label="Default select example" name="supplier"
+                                                                id="tambah-supplier">
+                                                                <option value="" selected>Pilih Supplier</option>
                                                                 <?php foreach ($getSupplier as $supplier) :?>
                                                                 <option value="<?= $supplier['id_supplier'] ?>">
                                                                     <?= $supplier['nm_supplier'] ?></option>
@@ -343,8 +348,9 @@ if($db->connect_errno==0){
                                                         <label for="sumber">Sumber</label>
                                                         <div>
                                                             <select class="form-select"
-                                                                aria-label="Default select example" name="sumber">
-                                                                <option selected>Pilih Sumber</option>
+                                                                aria-label="Default select example" name="sumber"
+                                                                id="tambah-sumber">
+                                                                <option value="" selected>Pilih Sumber</option>
                                                                 <option value="APBD">APBD</option>
                                                                 <option value="Mandiri">Mandiri</option>
                                                             </select>
@@ -356,8 +362,9 @@ if($db->connect_errno==0){
                                                         <label for="satuan">Satuan</label>
                                                         <div>
                                                             <select class="form-select"
-                                                                aria-label="Default select example" name="satuan">
-                                                                <option selected>Pilih Satuan</option>
+                                                                aria-label="Default select example" name="satuan"
+                                                                id="tambah-satuan">
+                                                                <option value="" selected>Pilih Satuan</option>
                                                                 <option value="Buah">Buah</option>
                                                                 <option value="Pasang">Pasang</option>
                                                                 <option value="Pak">Pak</option>
@@ -375,13 +382,14 @@ if($db->connect_errno==0){
                                             <div class="row">
                                                 <div class="col-6">
                                                     <label for="tgl">Tanggal</label>
-                                                    <input type="date" class="form-control" id="tgl" name="tanggal" />
+                                                    <input type="date" class="form-control" name="tanggal"
+                                                        id="tambah-tgl" />
                                                 </div>
                                             </div>
                                     </div>
                                     <div class="modal-footer justify-content-start">
-                                        <input type="submit" name="tblTambah" class="btn btn-primary"
-                                            value="Simpan"></input>
+                                        <input type="submit" name="tblTambah" id="tblTambahSimpan"
+                                            class="btn btn-primary" value="Simpan"></input>
                                         <input type="reset" class="btn btn-outline-danger"
                                             data-bs-dismiss="modal"></input>
                                     </div>
@@ -413,6 +421,40 @@ function total2() {
     document.getElementById('total-number-kondisi2').value = tot;
 }
 $(document).ready(function() {
+
+    $("#tblTambahSimpan").on("click", function(event) {
+        if ($('#txt-nama-barang').val() == "") {
+            alert("Nama barang tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#number-kondisi-baik').val() == "") {
+            alert("Jumlah kondisi baik tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#number-kondisi-rusak').val() == "") {
+            alert("Jumlah kondisi rusak tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#number-kondisi-rusak-berat').val() == "") {
+            alert("Jumlah kondisi rusak berat tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-kategori-barang').val() == "") {
+            alert("Kategori barang tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-supplier').val() == "") {
+            alert("Supplier tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-sumber').val() == "") {
+            alert("Sumber tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-satuan').val() == "") {
+            alert("Satuan tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-tgl').val() == "") {
+            alert("Tanggal tidak boleh kosong");
+            event.preventDefault();
+        } else {
+            $("#form_tambah").submit();
+        }
+    })
+
     $('.table-paginate').dataTable({
         "language": {
             "zeroRecords": "Tidak ada data yang ditampilkan",
