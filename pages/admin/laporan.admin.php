@@ -193,11 +193,16 @@ $("#periode").on("change", function() {
     $.ajax({
         url: "../ajax.php",
         method: "post",
+        dataType: "json",
         data: {
             barang: periode,
         },
         success: function(resp) {
-            $("#data-barang").find('tbody').html(resp);
+            // $("#data-barang").find('tbody').html(resp);
+            if (resp.status === "OK") {
+                console.log(resp);
+                //looping jquery
+            }
         },
     });
 
