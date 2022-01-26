@@ -117,14 +117,12 @@ $getRiwayatPeminjamanBarang = getRiwayatPeminjamanBarang();
                             </div>
                         </div>
                         <div class="tab-pane fade" id="supplier" role="tabpanel" aria-labelledby="supplier-tab">
-                            <div class="d-flex flex-wrap justify-content-xl-between">
-                                <div
-                                    class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-start p-3 item">
-                                    <i class="mdi mdi-account-network icon-lg me-3 text-primary px-5"></i>
-                                    <div class="d-flex flex-column justify-content-around">
-                                        <small class="mb-1 text-muted">Total Supplier</small>
-                                        <h5 class="mb-0 d-inline-block"><?= $jumlahSupplier[0] ?></h5>
-                                    </div>
+                            <div
+                                class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
+                                <i class="mdi mdi-account-network icon-lg me-3 text-primary px-5"></i>
+                                <div class="d-flex flex-column justify-content-around">
+                                    <small class="mb-1 text-muted">Total Supplier</small>
+                                    <h5 class="mb-0 d-inline-block"><?= $jumlahSupplier[0] ?></h5>
                                 </div>
                             </div>
                         </div>
