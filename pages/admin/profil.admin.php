@@ -50,17 +50,28 @@ if($db->connect_errno==0){
                                 </div>
                             </div>
                             <div class="col-6">
-                                <label for="exampleDataList" class="form-label">Jenis Kelamin</label>
-                                <input class="form-control form-control-sm" list="datalistOptions" id="jenis_kelamin">
-                                <datalist id="datalistOptions">
-                                    <option value="Laki-laki">
-                                    <option value="Perempuan">
-                                </datalist>
+                                <p>Jenis Kelamin</p>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="jk" id="jk" value="L"
+                                                <?=$_SESSION['jk']=="L"?"checked":"" ?>>
+                                            Laki - Laki
+                                            <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="jk" id="jk" value="P"
+                                                <?=$_SESSION['jk']=="P"?"checked":"" ?>>
+                                            Perempuan
+                                            <i class="input-helper"></i></label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="alamat" class="form-label">Alamat</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1"
-                                    value="<?=$_SESSION['alamat']?>" rows="4"></textarea>
+                                    rows="4"><?=$_SESSION['alamat']?></textarea>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
@@ -79,14 +90,31 @@ if($db->connect_errno==0){
                             <a href="../lupa-password/reset-password.php"
                                 class="auth-link text-black text-decoration-none float-end"
                                 style="text-align: right;">Ubah Password</a>
-                            <div class="form-group">
-                                <label for="exampleDataList" class="form-label">Reset Pertanyaan</label>
-                                <input class="form-control form-control-sm" list="datalistOptions"
-                                    id="reset_pertanyaan">
-                                <datalist id="datalistOptions">
-                                    <option value="1">
-                                    <option value="2">
-                                </datalist>
+                            <div class="form-group mt-2">
+                                <div class="form-group">
+                                    <label for="reset-question">Pertanyaan Reset
+                                        Password</label>
+                                    <select class="form-select" aria-label="Default select example"
+                                        name="pertanyaan-reset" id="reset-question">
+                                        <option selected>Pilih Pertanyaan Reset
+                                        </option>
+                                        <option value="Siapa nama hewan peliharaan anda?"
+                                            <?=$_SESSION['reset_question']=="Siapa nama hewan peliharaan anda?"?"selected":"" ?>>
+                                            Siapa nama
+                                            hewan
+                                            peliharaan anda?</option>
+                                        <option value="Siapa nama guru favorit anda saat sekolah?"
+                                            <?=$_SESSION['reset_question']=="Siapa nama guru favorit anda saat sekolah?"?"selected":"" ?>>
+                                            Siapa
+                                            nama guru favorit anda saat sekolah?
+                                        </option>
+                                        <option value="Dimanakah tempat lahir anda?"
+                                            <?=$_SESSION['reset_question']=="Dimanakah tempat lahir anda?"?"selected":"" ?>>
+                                            Dimanakah tempat
+                                            lahir
+                                            anda?</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="pertanyaan">Jawab Pertanyaan</label>
