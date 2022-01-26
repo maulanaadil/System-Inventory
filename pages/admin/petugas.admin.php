@@ -232,7 +232,7 @@ if($db->connect_errno==0){
                             </div>
                         </form>
                         <!-- Modal Tambah Petugas -->
-                        <form action="" method="post">
+                        <form action="" method="post" id="form_tambah">
                             <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambah"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable">
@@ -245,7 +245,7 @@ if($db->connect_errno==0){
                                         <div class="modal-body mt-2">
                                             <div class="form-group mt-2">
                                                 <label for="nama">Nama</label>
-                                                <input type="text" class="form-control" name="nama" />
+                                                <input type="text" class="form-control" name="nama" id="tambah-nama" />
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
@@ -254,14 +254,14 @@ if($db->connect_errno==0){
                                                         <div class="form-check">
                                                             <label class="form-check-label">
                                                                 <input type="radio" class="form-check-input" name="jk"
-                                                                    id="jk" value="L">
+                                                                    id="tambah-jk" value="L">
                                                                 Laki - Laki
                                                                 <i class="input-helper"></i></label>
                                                         </div>
                                                         <div class="form-check">
                                                             <label class="form-check-label">
                                                                 <input type="radio" class="form-check-input" name="jk"
-                                                                    id="jk" value="P">
+                                                                    id="tambah-jk" value="P">
                                                                 Perempuan
                                                                 <i class="input-helper"></i></label>
                                                         </div>
@@ -272,7 +272,8 @@ if($db->connect_errno==0){
                                                         <label for="hak-akses">Hak Akses</label>
                                                         <div>
                                                             <select class="form-select"
-                                                                aria-label="Default select example" name="hak-akses">
+                                                                aria-label="Default select example" name="hak-akses"
+                                                                id="tambah-hak-akses">
                                                                 <option selected>Pilih Hak Akses</option>
                                                                 <option value="admin">Admin</option>
                                                                 <option value="kepala">Kepala</option>
@@ -293,7 +294,7 @@ if($db->connect_errno==0){
                                                     <div class="form-group mt-2">
                                                         <label for="password">Password</label>
                                                         <input type="password" class="form-control" name="password"
-                                                            id="password" />
+                                                            id="tambah-password" />
                                                         <label id="info"></label>
                                                     </div>
                                                 </div>
@@ -301,7 +302,7 @@ if($db->connect_errno==0){
                                                     <div class="form-group mt-2">
                                                         <label for="password">Repeat Password</label>
                                                         <input type="password" class="form-control"
-                                                            name="repeat-password" id="repeat-password" />
+                                                            name="repeat-password" id="tambah-repeat-password" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -309,7 +310,7 @@ if($db->connect_errno==0){
                                                 <div class="form-group">
                                                     <label>Pertanyaan Reset Password</label>
                                                     <select class="form-select" aria-label="Default select example"
-                                                        name="pertanyaan-reset">
+                                                        name="pertanyaan-reset" id="tambah-pertanyaan">
                                                         <option selected>Pilih Pertanyaan Reset</option>
                                                         <option value="Siapa nama hewan peliharaan anda?">Siapa nama
                                                             hewan
@@ -326,26 +327,29 @@ if($db->connect_errno==0){
                                                         <div class="form-group">
                                                             <label>Jawaban</label>
                                                             <input type="text" class="form-control" name="jawaban"
-                                                                placeholder="Masukan jawabannya disini" />
+                                                                placeholder="Masukan jawabannya disini"
+                                                                id="tambah-jawaban" />
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="nip-anggota">No Handphone</label>
                                                             <input type="text" onkeypress="validate(event)"
-                                                                class="form-control" name="no-handphone" />
+                                                                class="form-control" name="no-handphone"
+                                                                id="tambah-no-hp" />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label for="alamat">Alamat</label>
-                                                <input type="text" class="form-control" name="alamat" />
+                                                <input type="text" class="form-control" name="alamat"
+                                                    id="tambah-alamat" />
                                             </div>
                                         </div>
                                         <div class="modal-footer justify-content-start">
                                             <input type="submit" value="Simpan" name="tambahPetugas"
-                                                class="btn btn-primary tblSimpan"></input>
+                                                class="btn btn-primary tblSimpan" id="tblTambahSimpan"></input>
                                             <input type="reset" class="btn btn-outline-danger"></input>
                                         </div>
                                     </div>
@@ -367,6 +371,43 @@ include("footer.admin.php");
 ?>
 <script>
 $(document).ready(function() {
+
+    $("#tblTambahSimpan").on("click", function(event) {
+        if ($('#tambah-nama').val() == "") {
+            alert("Nama petugas tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-jk').val() == "") {
+            alert("Jenis Kelamin tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-hak-akses').val() == "") {
+            alert("Hak akses tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-username').val() == "") {
+            alert("username tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-pertanyaan').val() == "") {
+            alert("Pertanyaan tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-jawaban').val() == "") {
+            alert("Jawaban tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-no-hp').val() == "") {
+            alert("No HP tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-alamat').val() == "") {
+            alert("Alamat tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-password').val() == "") {
+            alert("Password tidak boleh kosong");
+            event.preventDefault();
+        } else if ($('#tambah-repeat-password').val() == "") {
+            alert("Ulangi Password tidak boleh kosong");
+            event.preventDefault();
+        } else {
+            $("#form_tambah").submit();
+        }
+    })
+
     $(".view-edit").on("click", function() {
         var id_petugas = $(this).attr("id");
         $("#edit_id_petugas").val(id_petugas);
@@ -397,9 +438,9 @@ $(document).ready(function() {
             }
         })
     });
-    $("#repeat-password").on('keyup', function() {
-        var inp = $("#password").val().trim();
-        var rep = $("#repeat-password").val().trim();
+    $("#tambah-repeat-password").on('keyup', function() {
+        var inp = $("#tambah-password").val().trim();
+        var rep = $("#tambah-repeat-password").val().trim();
         if (inp.length > 0) {
             if (inp != rep) {
                 $("#info").html("Password tidak sama!");
@@ -535,6 +576,20 @@ $(document).ready(function() {
         event.preventDefault();
         if ($('#nama_petugas').val() == "") {
             alert("Nama petugas tidak boleh kosong");
+        } else if ($('#jk').val() == "") {
+            alert("Jenis Kelamin tidak boleh kosong");
+        } else if ($('#hak-akses').val() == "") {
+            alert("Hak akses tidak boleh kosong");
+        } else if ($('#username').val() == "") {
+            alert("username tidak boleh kosong");
+        } else if ($('#reset-question').val() == "") {
+            alert("Pertanyaan tidak boleh kosong");
+        } else if ($('#answer_question').val() == "") {
+            alert("Jawaban tidak boleh kosong");
+        } else if ($('#no_handphone').val() == "") {
+            alert("No HP tidak boleh kosong");
+        } else if ($('#alamat').val() == "") {
+            alert("Alamat tidak boleh kosong");
         } else {
             $.ajax({
                 url: "../ajax.php",
