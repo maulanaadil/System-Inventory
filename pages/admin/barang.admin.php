@@ -118,8 +118,7 @@ if($db->connect_errno==0){
                                                                 <label for="nama-barang" class="mb-2">Nama
                                                                     Barang</label>
                                                                 <input type="hidden" class="form-control"
-                                                                    name="ubah_barang"
-                                                                    value="<?=$data['id_barang']?>" />
+                                                                    name="ubah_barang" id="edit-id-barang" />
                                                                 <input type="text" class="form-control"
                                                                     id="edit-nama-barang" name="nama-barang" />
                                                             </div>
@@ -435,6 +434,7 @@ $(document).ready(function() {
                     var qtyRusakBerat = resp.data.rusak_berat;
                     var total = parseInt(qtyBaik) + parseInt(qtyRusak) + parseInt(
                         qtyRusakBerat);
+                    $("#edit-id-barang").val(resp.data.id_barang);
                     $("#edit-nama-barang").val(resp.data.nm_barang);
                     $("#edit-baik").val(resp.data.baik);
                     $("#edit-rusak").val(resp.data.rusak);
@@ -453,7 +453,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('#insert_form').on("submit", function(event) {
+    $('.table-paginate').on("submit", "#insert_form", function(event) {
         event.preventDefault();
         if ($('#edit-nama-barang').val() == "") {
             alert("Nama tidak boleh kosong");
