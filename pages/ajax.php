@@ -326,7 +326,7 @@ if($db->connect_errno==0){
 <?php 
     } else if (isset($_POST['barang'])) {
         $periode = $db->escape_string($_POST['barang']);
-        $sql = "SELECT * FROM barang WHERE MONTH(tanggal) = '$periode'";
+        $sql = "SELECT *, (baik+rusak+rusak_berat) as 'jumlah' FROM barang WHERE MONTH(tanggal) = '$periode'";
         $res=$db->query($sql);
         if($res){
             if($db->affected_rows>0){
