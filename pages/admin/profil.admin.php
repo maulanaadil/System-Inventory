@@ -129,12 +129,20 @@ if($db->connect_errno==0){
                                         <label for="no">Password</label>
                                         <input class="form-control form-control-sm" type="password"
                                             value="<?=$_SESSION['password']?>" id="password" disabled input>
-                                        <input type="checkbox" onclick="myFunction()">Show Password
+                                        <!-- <input type="checkbox" class="mt-2" onclick="myFunction()"><label
+                                            for=""></label> Show
+                                        Password -->
+                                        <div class="form-switch mt-2">
+                                            <input class="form-check-input mt-2" type="checkbox" role="switch"
+                                                id="checkbox-pass" onclick="myFunction()">
+                                            <label class="form-check-label mt-1" for="checkbox-pass">Show
+                                                Password</label>
+                                            <a href="../lupa-password/reset-password.php"
+                                                class="auth-link text-black text-decoration-none float-end mt-1"
+                                                style="text-align: right;">Ubah Password</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <a href="../lupa-password/reset-password.php"
-                                    class="auth-link text-black text-decoration-none float-end"
-                                    style="text-align: right;">Ubah Password</a>
                                 <div class="form-group mt-2">
                                     <div class="form-group">
                                         <label for="reset-question">Pertanyaan Reset
