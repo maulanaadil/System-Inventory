@@ -53,7 +53,7 @@ showError("Unknown Error.");
 <body>
     <div class="container-scroller h-100">
         <div class="row justify-content-center align-middle" style="margin-top: 40px; padding-bottom: 50px">
-            <h1 class="h2 text-center mb-4 lh-base">
+            <h1 class="h2 text-center lh-base">
                 Sistem Inventori Laboratorium<br />SMPN 1 Tasikmalaya
             </h1>
             <div class="col offset-2">
