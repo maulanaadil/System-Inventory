@@ -144,7 +144,7 @@ if($db->connect_errno==0){
                                             <label for="nama-anggota" style="font-size: 12pt">Nama Kategori
                                                 Barang</label>
                                             <input type="text" class="form-control" id="tambah_nama_kat_barang"
-                                                name="tambah_nama_kat_barang" />
+                                                name="tambah_nama_kat_barang" required />
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-start">
