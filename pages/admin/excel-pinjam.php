@@ -56,7 +56,7 @@ if(isset($_POST['tblExport'])){
 		$spreadsheet->getActiveSheet()->getStyle('A5:I6')
 			->getAlignment()->setVertical($alignment::VERTICAL_CENTER);
 	
-		$sheet->setCellValue('A1','Laporan Data Barang Laboratorium IPA SMPN 1 Sukaresik');
+		$sheet->setCellValue('A1','Laporan Data Transaksi Laboratorium IPA SMPN 1 Sukaresik');
 		$sheet->mergeCells('A1:I2');
 		$sheet->setCellValue('A3','Periode :');
 		$sheet->setCellValue('B3', $bulan);

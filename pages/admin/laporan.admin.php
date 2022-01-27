@@ -67,7 +67,7 @@ if($db->connect_errno==0){
                                 </div>
                             </div>
                             <form action="excel-barang.php" method="post">
-                                <input type="hidden" value="" name="tgl_periode" id="tgl_periode">
+                                <input type="hidden" value="" name="tgl_periode" id="tgl_periode_barang">
                                 <div class="table-responsive">
                                     <table id="data-barang" class="table table-hover table-paginate"
                                         style="text-align: center; width: 100%;">
@@ -107,7 +107,7 @@ if($db->connect_errno==0){
                                 </div>
                             </div>
                             <form action="excel-pinjam.php" method="post">
-                                <input type="hidden" value="" name="tgl_periode" id="tgl_periode">
+                                <input type="hidden" value="" name="tgl_periode" id="tgl_periode_pinjam">
                                 <div class="table-responsive">
                                     <table id="data-peminjam" class="table table-hover table-paginate"
                                         style="text-align: center; width: 100%;">
@@ -198,7 +198,8 @@ function sum(x, y, k) {
 
 $("#periode").on("change", function() {
     var periode = $("#periode").val();
-    $("#tgl_periode").val(periode);
+    $("#tgl_periode_barang").val(periode);
+    $("#tgl_periode_pinjam").val(periode);
     $("#tgl_periode_kembali").val(periode);
     $('#data-barang').DataTable().destroy();
     $("#data-barang").DataTable({
