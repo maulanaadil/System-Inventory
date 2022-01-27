@@ -156,7 +156,7 @@ if($db->connect_errno==0){
                                     <div class="modal-footer justify-content-start">
                                         <input type="submit" name="tambahSupplier" value="Simpan"
                                             class="btn btn-primary" />
-                                        <input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
+                                        <input type="reset" class="btn btn-outline-danger" />
                                     </div>
                                 </form>
                             </div>

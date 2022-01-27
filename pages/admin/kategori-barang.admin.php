@@ -150,7 +150,7 @@ if($db->connect_errno==0){
                                     <div class="modal-footer justify-content-start">
                                         <input type="submit" value="Simpan" name="tambahKategori"
                                             class="btn btn-primary tblTambah" />
-                                        <input type="reset" class="btn btn-outline-danger" data-bs-dismiss="modal" />
+                                        <input type="reset" class="btn btn-outline-danger" />
                                     </div>
                                 </form>
                             </div>

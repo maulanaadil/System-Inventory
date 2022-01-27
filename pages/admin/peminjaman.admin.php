@@ -229,7 +229,8 @@ if($db->connect_errno==0){
                                                                 <td>
                                                                     <button type="button" class="btn btn-primary pinjam"
                                                                         id="<?=$dataBarang['id_barang']."-".$dataBarang['nm_barang']?>"
-                                                                        name="pinjam-barang">Pinjam</button>
+                                                                        name="pinjam-barang"
+                                                                        <?=(int)$jml['jumlah']==0?"disabled":"" ?>>Pinjam</button>
                                                                 </td>
                                                             </tr>
                                                             <?php endforeach;?>

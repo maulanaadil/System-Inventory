@@ -390,8 +390,7 @@ if($db->connect_errno==0){
                                     <div class="modal-footer justify-content-start">
                                         <input type="submit" name="tblTambah" id="tblTambahSimpan"
                                             class="btn btn-primary" value="Simpan"></input>
-                                        <input type="reset" class="btn btn-outline-danger"
-                                            data-bs-dismiss="modal"></input>
+                                        <input type="reset" class="btn btn-outline-danger"></input>
                                     </div>
                                 </div>
                             </div>

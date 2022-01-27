@@ -209,8 +209,7 @@ if($db->connect_errno==0){
                                             <input type="submit" value="Simpan" class="btn btn-primary"
                                                 name="tambahAnggota">
                                             </input>
-                                            <input type="reset" class="btn btn-outline-danger"
-                                                data-bs-dismiss="modal"></input>
+                                            <input type="reset" class="btn btn-outline-danger"></input>
                                         </div>
                                     </div>
                                 </div>
