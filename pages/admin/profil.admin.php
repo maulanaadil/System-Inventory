@@ -129,6 +129,7 @@ if($db->connect_errno==0){
                                         <label for="no">Password</label>
                                         <input class="form-control form-control-sm" type="password"
                                             value="<?=$_SESSION['password']?>" id="password" disabled input>
+                                        <input type="checkbox" onclick="myFunction()">Show Password
                                     </div>
                                 </div>
                                 <a href="../lupa-password/reset-password.php"
@@ -182,6 +183,15 @@ include("footer.admin.php");
 }
 ?>;
 <script>
+function myFunction() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
 function imagePreview(fileInput) {
     if (fileInput.files && fileInput.files[0]) {
         var fileReader = new FileReader();
