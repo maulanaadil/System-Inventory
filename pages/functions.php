@@ -391,7 +391,12 @@ function updateProfil($data) {
 	$question = $db->escape_string($_POST['pertanyaan-reset']);
 	$answer = $db->escape_string($_POST['jawaban-pertanyaan']);
 	$namaFile = $_FILES['ubah-gambar']['name'];
+	$data = getProfilPetugas($id_petugas);
+	$foto = $data['profil'];
 	if($namaFile!=""){
+		if(file_exists($_SERVER["DOCUMENT_ROOT"]."/data/System-Inventory/images/$foto")){
+			unlink($_SERVER["DOCUMENT_ROOT"]."/data/System-Inventory/images/$foto");
+		}
 		$x = explode('.', $namaFile);
 		$ekstensi = strtolower(end($x));
 		$ekstensiYangDibolehkan = [
