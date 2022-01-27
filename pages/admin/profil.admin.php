@@ -67,8 +67,9 @@ if($db->connect_errno==0){
                                     Profil
                                 </a>
                                 <div class="form-group mt-2 d-flex">
-                                    <img src="../../images/<?=$profil['profil'] ?>" class="img-fluid me-3" alt="..."
-                                        style="width:140pt; height: 140pt;">
+                                    <img src="../../images/<?=$profil['profil'] ?>" class="img-fluid me-3"
+                                        id="gambar-profil" alt="..." style="width:140pt; height: 140pt;">
+                                    <div id="preview"></div>
                                     <input type="file" id="ubah-gambar" name="ubah-gambar" style="display: none;"
                                         accept="image/*" />
                                     <label for="ubah-gambar" class="ms-3 text-primary hover"
@@ -181,6 +182,19 @@ include("footer.admin.php");
 }
 ?>;
 <script>
+function imagePreview(fileInput) {
+    if (fileInput.files && fileInput.files[0]) {
+        var fileReader = new FileReader();
+        fileReader.onload = function(event) {
+            $('#preview').html('<img src="' + event.target.result + '" width="140" height="140"/>');
+        };
+        fileReader.readAsDataURL(fileInput.files[0]);
+    }
+}
+$("#ubah-gambar").change(function() {
+    $("#gambar-profil").attr("hidden", "hidden");
+    imagePreview(this);
+});
 $("#username").on("keyup", function() {
     let username = $("#username").val();
     // let id_petugas = $("#id_petugas").val();
