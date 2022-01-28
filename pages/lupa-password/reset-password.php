@@ -79,7 +79,9 @@ if($db->connect_errno==0){
                     <input type="hidden" name="username" value=<?=$username?>>
                     <input type="hidden" name="id_petugas" value=<?=$id_petugas?>>
                     <div class="d-inline">
-                        <button class="btn btn-primary" type="submit" id="simpan" name="simpanPassword">Simpan</button>
+                        <button class="btn btn-primary" type="submit" id="simpan"
+                            name="simpanPassword">Simpan</button>&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-secondary" onclick="history.back()" type="button">Kembali</button>
                     </div>
                 </form>
             </div>

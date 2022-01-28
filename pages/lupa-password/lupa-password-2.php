@@ -68,8 +68,11 @@ if($db->connect_errno==0){
                         placeholder="Masukan jawaban anda" name="answerQuestion" autocomplete="off" />
                     <input type="hidden" name="username" value=<?=$username?>>
                     <input type="hidden" name="id_petugas" value=<?=$data[0]['id_petugas'];?>>
-                    <button class="btn btn-primary btn-lg" type="submit" id="tblLanjutkan"
-                        name="submitJawaban">Lanjutkan</button>
+                    <button class="btn btn-primary" type="submit" id="tblLanjutkan"
+                        name="submitJawaban">Lanjutkan</button> &nbsp;&nbsp;&nbsp;
+                    <div class="d-inline">
+                        <button class="btn btn-secondary" onclick="history.back()" type="button">Kembali</button>
+                    </div>
                 </form>
             </div>
         </div>
