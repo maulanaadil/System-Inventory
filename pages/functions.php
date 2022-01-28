@@ -59,7 +59,7 @@ function dbConnectPDO(){
     function getSumBarangBaik() {
         $db = dbConnect();
         if ($db->connect_errno == 0) {
-            $sql = "SELECT COUNT(*) FROM barang WHERE baik";
+            $sql = "SELECT SUM(baik) FROM barang";
             return $db->query($sql);
         }
         return FALSE;
@@ -67,7 +67,7 @@ function dbConnectPDO(){
     function getSumBarangRusak() {
         $db = dbConnect();
         if ($db->connect_errno == 0) {
-            $sql = "SELECT COUNT(*) FROM barang WHERE rusak";
+            $sql = "SELECT SUM(rusak) FROM barang";
             return $db->query($sql);
         }
         return FALSE;
@@ -76,7 +76,7 @@ function dbConnectPDO(){
     function getSumBarangRusakBerat() {
         $db = dbConnect();
         if ($db->connect_errno == 0) {
-            $sql = "SELECT COUNT(*) FROM barang WHERE rusak_berat";
+            $sql = "SELECT SUM(rusak_berat) FROM barang";
             return $db->query($sql);
         }
         return FALSE;

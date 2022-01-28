@@ -139,8 +139,8 @@ $getRiwayatPeminjamanBarang = getRiwayatPeminjamanBarang();
                         <table id="riwayat-peminjaman-barang" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID Peminjaman</th>
-                                    <th>Nama Peminjaman</th>
+                                    <th>ID Pinjam</th>
+                                    <th>Nama Peminjam</th>
                                     <th>Tanggal Peminjaman</th>
                                     <th>Tanggal Kembali</th>
                                 </tr>
