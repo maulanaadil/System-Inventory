@@ -141,7 +141,7 @@ $getRiwayatPeminjamanBarang = getRiwayatPeminjamanBarang();
                                 <tr>
                                     <th>ID Pinjam</th>
                                     <th>Nama Peminjam</th>
-                                    <th>Tanggal Peminjaman</th>
+                                    <th>Tanggal Pinjam</th>
                                     <th>Tanggal Kembali</th>
                                 </tr>
                             </thead>
